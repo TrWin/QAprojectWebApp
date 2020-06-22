@@ -1,7 +1,62 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,g,redirect,render_template,request,session,url_for
 import cx_Oracle
 
+##login control##
+class User:
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
+    def __repr__(self):
+        return f'<User: {self.username}>'
+
+users = []
+users.append(User(id=1, username='admin', password='12345678'))
+
+
 app = Flask(__name__)
+app.secret_key = 'somesecretkeythatonlyishouldknow'
+
+@app.before_request
+def before_request():
+    g.user = None
+
+    if 'user_id' in session:
+        user = [x for x in users if x.id == session['user_id']][0]
+        g.user = user
+        
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        session.pop('user_id', None)
+
+        username = request.form['username']
+        password = request.form['password']
+        
+        user = [x for x in users if x.username == username][0]
+        if user and user.password == password:
+            session['user_id'] = user.id
+            return redirect(url_for('profile'))
+
+        return redirect(url_for('login'))
+
+    return render_template('login.html')
+
+@app.route('/profile')
+def profile():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    return render_template('profile.html')
+
+@app.route('/dropsession')
+def dropsession():
+        session.pop('user',None)
+        return redirect(url_for('login'))
+##end login control##
+
 conn = cx_Oracle.connect('SYSTEM/Win102541@//localhost:1521/xe')
 
 @app.route("/")
@@ -9,6 +64,7 @@ def Showdata():
         cur=conn.cursor()
         cur.execute("select * from qa order by Pattern_code")
         rows = cur.fetchall()
+        lengh = len(rows)
         conn.commit()
         return render_template('index.html',datas=rows)
 
@@ -52,7 +108,6 @@ def delete(pcode):
                 cursor.execute("DELETE FROM qa WHERE Pattern_code=:pcode",pcode=pcode)
                 conn.commit()
         return redirect(url_for('Showdata'))
-
 
 if __name__ == "__main__":
     app.run(debug=True)
