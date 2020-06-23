@@ -1,5 +1,5 @@
 from flask import Flask,g,redirect,render_template,request,session,url_for
-import cx_Oracle
+import pymysql
 
 ##login control##
 class User:
@@ -53,61 +53,93 @@ def profile():
 
 @app.route('/dropsession')
 def dropsession():
-        session.pop('user',None)
+        session.pop('user_id',None)
         return redirect(url_for('login'))
 ##end login control##
 
-conn = cx_Oracle.connect('SYSTEM/Win102541@//localhost:1521/xe')
+#login database##
+conn = pymysql.connect('localhost','root','Win102541','qa')
 
+#index##
 @app.route("/")
 def Showdata():
         cur=conn.cursor()
-        cur.execute("select * from qa order by Pattern_code")
+        cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
-        lengh = len(rows)
         conn.commit()
         return render_template('index.html',datas=rows)
 
 @app.route("/add")
 def showForm():
-        return render_template('adddata.html')
+        cur=conn.cursor()
+        cur.execute("select * from data_pattern order by Pattern_code")
+        rows = cur.fetchall()
+        lengh = len(rows)
+        if lengh < 10:
+            p_id = 'A00'+str(lengh+1)
+        elif lengh >= 10 and lengh < 100 :
+            p_id = 'A0'+str(lengh+1)
+        elif lengh < 1000 :
+            p_id = 'A'+str(lengh+1)
+        conn.commit()
+        return render_template('adddata.html',patternid=p_id)
 
 @app.route("/insert",methods=['POST'])
 def insert():
-        test=['0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-                test[0]=request.form['pc']
+
+                cur=conn.cursor()
+                cur.execute("select * from data_pattern order by Pattern_code")
+                rows = cur.fetchall()
+                lengh = len(rows)
+                if lengh < 10:
+                    p_id = 'A00'+str(lengh+1)
+                elif lengh >= 10 and lengh < 100 :
+                    p_id = 'A0'+str(lengh+1)
+                elif lengh < 1000 :
+                    p_id = 'A'+str(lengh+1)
+                conn.commit()
+
+                test[0]=p_id
                 test[1]=request.form['pn']
                 test[2]=request.form['sqlcode']
                 test[3]=request.form['system']
                 test[4]=request.form['confident']
-                test[5]=request.form['doc']
+                test[5]=request.form['relate']
+                test[6]=request.form['sequence']
+                test[7]=request.form['frequency']
+                test[8]=request.form['auto']
+                test[9]=request.form['manual']
+                test[10]=request.form['tag']
+                test[11]="Enable"
+
                 with conn.cursor() as cursor:
-                        cursor.execute("insert into QA(Pattern_code,Pattern_name,Sql_code,System_Detail,Confidentscore,Doc) values(:0,:1,:2,:3,:4,:5)",(test[0],test[1],test[2],test[3],test[4],test[5]))
+                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
                         conn.commit()
                 return redirect(url_for('Showdata'))
 
 @app.route("/update",methods=['POST'])
 def update():
-        test=['0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
+
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['sqlcode']
                 test[3]=request.form['system']
                 test[4]=request.form['confident']
-                test[5]=request.form['doc']
+                test[5]=request.form['relate']
+                test[6]=request.form['sequence']
+                test[8]=request.form['auto']
+                test[9]=request.form['manual']
+                test[10]=request.form['tag']
+                test[11]=request.form['status']
+
                 with conn.cursor() as cursor:
-                        cursor.execute("update qa set Pattern_code=:0 ,Pattern_name=:1 ,Sql_code=:2 ,System_Detail=:3 ,Confidentscore=:4 ,Doc=:5 where Pattern_code=:0",(test[0],test[1],test[2],test[3],test[4],test[5],test[0]))
+                        cursor.execute("update data_pattern set Pattern_name=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[8],test[9],test[10],test[11],test[0]))
                         conn.commit()
                 return redirect(url_for('Showdata'))
-
-@app.route("/delete/<string:pcode>", methods=['GET'])
-def delete(pcode):
-        with conn.cursor() as cursor:
-                cursor.execute("DELETE FROM qa WHERE Pattern_code=:pcode",pcode=pcode)
-                conn.commit()
-        return redirect(url_for('Showdata'))
 
 if __name__ == "__main__":
     app.run(debug=True)
