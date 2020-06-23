@@ -58,7 +58,7 @@ def dropsession():
 ##end login control##
 
 #login database##
-conn = pymysql.connect('localhost','root','Win102541','qa')
+conn = pymysql.connect('localhost','root','test','qa')
 
 #index##
 @app.route("/")
@@ -140,6 +140,16 @@ def update():
                         cursor.execute("update data_pattern set Pattern_name=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[8],test[9],test[10],test[11],test[0]))
                         conn.commit()
                 return redirect(url_for('Showdata'))
+
+@app.route("/count/<string:pcode>", methods=['GET'])
+def count(pcode):
+        cur = conn.cursor()
+        cur.execute("select * from data_pattern where pattern_code=%s",pcode)
+        row = cur.fetchone()
+        with conn.cursor() as cursor:
+            cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[7])+1), pcode))
+            conn.commit()
+        return redirect(url_for('Showdata'))
 
 if __name__ == "__main__":
     app.run(debug=True)
