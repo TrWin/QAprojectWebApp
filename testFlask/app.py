@@ -75,69 +75,73 @@ def showForm():
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         lengh = len(rows)
-        if lengh < 10:
+        if lengh < 9:
             p_id = 'A00'+str(lengh+1)
-        elif lengh >= 10 and lengh < 100 :
+        elif lengh >= 9 and lengh < 99 :
             p_id = 'A0'+str(lengh+1)
-        elif lengh < 1000 :
+        elif lengh >= 99:
             p_id = 'A'+str(lengh+1)
         conn.commit()
         return render_template('adddata.html',patternid=p_id)
 
 @app.route("/insert",methods=['POST'])
 def insert():
-        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 cur=conn.cursor()
                 cur.execute("select * from data_pattern order by Pattern_code")
                 rows = cur.fetchall()
                 lengh = len(rows)
-                if lengh < 10:
+                if lengh < 9:
                     p_id = 'A00'+str(lengh+1)
-                elif lengh >= 10 and lengh < 100 :
+                elif lengh >= 9 and lengh < 99 :
                     p_id = 'A0'+str(lengh+1)
-                elif lengh < 1000 :
+                elif lengh >= 99 :
                     p_id = 'A'+str(lengh+1)
                 conn.commit()
 
                 test[0]=p_id
                 test[1]=request.form['pn']
-                test[2]=request.form['sqlcode']
-                test[3]=request.form['system']
-                test[4]=request.form['confident']
-                test[5]=request.form['relate']
-                test[6]=request.form['sequence']
-                test[7]=request.form['frequency']
-                test[8]=request.form['auto']
-                test[9]=request.form['manual']
-                test[10]=request.form['tag']
-                test[11]="Enable"
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
+                test[4]=request.form['system']
+                test[5]=request.form['confident']
+                test[6]=request.form['relate']
+                test[7]=request.form['sequence']
+                test[8]=request.form['frequency']
+                test[9]=request.form['auto']
+                test[10]=request.form['manual']
+                test[11]=request.form['tag']
+                test[12]=request.form['remark']
+                test[13]="Enable"
 
                 with conn.cursor() as cursor:
-                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
+                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
                         conn.commit()
                 return redirect(url_for('Showdata'))
 
 @app.route("/update",methods=['POST'])
 def update():
-        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
-                test[2]=request.form['sqlcode']
-                test[3]=request.form['system']
-                test[4]=request.form['confident']
-                test[5]=request.form['relate']
-                test[6]=request.form['sequence']
-                test[8]=request.form['auto']
-                test[9]=request.form['manual']
-                test[10]=request.form['tag']
-                test[11]=request.form['status']
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
+                test[4]=request.form['system']
+                test[5]=request.form['confident']
+                test[6]=request.form['relate']
+                test[7]=request.form['sequence']
+                test[9]=request.form['auto']
+                test[10]=request.form['manual']
+                test[11]=request.form['tag']
+                test[12]=request.form['remark']
+                test[13]=request.form['status']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update data_pattern set Pattern_name=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[8],test[9],test[10],test[11],test[0]))
+                        cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
                         conn.commit()
                 return redirect(url_for('Showdata'))
 
@@ -147,7 +151,7 @@ def count(pcode):
         cur.execute("select * from data_pattern where pattern_code=%s",pcode)
         row = cur.fetchone()
         with conn.cursor() as cursor:
-            cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[7])+1), pcode))
+            cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
         return redirect(url_for('Showdata'))
 
