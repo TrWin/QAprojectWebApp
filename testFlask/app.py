@@ -64,7 +64,7 @@ def dropsession():
 ##end login control##
 
 #login database##
-conn = pymysql.connect('localhost','root','Win102541','qa')
+conn = pymysql.connect('localhost','root','test','qa')
 
 #index##
 @app.route("/")
