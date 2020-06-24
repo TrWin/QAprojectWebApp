@@ -38,9 +38,9 @@ def login():
         user = [x for x in users if x.username == username][0]
         if user and user.password == password:
             session['user_id'] = user.id
-            return redirect(url_for('profile'))
+            return redirect(url_for('profile'))             #login success
 
-        return redirect(url_for('login'))
+        return redirect(url_for('login'))                   #invalid pw
 
     return render_template('login.html')
 
@@ -48,13 +48,17 @@ def login():
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-
-    return render_template('profile.html')
+    else :
+        cur=conn.cursor()
+        cur.execute("select * from data_pattern order by Pattern_code")
+        rows = cur.fetchall()
+        conn.commit()
+        return render_template('index.html',datas=rows)
 
 @app.route('/dropsession')
 def dropsession():
         session.pop('user_id',None)
-        return redirect(url_for('login'))
+        return redirect(url_for('Showdata'))
 ##end login control##
 
 #login database##
@@ -64,10 +68,11 @@ conn = pymysql.connect('localhost','root','test','qa')
 @app.route("/")
 def Showdata():
         cur=conn.cursor()
-        cur.execute("select * from data_pattern order by Pattern_code")
+        cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
         rows = cur.fetchall()
         conn.commit()
-        return render_template('index.html',datas=rows)
+        return render_template('profile.html',datas=rows)
+
 
 @app.route("/add")
 def showForm():

@@ -111,7 +111,7 @@
 
                     id="v-pills-settings-tab"
 
-                    href="/login"
+                    href="/dropsession"
 
                     role="tab"
 
@@ -120,7 +120,7 @@
                     aria-selected="false"
                     style="margin-top:10px; font-size:large; color:blanchedalmond"
 
-                    >Login</a >
+                    >Log out</a >
 
                 </div>
 
@@ -165,7 +165,7 @@
 
                     onkeyup="myFunction()"
 
-                    placeholder="Search  (Pattern code, Pattern name, SQL Script)"
+                    placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)"
 
                     style="
 
@@ -175,7 +175,7 @@
 
                       border-color: #d11141;
 
-                      min-width: 400px;
+                      min-width: 430px;
 
                     "
 
@@ -183,7 +183,7 @@
 
                 </div>
 
-                <div class="oneline" style="float: right; margin-right: 75px;">
+                <div class="oneline" style="float: right; margin-right: 50px;">
 
                   <a
 
@@ -270,7 +270,7 @@
 
                         >
 
-                          {{row.3[0:18]}} <b>...</b>
+                          {{row.3[0:18]}} ...
 
                         </button>
   <!--modal sql column-->
@@ -310,7 +310,7 @@
 
                                 >
 
-                                  SQL script for {{row.1}} [{{row.0}}]
+                                  SQL script for {{row.0}} 
 
                                 </h5>
 
@@ -336,11 +336,13 @@
 
                                 <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
 
-                                {{row.3}}
+                                  {{row.3}}
+  
+                                  <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
+  
+                                </p>
+                              
 
-                                <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
-
-                              </p>
                               </div>
 
                             </div>
@@ -693,7 +695,35 @@
                     {% endfor %}
 
                   </tbody>
+                  <tfoot style="background-color: #d11141; color:#FFFAFA;">
 
+                    <tr style="width: 100%;">
+
+                      <th scope="col">Pattern code</th>
+
+                      <th scope="col" style="width: 15%;">Pattern name</th>
+
+                      <th scope="col">Type</th>
+
+                      <th scope="col">SQL script</th>
+
+                      <th scope="col">System</th>
+
+                      <th scope="col">Confidential score</th>
+
+                      <th scope="col">Relate</th>
+
+                      <th scope="col">Sequence</th>
+
+                      <th scope="col" style="width: 8%;">Doc</th>
+
+                      <th scope="col">Tag</th>
+
+                      <th scope="col">Remark</th>
+
+                    </tr>
+
+                  </tfoot>
                 </table>
                 </div>
 <!--end table-->
@@ -804,7 +834,7 @@
 
   body {
 
-    background-color: rgba(255, 0, 0, 0.017);
+    background-color: rgba(255, 0, 0, 0.02);
   }
 
   a {
@@ -897,21 +927,33 @@
 
     for (i = 0; i < tr.length; i++) {
 
-      td = tr[i].getElementsByTagName("td")[1];
+      td = tr[i].getElementsByTagName("td")[0];
 
-      td1 = tr[i].getElementsByTagName("td")[2];
+      td1 = tr[i].getElementsByTagName("td")[1];
 
-      if (td || td1) {
+      td2 = tr[i].getElementsByTagName("td")[3];
+
+      td3 = tr[i].getElementsByTagName("td")[10];
+
+      if (td || td1 || td2 || td3) {
 
         txtValue = td.textContent || td.innerText;
 
         txtValue1 = td1.textContent || td1.innerText;
 
+        txtValue2 = td2.textContent || td2.innerText;
+
+        txtValue3 = td3.textContent || td3.innerText;
+
         if (
 
           txtValue.toUpperCase().indexOf(filter) > -1 ||
 
-          txtValue1.toUpperCase().indexOf(filter) > -1
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+
+          txtValue3.toUpperCase().indexOf(filter) > -1
 
         ) {
 
