@@ -150,6 +150,7 @@ def update():
                         conn.commit()
                 return redirect(url_for('Showdata'))
 
+
 @app.route("/count/<string:pcode>", methods=['GET'])
 def count(pcode):
         cur = conn.cursor()
@@ -158,7 +159,11 @@ def count(pcode):
         with conn.cursor() as cursor:
             cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
-        return redirect(url_for('Showdata'))
+
+"""        if login อยู่:
+            return redirect(url_for('profile'))
+        return redirect(url_for('Showdata'))    """
+
 
 if __name__ == "__main__":
     app.run(debug=True)
