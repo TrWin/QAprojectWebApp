@@ -64,7 +64,7 @@ def dropsession():
 ##end login control##
 
 #login database##
-conn = pymysql.connect('localhost','root','Win102541','qa')
+conn = pymysql.connect('localhost','root','test','qa')
 
 #index##
 @app.route("/")
@@ -162,9 +162,9 @@ def count(pcode):
             cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
 
-"""        if login อยู่:
+        if g.user:
             return redirect(url_for('profile'))
-        return redirect(url_for('Showdata'))    """
+        return redirect(url_for('Showdata'))    
 
 
 if __name__ == "__main__":
