@@ -75,9 +75,9 @@ def showForm():
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         lengh = len(rows)
-        if lengh < 10:
+        if lengh < 9:
             p_id = 'A00'+str(lengh+1)
-        elif lengh >= 10 and lengh < 100 :
+        elif lengh >= 9 and lengh < 100 :
             p_id = 'A0'+str(lengh+1)
         elif lengh < 1000 :
             p_id = 'A'+str(lengh+1)
@@ -93,9 +93,9 @@ def insert():
                 cur.execute("select * from data_pattern order by Pattern_code")
                 rows = cur.fetchall()
                 lengh = len(rows)
-                if lengh < 10:
+                if lengh < 9:
                     p_id = 'A00'+str(lengh+1)
-                elif lengh >= 10 and lengh < 100 :
+                elif lengh >= 9 and lengh < 100 :
                     p_id = 'A0'+str(lengh+1)
                 elif lengh < 1000 :
                     p_id = 'A'+str(lengh+1)
