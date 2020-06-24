@@ -29,6 +29,8 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if g.user:
+        return redirect(url_for('profile'))
     if request.method == 'POST':
         session.pop('user_id', None)
 
