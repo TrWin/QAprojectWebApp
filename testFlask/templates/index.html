@@ -186,7 +186,7 @@
 
                 </div>
 <!--table-->
-                <table id="myTable" class="table table-hover">
+                <table id="myTable" class="table table-hover table-bordered">
 <!--table head-->
                   <thead style="background-color: #696969; color:#FFFAFA;">
 
@@ -195,6 +195,8 @@
                       <th scope="col">Pattern code</th>
 
                       <th scope="col">Pattern name</th>
+
+                      <th scope="col" style="width: 15%;">Type</th>
 
                       <th scope="col">SQL script</th>
 
@@ -208,9 +210,11 @@
                       
                       <th scope="col">Frequency</th>
 
-                      <th scope="col">Doc</th>
+                      <th scope="col" style="width: 8%;">Doc</th>
 
                       <th scope="col">Tag</th>
+
+                      <th scope="col">Remark</th>
 
                       <th scope="col">Status</th>
 
@@ -224,15 +228,17 @@
 
                     {% for row in datas %}
   <!--enable check-->
-                       {% if row.11 == "Enable" %}
+                       {% if row.13 == "Enable" %}
                         <tr style="background-color: #EEE8AA;">
-                       {% elif row.11 == "Disable" %}
+                       {% elif row.13 == "Disable" %}
                         <tr>
                        {% endif %}
 
                       <td id='pcode'>{{row.0}}</td>
 
                       <td>{{row.1}}</td>
+
+                      <td>{{row.2}}</td>
 
                       <td>
 
@@ -250,7 +256,7 @@
 
                         >
 
-                          {{row.2[0:18]}} <b>...</b>
+                          {{row.3[0:18]}} <b>...</b>
 
                         </button>
   <!--modal sql column-->
@@ -318,9 +324,9 @@
 
                                 <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
 
-                                {{row.2}}
+                                {{row.3}}
 
-                                <h6 style="float: right;">Usage frequency: {{row.7}}</h6>
+                                <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
 
                               </p>
 
@@ -334,8 +340,6 @@
 
                       </td>
 
-                      <td>{{row.3}}</td>
-
                       <td>{{row.4}}</td>
 
                       <td>{{row.5}}</td>
@@ -344,22 +348,26 @@
 
                       <td>{{row.7}}</td>
 
+                      <td>{{row.8}}</td>
+
                       <td>
 
-                            {%if row.8 != "" %}
-                        <a href="{{row.8}}">Automate link</a><br/>
+                            {%if row.9 != "" %}
+                        <a href="{{row.9}}">Automate link</a><br/>
 
                             {% endif %}
-                            {%if row.9 != "" %}
-                        <a href="{{row.9}}">Manual link</a>
+                            {%if row.10 != "" %}
+                        <a href="{{row.10}}">Manual link</a>
 
                             {% endif %}
 
                     </td>
 
-                    <td>{{row.10}}</td>
-
                     <td>{{row.11}}</td>
+
+                    <td>{{row.12}}</td>
+
+                    <td>{{row.13}}</td>
 
                     <td>
                         <!--edit-->
@@ -418,7 +426,7 @@
 
                                 <label>Status :   </label>
 
-                                {% if row.11 == "Enable" %}
+                                {% if row.13 == "Enable" %}
 
                                   <select name="status" id="status" class="form-control">
                                     <option value="Enable">Enable</option>
@@ -482,9 +490,27 @@
 
                               <div class="form-group">
 
+                                <label>Type</label>
+
+                                <input
+
+                                  type="text"
+
+                                  class="form-control"
+
+                                  name="type"
+
+                                  value="{{row.2}}"
+
+                                />
+
+                              </div>
+
+                              <div class="form-group">
+
                                 <label>SQL</label>
 
-                                <textarea class="form-control" name="sqlcode">{{row.2}}</textarea>
+                                <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
 
                               </div>
 
@@ -500,7 +526,7 @@
 
                                   name="system"
 
-                                  value="{{row.3}}"
+                                  value="{{row.4}}"
 
                                 />
 
@@ -518,7 +544,7 @@
 
                                   name="confident"
 
-                                  value="{{row.4}}"
+                                  value="{{row.5}}"
 
                                 />
 
@@ -536,7 +562,7 @@
 
                                   name="relate"
 
-                                  value="{{row.5}}"
+                                  value="{{row.6}}"
 
                                 />
 
@@ -554,7 +580,7 @@
 
                                   name="sequence"
 
-                                  value="{{row.6}}"
+                                  value="{{row.7}}"
 
                                 />
 
@@ -573,7 +599,7 @@
 
                                   name="auto"
 
-                                  value="{{row.8}}"
+                                  value="{{row.9}}"
 
                                 />
 
@@ -592,7 +618,7 @@
 
                                   name="manual"
 
-                                  value="{{row.9}}"
+                                  value="{{row.10}}"
 
                                 />
 
@@ -611,7 +637,25 @@
 
                                   name="tag"
 
-                                  value="{{row.10}}"
+                                  value="{{row.11}}"
+
+                                />
+
+                              </div>
+
+                              <div class="form-group">
+
+                                <label>Remark</label>
+
+                                <input
+
+                                  type="text"
+
+                                  class="form-control"
+
+                                  name="remark"
+
+                                  value="{{row.12}}"
 
                                 />
 
