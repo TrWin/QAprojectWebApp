@@ -48,8 +48,12 @@ def login():
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-
-    return render_template('profile.html')
+    else :
+        cur=conn.cursor()
+        cur.execute("select * from data_pattern order by Pattern_code")
+        rows = cur.fetchall()
+        conn.commit()
+        return render_template('profile.html',datas=rows)
 
 @app.route('/dropsession')
 def dropsession():
@@ -151,7 +155,7 @@ def count(pcode):
         cur.execute("select * from data_pattern where pattern_code=%s",pcode)
         row = cur.fetchone()
         with conn.cursor() as cursor:
-            cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[7])+1), pcode))
+            cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
         return redirect(url_for('Showdata'))
 
