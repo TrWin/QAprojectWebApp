@@ -24,101 +24,114 @@
 
 <body>
 
-    <!-- <nav class="navbar navbar-dark" style="background-color: #8f1b21;">
+    <div id='main' style="margin: 5px;">
 
-      <a class="navbar-brand" href="#">
-
-        True corporation
-
-      </a>
-
-    </nav> -->
-
-    <div style="margin: 10px;">
-
-        <h1>Data Inventory</h1>
-
+      <div class='oneline'>
+        <span style="margin-left:5px; cursor:pointer; font-size:35px; color: transparent; text-shadow: 0 0 0 #d11141;" onclick="openNav()">&#9776;</span>
+      </div>
+      <div class='oneline' style="margin-left:15px;">
+        <h2>Data Inventory</h2>
+      </div>
         <br />
-
+        
         <div class="row">
 
+          <div id='mySidenav' class='sidenav'>
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <div class="col-2">
 
                 <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                  
 
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">QA</a
+                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">QA</a>
 
-            >
+                    <a
 
-            <a
+                      class="nav-link"
 
-              class="nav-link"
+                      id="v-pills-profile-tab"
 
-              id="v-pills-profile-tab"
+                      data-toggle="pill"
 
-              data-toggle="pill"
+                      href="#v-pills-profile"
 
-              href="#v-pills-profile"
+                      role="tab"
 
-              role="tab"
+                      aria-controls="v-pills-profile"
 
-              aria-controls="v-pills-profile"
+                      aria-selected="false"
 
-              aria-selected="false"
+                      >3rd</a
 
-              >3rd</a
+                    >
 
-            >
+                    <a
 
-            <a
+                      class="nav-link"
 
-              class="nav-link"
+                      id="v-pills-messages-tab"
 
-              id="v-pills-messages-tab"
+                      data-toggle="pill"
 
-              data-toggle="pill"
+                      href="#v-pills-messages"
 
-              href="#v-pills-messages"
+                      role="tab"
 
-              role="tab"
+                      aria-controls="v-pills-messages"
 
-              aria-controls="v-pills-messages"
+                      aria-selected="false"
 
-              aria-selected="false"
+                      >SIT</a
 
-              >SIT</a
+                    >
 
-            >
+                    <a
 
-            <a
+                      class="nav-link"
 
-              class="nav-link"
+                      id="v-pills-settings-tab"
 
-              id="v-pills-settings-tab"
+                      data-toggle="pill"
 
-              data-toggle="pill"
+                      href="#v-pills-settings"
 
-              href="#v-pills-settings"
+                      role="tab"
 
-              role="tab"
+                      aria-controls="v-pills-settings"
 
-              aria-controls="v-pills-settings"
+                      aria-selected="false"
 
-              aria-selected="false"
+                      >Document</a
 
-              >Document</a
+                    >
 
-            >
+                    <a
 
-          </div>
+                    class="nav-link"
 
+                    id="v-pills-settings-tab"
+
+                    href="/dropsession"
+
+                    role="tab"
+
+                    aria-controls="v-pills-settings"
+
+                    aria-selected="false"
+                    style="margin-top:10px; font-size:large; color:blanchedalmond"
+
+                    >Log out</a >
+
+                </div>
+
+            </div>
         </div>
 
 
 
         <!-- content -->
 
-        <div class="col-10">
+        <div class="col-12">
 
           <div class="tab-content" id="v-pills-tabContent">
 
@@ -152,7 +165,7 @@
 
                     onkeyup="myFunction()"
 
-                    placeholder="Search  (Pattern code, Pattern name, SQL Script)"
+                    placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)"
 
                     style="
 
@@ -162,7 +175,7 @@
 
                       border-color: #d11141;
 
-                      min-width: 400px;
+                      min-width: 430px;
 
                     "
 
@@ -170,7 +183,7 @@
 
                 </div>
 
-                <div class="oneline" style="float: right; margin-right: 20px;">
+                <div class="oneline" style="float: right; margin-right: 50px;">
 
                   <a
 
@@ -186,9 +199,10 @@
 
                 </div>
 <!--table-->
-                <table id="myTable" class="table table-hover table-bordered">
+<div style="width:99%; overflow:auto; max-height:600px;">
+                <table id="myTable" class="table table-hover table-bordered" >
 <!--table head-->
-                  <thead style="background-color: #696969; color:#FFFAFA;">
+                  <thead style="background-color: #d11141; color:#FFFAFA;">
 
                     <tr style="width: 100%;">
 
@@ -229,9 +243,9 @@
                     {% for row in datas %}
   <!--enable check-->
                        {% if row.13 == "Enable" %}
-                        <tr style="background-color: #EEE8AA;">
-                       {% elif row.13 == "Disable" %}
                         <tr>
+                       {% elif row.13 == "Disable" %}
+                        <tr style="background-color: rgba(220, 220, 220, 0.4);">
                        {% endif %}
 
                       <td id='pcode'>{{row.0}}</td>
@@ -256,7 +270,7 @@
 
                         >
 
-                          {{row.3[0:18]}} <b>...</b>
+                          {{row.3[0:18]}} ...
 
                         </button>
   <!--modal sql column-->
@@ -318,16 +332,15 @@
 
                               </div>
 
-                              <div id='mydiv' class="modal-body">
+                              <div id='mydiv' class="modal-body" style="height:auto; word-wrap: break-word;">
 
-                                
+                                <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
 
-                                <p>
-
-                                {{row.3}}</p>
-
-                                <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
-
+                                  {{row.3}}
+  
+                                  <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
+  
+                                </p>
                               
 
                               </div>
@@ -682,8 +695,37 @@
                     {% endfor %}
 
                   </tbody>
+                  <tfoot style="background-color: #d11141; color:#FFFAFA;">
 
+                    <tr style="width: 100%;">
+
+                      <th scope="col">Pattern code</th>
+
+                      <th scope="col" style="width: 15%;">Pattern name</th>
+
+                      <th scope="col">Type</th>
+
+                      <th scope="col">SQL script</th>
+
+                      <th scope="col">System</th>
+
+                      <th scope="col">Confidential score</th>
+
+                      <th scope="col">Relate</th>
+
+                      <th scope="col">Sequence</th>
+
+                      <th scope="col" style="width: 8%;">Doc</th>
+
+                      <th scope="col">Tag</th>
+
+                      <th scope="col">Remark</th>
+
+                    </tr>
+
+                  </tfoot>
                 </table>
+                </div>
 <!--end table-->
               </div>
 
@@ -792,8 +834,7 @@
 
   body {
 
-    background-color: rgba(255, 0, 0, 0.017);
-
+    background-color: rgba(255, 0, 0, 0.02);
   }
 
   a {
@@ -806,7 +847,9 @@
 
     border-bottom-color: transparent;
 
-    background-color: #d11141;
+    background-color: #ffffff;
+
+    color: #d11141;
 
   }
 
@@ -816,15 +859,49 @@
 
   }
 
-  /* #temp {
+  .sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #d11141;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
 
-    width:0;
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: black;
+  display: block;
+  transition: 0.3s;
+}
 
-    height:0;
+.sidenav a:hover {
+  color: #f1f1f1;
+}
 
-    opacity:0;
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
 
-  } */
+#main {
+  transition: margin-left .5s;
+  padding: 16px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 
 </style>
 
@@ -894,50 +971,14 @@
 
   }
 
+  function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
 
-
-/*  function copy(row) {
-
-    alert("row: " + row);
-
-    var tagText = document.getElementById("contentSQL");
-
-    
-
-    alert("sth: " + tagText.innerHTML);
-
-    var tempHtml =
-
-      "<textarea id='copy-text'>" + tagText.innerHTML + "</textarea>";
-
-    document.getElementById("temp").innerHTML = tempHtml;
-
-    var text = document.getElementById("copy-text");
-
-    text.select();
-
-    document.execCommand("copy");
-
-    alert("Copied");
-
-  }
-
-
-
-  function copyCb() {
-
-  var copyText = document.getElementById("myInput");
-
-  alert(copyText.value);
-
-  copyText.select();
-
-  copyText.setSelectionRange(0, 99999)
-
-  document.execCommand("copy");
-
-  alert("Copied the text: " + copyText.value);
-
-}*/
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft= "10px";
+}
 
 </script>
