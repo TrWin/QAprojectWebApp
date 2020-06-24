@@ -270,7 +270,7 @@
 
                                 >
 
-                                  SQL script for {{row.1}} [{{row.0}}]
+                                  SQL script for {{row.0}}
 
                                 </h5>
 
@@ -494,102 +494,114 @@
 
 <script>
 
-  function myFunction() {
-
-    // Declare variables
-
-    var input, filter, table, tr, td, i, txtValue;
-
-    input = document.getElementById("myInput");
-
-    filter = input.value.toUpperCase();
-
-    table = document.getElementById("myTable");
-
-    tr = table.getElementsByTagName("tr");
-
-
-
-    // Loop through all table rows, and hide those who don't match the search query
-
-    for (i = 0; i < tr.length; i++) {
-
-      td = tr[i].getElementsByTagName("td")[1];
-
-      td1 = tr[i].getElementsByTagName("td")[2];
-
-      if (td || td1) {
-
-        txtValue = td.textContent || td.innerText;
-
-        txtValue1 = td1.textContent || td1.innerText;
-
-        if (
-
-          txtValue.toUpperCase().indexOf(filter) > -1 ||
-
-          txtValue1.toUpperCase().indexOf(filter) > -1
-
-        ) {
-
-          tr[i].style.display = "";
-
-        } else {
-
-          tr[i].style.display = "none";
-
+    function myFunction() {
+  
+      // Declare variables
+  
+      var input, filter, table, tr, td, i, txtValue;
+  
+      input = document.getElementById("myInput");
+  
+      filter = input.value.toUpperCase();
+  
+      table = document.getElementById("myTable");
+  
+      tr = table.getElementsByTagName("tr");
+  
+  
+  
+      // Loop through all table rows, and hide those who don't match the search query
+  
+      for (i = 0; i < tr.length; i++) {
+  
+        td = tr[i].getElementsByTagName("td")[0];
+  
+        td1 = tr[i].getElementsByTagName("td")[1];
+  
+        td2 = tr[i].getElementsByTagName("td")[3];
+  
+        td3 = tr[i].getElementsByTagName("td")[10];
+  
+        if (td || td1 || td2 || td3) {
+  
+          txtValue = td.textContent || td.innerText;
+  
+          txtValue1 = td1.textContent || td1.innerText;
+  
+          txtValue2 = td2.textContent || td2.innerText;
+  
+          txtValue3 = td3.textContent || td3.innerText;
+  
+          if (
+  
+            txtValue.toUpperCase().indexOf(filter) > -1 ||
+  
+            txtValue1.toUpperCase().indexOf(filter) > -1 ||
+  
+            txtValue2.toUpperCase().indexOf(filter) > -1 ||
+  
+            txtValue3.toUpperCase().indexOf(filter) > -1
+  
+          ) {
+  
+            tr[i].style.display = "";
+  
+          } else {
+  
+            tr[i].style.display = "none";
+  
+          }
+  
         }
-
+  
       }
-
+  
     }
-
-  }
-
-
-
-/*  function copy(row) {
-
-    alert("row: " + row);
-
-    var tagText = document.getElementById("contentSQL");
-
-    
-
-    alert("sth: " + tagText.innerHTML);
-
-    var tempHtml =
-
-      "<textarea id='copy-text'>" + tagText.innerHTML + "</textarea>";
-
-    document.getElementById("temp").innerHTML = tempHtml;
-
-    var text = document.getElementById("copy-text");
-
-    text.select();
-
+  
+  
+  
+  /*  function copy(row) {
+  
+      alert("row: " + row);
+  
+      var tagText = document.getElementById("contentSQL");
+  
+      
+  
+      alert("sth: " + tagText.innerHTML);
+  
+      var tempHtml =
+  
+        "<textarea id='copy-text'>" + tagText.innerHTML + "</textarea>";
+  
+      document.getElementById("temp").innerHTML = tempHtml;
+  
+      var text = document.getElementById("copy-text");
+  
+      text.select();
+  
+      document.execCommand("copy");
+  
+      alert("Copied");
+  
+    }
+  
+  
+  
+    function copyCb() {
+  
+    var copyText = document.getElementById("myInput");
+  
+    alert(copyText.value);
+  
+    copyText.select();
+  
+    copyText.setSelectionRange(0, 99999)
+  
     document.execCommand("copy");
-
-    alert("Copied");
-
-  }
-
-
-
-  function copyCb() {
-
-  var copyText = document.getElementById("myInput");
-
-  alert(copyText.value);
-
-  copyText.select();
-
-  copyText.setSelectionRange(0, 99999)
-
-  document.execCommand("copy");
-
-  alert("Copied the text: " + copyText.value);
-
-}*/
-
-</script>
+  
+    alert("Copied the text: " + copyText.value);
+  
+  }*/
+  
+  </script>
