@@ -86,7 +86,7 @@ def showForm():
 
 @app.route("/insert",methods=['POST'])
 def insert():
-        test=['0','0','0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 cur=conn.cursor()
@@ -103,8 +103,8 @@ def insert():
 
                 test[0]=p_id
                 test[1]=request.form['pn']
-                test[2]=request.form['sqlcode']
-                test[3]=request.form['type']
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
                 test[4]=request.form['system']
                 test[5]=request.form['confident']
                 test[6]=request.form['relate']
