@@ -29,6 +29,8 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if g.user:
+        return redirect(url_for('profile'))
     if request.method == 'POST':
         session.pop('user_id', None)
 
@@ -62,7 +64,7 @@ def dropsession():
 ##end login control##
 
 #login database##
-conn = pymysql.connect('localhost','root','test','qa')
+conn = pymysql.connect('localhost','root','Win102541','qa')
 
 #index##
 @app.route("/")
