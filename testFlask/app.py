@@ -77,9 +77,9 @@ def showForm():
         lengh = len(rows)
         if lengh < 9:
             p_id = 'A00'+str(lengh+1)
-        elif lengh >= 9 and lengh < 100 :
+        elif lengh >= 9 and lengh < 99 :
             p_id = 'A0'+str(lengh+1)
-        elif lengh < 1000 :
+        elif lengh >= 99:
             p_id = 'A'+str(lengh+1)
         conn.commit()
         return render_template('adddata.html',patternid=p_id)
@@ -95,9 +95,9 @@ def insert():
                 lengh = len(rows)
                 if lengh < 9:
                     p_id = 'A00'+str(lengh+1)
-                elif lengh >= 9 and lengh < 100 :
+                elif lengh >= 9 and lengh < 99 :
                     p_id = 'A0'+str(lengh+1)
-                elif lengh < 1000 :
+                elif lengh >= 99 :
                     p_id = 'A'+str(lengh+1)
                 conn.commit()
 
