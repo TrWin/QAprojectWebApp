@@ -226,6 +226,9 @@
   <!--enable check-->
                        {% if row.11 == "Enable" %}
                         <tr style="background-color: #EEE8AA;">
+                       {% elif row.11 == "Disable" %}
+                        <tr>
+                       {% endif %}
 
                       <td id='pcode'>{{row.0}}</td>
 
@@ -343,21 +346,14 @@
 
                       <td>
 
-                        {% if row.8 != "" and row.9 != "" %}
+                            {%if row.8 != "" %}
+                        <a href="{{row.8}}">Automate link</a><br/>
 
-                        <a href="{{row.8}}">Automate link</a>
-
-                    <br />
-
-                    <a href="{{row.9}}">Manual link</a>
-                    
-                        {%elif row.8 != "" and row.9 == ""%}
-                        <a href="{{row.8}}">Automate link</a>
-
-                        {%elif row.9 != "" and row.8 == ""%}
+                            {% endif %}
+                            {%if row.9 != "" %}
                         <a href="{{row.9}}">Manual link</a>
 
-                        {% endif %}
+                            {% endif %}
 
                     </td>
 
@@ -374,157 +370,6 @@
                       </td>
 
                         </tr>
-                       {% elif row.11 == "Disable" %}
-                        <tr>
-
-                        <td>{{row.0}}</td>
-  
-                        <td>{{row.1}}</td>
-  
-                        <td>
-  
-  <!--sql column-->
-  
-                          <button
-  
-                            type="button"
-  
-                            class="btn btn-outline-secondary btn-sm"
-  
-                            data-toggle="modal"
-  
-                            data-target="#modalSQL{{row.0}}"
-  
-                          >
-  
-                            {{row.2[0:18]}} <b>...</b>
-  
-                          </button>
-    <!--modal sql column-->
-                          <div
-  
-                            class="modal fade"
-  
-                            id="modalSQL{{row.0}}"
-  
-                            tabindex="-1"
-  
-                            role="dialog"
-  
-                            aria-labelledby="exampleModalCenterTitle"
-  
-                            aria-hidden="true"
-  
-                          >
-  
-                            <div
-  
-                              class="modal-dialog modal-dialog-centered modal-lg"
-  
-                              role="document"
-  
-                            >
-  
-                              <div class="modal-content">
-  
-                                <div class="modal-header">
-  
-                                  <h5
-  
-                                    class="modal-title"
-  
-                                    id="exampleModalLongTitle"
-  
-                                  >
-  
-                                    SQL script for {{row.1}} [{{row.0}}]
-  
-                                  </h5>
-  
-                                  <button
-  
-                                    type="button"
-  
-                                    class="close"
-  
-                                    data-dismiss="modal"
-  
-                                    aria-label="Close"
-  
-                                  >
-  
-                                    <span aria-hidden="true">&times;</span>
-  
-                                  </button>
-  
-                                </div>
-  
-                                <div id='mydiv' class="modal-body">
-  
-                                  
-  
-                                  <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
-  
-                                  {{row.2}}
-  
-                                  <h6 style="float: right;">Usage frequency: {{row.7}}</h6>
-  
-                                </p>
-  
-                                </div>
-  
-                              </div>
-  
-                            </div>
-  
-                          </div>
-  
-                        </td>
-  
-                      <td>{{row.3}}</td>
-
-                      <td>{{row.4}}</td>
-
-                      <td>{{row.5}}</td>
-
-                      <td>{{row.6}}</td>
-
-                      <td>{{row.7}}</td>
-
-                      <td>
-
-                        {% if row.8 != "" and row.9 != "" %}
-
-                        <a href="{{row.8}}">Automate link</a>
-
-                    <br />
-
-                    <a href="{{row.9}}">Manual link</a>
-                    
-                        {%elif row.8 != "" and row.9 == ""%}
-                        <a href="{{row.8}}">Automate link</a>
-
-                        {%elif row.9 != "" and row.8 == ""%}
-                        <a href="{{row.9}}">Manual link</a>
-
-                        {% endif %}
-
-                    </td>
-
-                    <td>{{row.10}}</td>
-
-                    <td>{{row.11}}</td>
-
-                    <td>
-                        <!--edit-->
-                        <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaledit{{row.0}}"><i class="fa fa-edit"></i></a
-  
-                          >
-  
-                        </td>
-  
-                        </tr>
-                       {% endif %}
 
   <!--end enable check-->
 
