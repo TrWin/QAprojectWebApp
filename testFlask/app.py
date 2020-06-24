@@ -128,7 +128,6 @@ def update():
 
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
-                test[1]=request.form['pn']
                 test[2]=request.form['type']
                 test[3]=request.form['sqlcode']
                 test[4]=request.form['system']
