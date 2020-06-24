@@ -162,13 +162,8 @@ def count(pcode):
             cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
 
-<<<<<<< HEAD
-        if g.user:
-            return redirect(url_for('profile'))
         return redirect(url_for('Showdata'))    
 
-=======
->>>>>>> e6663af704abf375870a26cefa0857b511229f48
 
 if __name__ == "__main__":
     app.run(debug=True)
