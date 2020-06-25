@@ -3,14 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Insert data</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="margin-bottom: 15px;">
         <h2>บันทึกข้อมูล</h2>
         <form action="{{ url_for('insert') }}" method="post">
             <div class="form-group">
@@ -64,8 +64,8 @@
                 <label for="remark">Remark</label>
                 <input type="text" class="form-control" name="remark">
             </div>
-            <a class="btn btn-success" href="/">กลับหน้าแรก</a>
-            <button type="submit" class="pull-right btn btn-primary">บันทึก</button>
+            <a class="btn btn-" href="/profile">กลับหน้าแรก</a>
+            <button type="submit" class="pull-right btn btn-success">บันทึก</button>
         </form>
     </div>
 </body>
