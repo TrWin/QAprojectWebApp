@@ -4,19 +4,20 @@
 
 <head>
 
-    <!-- Required meta tags -->
+  <!-- Required meta tags -->
 
-    <meta charset="utf-8" />
+  <meta charset="utf-8" />
 
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
-    <!-- Bootstrap CSS -->
+  <!-- Bootstrap CSS -->
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
 
-    <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' />
+  <link href='//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' rel='stylesheet' />
 
-    <title>Data Inventory</title>
+  <title>Data Inventory</title>
 
 </head>
 
@@ -24,149 +25,67 @@
 
 <body>
 
-    <div id='main' style="margin: 10px;">
+  <div id='main' style="margin: 10px;">
 
-      <div class='oneline'>
-        <span style="margin-left:5px; cursor:pointer; font-size:35px; color: transparent; text-shadow: 0 0 0 #d11141;" onclick="openNav()">&#9776;</span>
-      </div>
-      <div class='oneline' style="margin-left:15px;">
-        <h2>Data Inventory</h2>
-      </div>
-        <br />
+    <div class='oneline'>
+      <span style="margin-left:5px; cursor:pointer; font-size:35px; color: transparent; text-shadow: 0 0 0 #d11141;"
+        onclick="openNav()">&#9776;</span>
+    </div>
+    <div class='oneline' style="margin-left:15px;">
+      <h2>Data Inventory</h2>
+    </div>
+    <br />
 
-        <div class="row">
+    <div class="row">
 
-          <div id='mySidenav' class='sidenav'>
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-            <div class="col-2">
+      <div id='mySidenav' class='sidenav'>
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <div class="col-2">
 
-                <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
-                    <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">QA</a>
+            <a class="nav-link active" id="v-pills-home-tab" data-toggle="pill" href="#v-pills-home" role="tab"
+              aria-controls="v-pills-home" aria-selected="true">QA</a>
 
-                    <a
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+              aria-controls="v-pills-profile" aria-selected="false">3rd</a>
 
-                      class="nav-link"
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+              aria-controls="v-pills-messages" aria-selected="false">SIT</a>
 
-                      id="v-pills-profile-tab"
+            <a class="nav-link" id="v-pills-settings-tab" data-toggle="pill" href="#v-pills-settings" role="tab"
+              aria-controls="v-pills-settings" aria-selected="false">Document</a>
 
-                      data-toggle="pill"
-
-                      href="#v-pills-profile"
-
-                      role="tab"
-
-                      aria-controls="v-pills-profile"
-
-                      aria-selected="false"
-
-                      >3rd</a
-
-                    >
-
-                    <a
-
-                      class="nav-link"
-
-                      id="v-pills-messages-tab"
-
-                      data-toggle="pill"
-
-                      href="#v-pills-messages"
-
-                      role="tab"
-
-                      aria-controls="v-pills-messages"
-
-                      aria-selected="false"
-
-                      >SIT</a
-
-                    >
-
-                    <a
-
-                      class="nav-link"
-
-                      id="v-pills-settings-tab"
-
-                      data-toggle="pill"
-
-                      href="#v-pills-settings"
-
-                      role="tab"
-
-                      aria-controls="v-pills-settings"
-
-                      aria-selected="false"
-
-                      >Document</a
-
-                    >
-
-                    <a
-
-                    class="nav-link"
-
-                    id="v-pills-settings-tab"
-
-                    href="/login"
-
-                    role="tab"
-
-                    aria-controls="v-pills-settings"
-
-                    aria-selected="false"
-                    style="margin-top:10px; font-size:large; color:blanchedalmond"
-
-                    >Login</a >
-                    </div>
-
+            <a class="nav-link" id="v-pills-settings-tab" href="/login" role="tab" aria-controls="v-pills-settings"
+              aria-selected="false" style="margin-top:10px; font-size:large; color:blanchedalmond">Login</a>
           </div>
 
         </div>
 
-
-
-        <!-- content -->
-
-        <div class="col-12">
-
-          <div class="tab-content" id="v-pills-tabContent">
-
-            <div
-
-              class="tab-pane fade show active"
-
-              id="v-pills-home"
-
-              role="tabpanel"
-
-              aria-labelledby="v-pills-home-tab"
-
-            >
-
-              <div>
-
-                <h3 style="text-align: center;">For QA Team</h3>
-
-                <br />
+      </div>
 
 
 
-                <div class="oneline" style="margin-bottom: 20px;">
+      <!-- content -->
 
-                  <input
+      <div class="col-12">
 
-                    type="text"
+        <div class="tab-content" id="v-pills-tabContent">
 
-                    id="myInput"
+          <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
 
-                    onkeyup="myFunction()"
+            <div>
 
-                    placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)"
+              <h3 style="text-align: center;">For QA Team</h3>
 
-                    style="
+              <br />
+
+
+
+              <div class="oneline" style="margin-bottom: 20px;">
+
+                <input type="text" id="myInput" onkeyup="myFunction()"
+                  placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)" style="
 
                       border-radius: 13px;
 
@@ -176,140 +95,95 @@
 
                       min-width: 430px;
 
-                    "
+                    " />
 
-                  />
+              </div>
+              <!--table-->
 
-                </div>
-<!--table-->
-<div style="width:99%; overflow:auto; max-height:600px;">
-                <table id="myTable" class="table table-hover table-bordered">
-<!--table head-->
-                  <thead style="background-color: #d11141; color:#FFFAFA;">
+              <table id="myTable" class="table table-hover table-bordered">
+                <!--table head-->
+                <thead style="background-color: #d11141; color:#FFFAFA;">
 
-                    <tr style="width: 100%;">
+                  <tr style="width: 100%;">
 
-                      <th scope="col">Pattern code</th>
+                    <th scope="col">Pattern code</th>
 
-                      <th scope="col" style="width: 15%;">Pattern name</th>
+                    <th scope="col" style="width: 15%;">Pattern name</th>
 
-                      <th scope="col">Type</th>
+                    <th scope="col">Type</th>
 
-                      <th scope="col">SQL script</th>
+                    <th scope="col">SQL script</th>
 
-                      <th scope="col">System</th>
+                    <th scope="col">System</th>
 
-                      <th scope="col">Confidential score</th>
+                    <th scope="col">Confidential score</th>
 
-                      <th scope="col">Relate</th>
+                    <th scope="col">Relate</th>
 
-                      <th scope="col">Sequence</th>
+                    <th scope="col">Sequence</th>
 
-                      <th scope="col" style="width: 8%;">Doc</th>
+                    <th scope="col" style="width: 8%;">Doc</th>
 
-                      <th scope="col">Tag</th>
+                    <th scope="col">Tag</th>
 
-                      <th scope="col">Remark</th>
+                    <th scope="col">Remark</th>
 
-                    </tr>
+                  </tr>
 
-                  </thead>
-<!--table body-->
-                  <tbody>
+                </thead>
+                <!--table body-->
+                <div style="width:99%; overflow:auto; max-height:600px;"></div>
+                <tbody>
 
-                    {% for row in datas %}
+                  {% for row in datas %}
 
-                    <tr>
+                  <tr>
 
-                      <td id='pcode'>{{row.0}}</td>
+                    <td id='pcode'>{{row.0}}</td>
 
-                      <td>{{row.1}}</td>
+                    <td>{{row.1}}</td>
 
-                      <td>{{row.2}}</td>
+                    <td>{{row.2}}</td>
 
-                      <td>
+                    <td>
 
-<!--sql column-->
+                      <!--sql column-->
 
-                        <button
+                      <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal"
+                        data-target="#modalSQL{{row.0}}">
 
-                          type="button"
+                        {{row.3[0:18]}} ...
 
-                          class="btn btn-outline-secondary btn-sm"
+                      </button>
+                      <!--modal sql column-->
+                      <div class="modal fade" id="modalSQL{{row.0}}" tabindex="-1" role="dialog"
+                        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
 
-                          data-toggle="modal"
+                        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 
-                          data-target="#modalSQL{{row.0}}"
+                          <div class="modal-content">
 
-                        >
+                            <div class="modal-header">
 
-                          {{row.3[0:18]}} ...
+                              <h5 class="modal-title" id="exampleModalLongTitle">
 
-                        </button>
-  <!--modal sql column-->
-                        <div
+                                SQL script for {{row.0}}
 
-                          class="modal fade"
+                              </h5>
 
-                          id="modalSQL{{row.0}}"
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
-                          tabindex="-1"
+                                <span aria-hidden="true">&times;</span>
 
-                          role="dialog"
+                              </button>
 
-                          aria-labelledby="exampleModalCenterTitle"
+                            </div>
 
-                          aria-hidden="true"
+                            <div id='mydiv' class="modal-body" style="height:auto; word-wrap: break-word;">
 
-                        >
 
-                          <div
 
-                            class="modal-dialog modal-dialog-centered modal-lg"
-
-                            role="document"
-
-                          >
-
-                            <div class="modal-content">
-
-                              <div class="modal-header">
-
-                                <h5
-
-                                  class="modal-title"
-
-                                  id="exampleModalLongTitle"
-
-                                >
-
-                                  SQL script for {{row.0}}
-
-                                </h5>
-
-                                <button
-
-                                  type="button"
-
-                                  class="close"
-
-                                  data-dismiss="modal"
-
-                                  aria-label="Close"
-
-                                >
-
-                                  <span aria-hidden="true">&times;</span>
-
-                                </button>
-
-                              </div>
-
-                              <div id='mydiv' class="modal-body" style="height:auto; word-wrap: break-word;">
-
-                                
-
-                                <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
+                              <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
 
                                 {{row.3}}
 
@@ -317,34 +191,34 @@
 
                               </p>
 
-                              </div>
-
                             </div>
 
                           </div>
 
                         </div>
 
-                      </td>
+                      </div>
 
-                      <td>{{row.4}}</td>
+                    </td>
 
-                      <td>{{row.5}}</td>
+                    <td>{{row.4}}</td>
 
-                      <td>{{row.6}}</td>
+                    <td>{{row.5}}</td>
 
-                      <td>{{row.7}}</td>
+                    <td>{{row.6}}</td>
 
-                      <td>
+                    <td>{{row.7}}</td>
 
-                            {%if row.9 != "" %}
-                        <a href="{{row.9}}">Automate link</a><br/>
+                    <td>
 
-                            {% endif %}
-                            {%if row.10 != "" %}
-                        <a href="{{row.10}}">Manual link</a>
+                      {%if row.9 != "" %}
+                      <a href="{{row.9}}">Automate link</a><br />
 
-                            {% endif %}
+                      {% endif %}
+                      {%if row.10 != "" %}
+                      <a href="{{row.10}}">Manual link</a>
+
+                      {% endif %}
 
                     </td>
 
@@ -352,99 +226,65 @@
 
                     <td>{{row.12}}</td>
 
-                        </tr>
+                  </tr>
 
-  <!--end enable check-->
+                  <!--end enable check-->
 
-                    {% endfor %}
-
-                  </tbody>
-                  <tfoot style="background-color: #d11141; color:#FFFAFA;">
-                    <tr style="width: 100%;">
-
-                      <th scope="col">Pattern code</th>
-
-                      <th scope="col" style="width: 15%;">Pattern name</th>
-
-                      <th scope="col">Type</th>
-
-                      <th scope="col">SQL script</th>
-
-                      <th scope="col">System</th>
-
-                      <th scope="col">Confidential score</th>
-
-                      <th scope="col">Relate</th>
-
-                      <th scope="col">Sequence</th>
-
-                      <th scope="col" style="width: 8%;">Doc</th>
-
-                      <th scope="col">Tag</th>
-
-                      <th scope="col">Remark</th>
-
-                    </tr>
-
-                  </tfoot>
-                </table>
-                </div>
-<!--end table-->
-              </div>
-
+                  {% endfor %}
             </div>
+            </tbody>
+            <tfoot style="background-color: #d11141; color:#FFFAFA;">
+              <tr style="width: 100%;">
 
+                <th scope="col">Pattern code</th>
 
-<!--tab2-->
-            <div
+                <th scope="col" style="width: 15%;">Pattern name</th>
 
-              class="tab-pane fade"
+                <th scope="col">Type</th>
 
-              id="v-pills-profile"
+                <th scope="col">SQL script</th>
 
-              role="tabpanel"
+                <th scope="col">System</th>
 
-              aria-labelledby="v-pills-profile-tab"
+                <th scope="col">Confidential score</th>
 
-            >
+                <th scope="col">Relate</th>
 
-              For 3rd party
+                <th scope="col">Sequence</th>
 
-            </div>
-<!--tab3-->
-            <div
+                <th scope="col" style="width: 8%;">Doc</th>
 
-              class="tab-pane fade"
+                <th scope="col">Tag</th>
 
-              id="v-pills-messages"
+                <th scope="col">Remark</th>
 
-              role="tabpanel"
+              </tr>
 
-              aria-labelledby="v-pills-messages-tab"
+            </tfoot>
+            </table>
 
-            >
-
-              For SIT Support
-
-            </div>
-<!--tab4-->
-            <div
-
-              class="tab-pane fade"
-
-              id="v-pills-settings"
-
-              role="tabpanel"
-
-              aria-labelledby="v-pills-settings-tab"
-
-            >
-
-              Document
-
-            </div>
-
+            <!--end table-->
           </div>
+
+        </div>
+
+
+        <!--tab2-->
+        <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+
+          For 3rd party
+
+        </div>
+        <!--tab3-->
+        <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+
+          For SIT Support
+
+        </div>
+        <!--tab4-->
+        <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+
+          Document
 
         </div>
 
@@ -452,49 +292,34 @@
 
     </div>
 
+  </div>
+
+  </div>
 
 
-    <script
 
-      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+    integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+    crossorigin="anonymous"></script>
 
-      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+    integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+    crossorigin="anonymous"></script>
 
-      crossorigin="anonymous"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+    integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+    crossorigin="anonymous"></script>
 
-    ></script>
+</body>
 
-    <script
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 
-      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
-
-      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
-
-      crossorigin="anonymous"
-
-    ></script>
-
-    <script
-
-      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-
-      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
-
-      crossorigin="anonymous"
-
-    ></script>
-
-  </body>
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-
-  <script type='text/javascript'>new Clipboard('.btn');</script>
+<script type='text/javascript'>new Clipboard('.btn');</script>
 
 </html>
 
 
 <style>
-
   body {
 
     background-color: rgba(255, 0, 0, 0.02);
@@ -513,7 +338,7 @@
 
     background-color: #ffffff;
 
-color: #d11141;
+    color: #d11141;
 
   }
 
@@ -526,120 +351,123 @@ color: #d11141;
 
 
   .sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #d11141;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-}
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #d11141;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
 
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: black;
-  display: block;
-  transition: 0.3s;
-}
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+  }
 
-.sidenav a:hover {
-  color: #f1f1f1;
-}
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
-}
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
 
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
+  #main {
+    transition: margin-left .5s;
+    padding: 16px;
+  }
 
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
 
-
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
 </style>
 
 <script>
 
-    function myFunction() {
-  
-      // Declare variables
-  
-      var input, filter, table, tr, td, i, txtValue;
-  
-      input = document.getElementById("myInput");
-  
-      filter = input.value.toUpperCase();
-  
-      table = document.getElementById("myTable");
-  
-      tr = table.getElementsByTagName("tr");
-  
-  
-  
-      // Loop through all table rows, and hide those who don't match the search query
-  
-      for (i = 0; i < tr.length; i++) {
-  
-        td = tr[i].getElementsByTagName("td")[0];
-  
-        td1 = tr[i].getElementsByTagName("td")[1];
-  
-        td2 = tr[i].getElementsByTagName("td")[3];
-  
-        td3 = tr[i].getElementsByTagName("td")[10];
-  
-        if (td || td1 || td2 || td3) {
-  
-          txtValue = td.textContent || td.innerText;
-  
-          txtValue1 = td1.textContent || td1.innerText;
-  
-          txtValue2 = td2.textContent || td2.innerText;
-  
-          txtValue3 = td3.textContent || td3.innerText;
-  
-          if (
-  
-            txtValue.toUpperCase().indexOf(filter) > -1 ||
-  
-            txtValue1.toUpperCase().indexOf(filter) > -1 ||
-  
-            txtValue2.toUpperCase().indexOf(filter) > -1 ||
-  
-            txtValue3.toUpperCase().indexOf(filter) > -1
-  
-          ) {
-  
-            tr[i].style.display = "";
-  
-          } else {
-  
-            tr[i].style.display = "none";
-  
-          }
-  
+  function myFunction() {
+
+    // Declare variables
+
+    var input, filter, table, tr, td, i, txtValue;
+
+    input = document.getElementById("myInput");
+
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("myTable");
+
+    tr = table.getElementsByTagName("tr");
+
+
+
+    // Loop through all table rows, and hide those who don't match the search query
+
+    for (i = 0; i < tr.length; i++) {
+
+      td = tr[i].getElementsByTagName("td")[0];
+
+      td1 = tr[i].getElementsByTagName("td")[1];
+
+      td2 = tr[i].getElementsByTagName("td")[3];
+
+      td3 = tr[i].getElementsByTagName("td")[10];
+
+      if (td || td1 || td2 || td3) {
+
+        txtValue = td.textContent || td.innerText;
+
+        txtValue1 = td1.textContent || td1.innerText;
+
+        txtValue2 = td2.textContent || td2.innerText;
+
+        txtValue3 = td3.textContent || td3.innerText;
+
+        if (
+
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+
+          txtValue3.toUpperCase().indexOf(filter) > -1
+
+        ) {
+
+          tr[i].style.display = "";
+
+        } else {
+
+          tr[i].style.display = "none";
+
         }
-  
+
       }
-  
+
     }
-  
-  
-  
+
+  }
+
+
+
   /*  function copy(row) {
   
       alert("row: " + row);
@@ -683,16 +511,16 @@ color: #d11141;
     alert("Copied the text: " + copyText.value);
   
   }*/
-  
-  
+
+
   function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("main").style.marginLeft = "250px";
-}
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("main").style.marginLeft= "10px";
-}
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "10px";
+  }
 
-  </script>
+</script>
