@@ -126,7 +126,7 @@ def insert():
                 with conn.cursor() as cursor:
                         cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
                         conn.commit()
-                return redirect(url_for('Showdata'))
+                return redirect(url_for('profile'))
 
 @app.route("/update",methods=['POST'])
 def update():
@@ -150,7 +150,7 @@ def update():
                 with conn.cursor() as cursor:
                         cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
                         conn.commit()
-                return redirect(url_for('Showdata'))
+                return redirect(url_for('profile'))
 
 
 @app.route("/count/<string:pcode>", methods=['GET'])
@@ -162,13 +162,8 @@ def count(pcode):
             cursor.execute("update data_pattern set frequency=%s where pattern_code=%s",(str(int(row[8])+1), pcode))
             conn.commit()
 
-<<<<<<< HEAD
-        if g.user:
-            return redirect(url_for('profile'))
         return redirect(url_for('Showdata'))    
 
-=======
->>>>>>> e6663af704abf375870a26cefa0857b511229f48
 
 if __name__ == "__main__":
     app.run(debug=True)
