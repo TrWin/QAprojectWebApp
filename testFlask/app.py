@@ -55,7 +55,7 @@ def profile():
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         conn.commit()
-        return render_template('index.html',datas=rows)
+        return render_template('admin.html',datas=rows)
 
 @app.route('/dropsession')
 def dropsession():
@@ -73,7 +73,7 @@ def Showdata():
         cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
         rows = cur.fetchall()
         conn.commit()
-        return render_template('profile.html',datas=rows)
+        return render_template('user.html',datas=rows)
 
 
 @app.route("/add")
