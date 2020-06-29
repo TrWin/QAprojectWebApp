@@ -66,7 +66,7 @@ def dropsession():
 #login database##
 conn = pymysql.connect('localhost','root','test','qa')
 
-#For_QA##
+
 @app.route("/")
 def Showdata():
         cur=conn.cursor()
@@ -75,7 +75,7 @@ def Showdata():
         conn.commit()
         return render_template('user.html',datas=rows)
 
-
+#For_QA##
 @app.route("/add")
 def showForm():
         cur=conn.cursor()
@@ -166,16 +166,83 @@ def count(pcode):
 #end of QA##
 
 #For 3rd Party##
-@app.route("/party")
-def Showdataparty():
-        cur=conn.cursor()
-        cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
-        rows = cur.fetchall()
-        conn.commit()
-        return render_template('user.html',datas=rows)
-
-
 @app.route("/addparty")
+def showFormparty():
+    #wait...#
+        cur=conn.cursor()
+        cur.execute("select * from for_3rd_party order by Pattern_code")
+        rows = cur.fetchall()
+        lengh = len(rows)
+        if lengh < 9:
+            p_id = 'A00'+str(lengh+1)
+        elif lengh >= 9 and lengh < 99 :
+            p_id = 'A0'+str(lengh+1)
+        elif lengh >= 99:
+            p_id = 'A'+str(lengh+1)
+    #wait...#
+        conn.commit()
+        return render_template('adddata.html',patternid=p_id)
+
+@app.route("/insertparty",methods=['POST'])
+def insertparty():
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        if request.method=="POST":
+
+                cur=conn.cursor()
+                cur.execute("select * from for_3rd_party order by Pattern_code")
+                rows = cur.fetchall()
+                lengh = len(rows)
+                if lengh < 9:
+                    p_id = 'A00'+str(lengh+1)
+                elif lengh >= 9 and lengh < 99 :
+                    p_id = 'A0'+str(lengh+1)
+                elif lengh >= 99 :
+                    p_id = 'A'+str(lengh+1)
+                conn.commit()
+
+                test[0]=p_id
+                test[1]=request.form['pn']
+                test[2]=request.form['thai']
+                test[3]=request.form['ban']
+                test[4]=request.form['product']
+                test[5]=request.form['company']
+                test[6]=request.form['use']
+                test[7]=request.form['env']
+                test[8]=request.form['current']
+                test[9]=request.form['period']
+                test[10]=request.form['remark']
+                test[11]="Enable"
+
+                with conn.cursor() as cursor:
+                        cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,current_user,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
+                        conn.commit()
+                return redirect(url_for('profile'))
+
+@app.route("/updateparty",methods=['POST'])
+def updateparty():
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        if request.method=="POST":
+
+                test[0]=request.form['pc']
+                test[1]=request.form['pn']
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
+                test[4]=request.form['system']
+                test[5]=request.form['confident']
+                test[6]=request.form['relate']
+                test[7]=request.form['sequence']
+                test[9]=request.form['auto']
+                test[10]=request.form['remark']
+                test[11]=request.form['status']
+
+                with conn.cursor() as cursor:
+                        cursor.execute("update for_3rd_party set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
+                        conn.commit()
+                return redirect(url_for('profile'))
+#end 3rd Party##
+
+#For sit##
+"""@app.route("/addparty")
 def showFormparty():
     #wait...#
         cur=conn.cursor()
@@ -210,20 +277,18 @@ def insertparty():
                 conn.commit()
 
                 test[0]=p_id
-                test[1]=request.form['pn']
-                test[2]=request.form['type']
-                test[3]=request.form['sqlcode']
-                test[4]=request.form['system']
-                test[5]=request.form['confident']
-                test[6]=request.form['relate']
-                test[7]=request.form['sequence']
-                test[8]=request.form['frequency']
-                test[9]=request.form['auto']
-                test[10]=request.form['remark']
-                test[11]="Enable"
+                test[1]=request.form['thai']
+                test[2]=request.form['ban']
+                test[3]=request.form['product']
+                test[4]=request.form['company']
+                test[5]=request.form['env']
+                test[6]=request.form['current']
+                test[7]=request.form['period']
+                test[8]=request.form['remark']
+                test[9]="Enable"
 
                 with conn.cursor() as cursor:
-                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
+                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,current_user,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
                         conn.commit()
                 return redirect(url_for('profile'))
 
@@ -233,25 +298,20 @@ def updateparty():
         if request.method=="POST":
 
                 test[0]=request.form['pc']
-                test[1]=request.form['pn']
-                test[2]=request.form['type']
-                test[3]=request.form['sqlcode']
-                test[4]=request.form['system']
-                test[5]=request.form['confident']
-                test[6]=request.form['relate']
-                test[7]=request.form['sequence']
-                test[9]=request.form['auto']
-                test[10]=request.form['remark']
-                test[11]=request.form['status']
+                test[1]=request.form['thai']
+                test[2]=request.form['ban']
+                test[3]=request.form['product']
+                test[4]=request.form['company']
+                test[5]=request.form['env']
+                test[6]=request.form['current']
+                test[7]=request.form['period']
+                test[8]=request.form['remark']
+                test[9]=request.form['status']
 
                 with conn.cursor() as cursor:
                         cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
                         conn.commit()
-                return redirect(url_for('profile'))
-#end 3rd Party##
-
-#For sit##
-
+                return redirect(url_for('profile'))"""
 #end sit##
 
 #For document##
