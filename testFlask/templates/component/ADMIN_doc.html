@@ -60,11 +60,11 @@
     <!--table body-->
     <tbody>
 
-      {% for row in datas %}
+      {% for row in doc %}
       <!--enable check-->
-      {% if row.13 == "Enable" %}
+      {% if row.6 == "Enable" %}
       <tr>
-        {% elif row.13 == "Disable" %}
+        {% elif row.6 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
@@ -80,8 +80,8 @@
 
         <td>{{row.5}}</td>
 
-        <td>{{row.13}}</td>
-
+        <td>{{row.6}}</td>
+        
         <td>
           <!--edit-->
           <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"

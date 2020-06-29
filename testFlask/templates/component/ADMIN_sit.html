@@ -65,11 +65,11 @@
     <!--table body-->
     <tbody>
 
-      {% for row in datas %}
+      {% for row in sit %}
       <!--enable check-->
-      {% if row.13 == "Enable" %}
+      {% if row.9 == "Enable" %}
       <tr>
-        {% elif row.13 == "Disable" %}
+        {% elif row.9 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
@@ -91,7 +91,7 @@
 
         <td>{{row.8}}</td>
 
-        <td>{{row.13}}</td>
+        <td>{{row.9}}</td>
 
         <td>
           <!--edit-->

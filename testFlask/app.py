@@ -58,7 +58,7 @@ def profile():
         third = cur.fetchall()
         cur.execute("select * from for_sit ")
         sit = cur.fetchall()
-        cur.execute("select * from doc ")
+        cur.execute("select * from document ")
         doc = cur.fetchall()
         cur.execute("select * from env ")
         env = cur.fetchall()        
