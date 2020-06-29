@@ -66,7 +66,7 @@ def dropsession():
 #login database##
 conn = pymysql.connect('localhost','root','test','qa')
 
-#index##
+#For_QA##
 @app.route("/")
 def Showdata():
         cur=conn.cursor()
@@ -163,7 +163,104 @@ def count(pcode):
             conn.commit()
 
         return redirect(url_for('Showdata'))    
+#end of QA##
 
+#For 3rd Party##
+@app.route("/party")
+def Showdataparty():
+        cur=conn.cursor()
+        cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
+        rows = cur.fetchall()
+        conn.commit()
+        return render_template('user.html',datas=rows)
+
+
+@app.route("/addparty")
+def showFormparty():
+    #wait...#
+        cur=conn.cursor()
+        cur.execute("select * from data_pattern order by Pattern_code")
+        rows = cur.fetchall()
+        lengh = len(rows)
+        if lengh < 9:
+            p_id = 'A00'+str(lengh+1)
+        elif lengh >= 9 and lengh < 99 :
+            p_id = 'A0'+str(lengh+1)
+        elif lengh >= 99:
+            p_id = 'A'+str(lengh+1)
+    #wait...#
+        conn.commit()
+        return render_template('adddata.html',patternid=p_id)
+
+@app.route("/insertparty",methods=['POST'])
+def insertparty():
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        if request.method=="POST":
+
+                cur=conn.cursor()
+                cur.execute("select * from data_pattern order by Pattern_code")
+                rows = cur.fetchall()
+                lengh = len(rows)
+                if lengh < 9:
+                    p_id = 'A00'+str(lengh+1)
+                elif lengh >= 9 and lengh < 99 :
+                    p_id = 'A0'+str(lengh+1)
+                elif lengh >= 99 :
+                    p_id = 'A'+str(lengh+1)
+                conn.commit()
+
+                test[0]=p_id
+                test[1]=request.form['pn']
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
+                test[4]=request.form['system']
+                test[5]=request.form['confident']
+                test[6]=request.form['relate']
+                test[7]=request.form['sequence']
+                test[8]=request.form['frequency']
+                test[9]=request.form['auto']
+                test[10]=request.form['remark']
+                test[11]="Enable"
+
+                with conn.cursor() as cursor:
+                        cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
+                        conn.commit()
+                return redirect(url_for('profile'))
+
+@app.route("/updateparty",methods=['POST'])
+def updateparty():
+        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        if request.method=="POST":
+
+                test[0]=request.form['pc']
+                test[1]=request.form['pn']
+                test[2]=request.form['type']
+                test[3]=request.form['sqlcode']
+                test[4]=request.form['system']
+                test[5]=request.form['confident']
+                test[6]=request.form['relate']
+                test[7]=request.form['sequence']
+                test[9]=request.form['auto']
+                test[10]=request.form['remark']
+                test[11]=request.form['status']
+
+                with conn.cursor() as cursor:
+                        cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
+                        conn.commit()
+                return redirect(url_for('profile'))
+#end 3rd Party##
+
+#For sit##
+
+#end sit##
+
+#For document##
+
+#end document##
+
+#For env##
+
+#end env##
 
 if __name__ == "__main__":
     app.run(debug=True)
