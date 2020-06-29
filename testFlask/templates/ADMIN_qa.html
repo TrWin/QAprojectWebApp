@@ -1,0 +1,359 @@
+
+            <div>
+
+                <h3 style="text-align: center;">For QA Team</h3>
+  
+                <br />
+  
+  
+  
+                <div class="oneline" style="margin-bottom: 20px;">
+  
+                  <input type="text" id="myInput" onkeyup="myFunction()"
+                    placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)" style="
+  
+                        border-radius: 13px;
+  
+                        padding-left: 10px;
+  
+                        border-color: #d11141;
+  
+                        min-width: 430px;
+  
+                      " />
+  
+                </div>
+  
+                <div class="oneline" style="float: right; margin-right: 50px;">
+  
+                  <a href="/add" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+                      class="fa fa-plus fa-2x"></i></a>
+  
+                </div>
+                <!--table-->
+  
+                <table id="myTable" class="table table-hover table-bordered">
+                  <!--table head-->
+                  <thead style="background-color: #d11141; color:#FFFAFA;">
+  
+                    <tr style="width: 100%;">
+  
+                      <th scope="col">Pattern code</th>
+  
+                      <th scope="col" style="width: 15%;">Pattern name</th>
+  
+                      <th scope="col">Type</th>
+  
+                      <th scope="col">SQL script</th>
+  
+                      <th scope="col">System</th>
+  
+                      <th scope="col">Confidential score</th>
+  
+                      <th scope="col">Relate</th>
+  
+                      <th scope="col">Sequence</th>
+  
+                      <th scope="col">Frequency</th>
+  
+                      <th scope="col" style="width: 8%;">Doc</th>
+  
+                      <th scope="col">Tag</th>
+  
+                      <th scope="col">Remark</th>
+  
+                      <th scope="col">Status</th>
+  
+                      <th scope="col">Edit</th>
+  
+                    </tr>
+  
+                  </thead>
+                  <!--table body-->
+                  <tbody>
+  
+                    {% for row in datas %}
+                    <!--enable check-->
+                    {% if row.13 == "Enable" %}
+                    <tr>
+                      {% elif row.13 == "Disable" %}
+                    <tr style="background-color: rgba(220, 220, 220, 0.4);">
+                      {% endif %}
+  
+                      <td id='pcode'>{{row.0}}</td>
+  
+                      <td>{{row.1}}</td>
+  
+                      <td>{{row.2}}</td>
+  
+                      <td>
+  
+                        <!--sql column-->
+  
+                        <button type="button" class="btn btn-outline-secondary btn-sm" data-toggle="modal"
+                          data-target="#modalSQL{{row.0}}">
+  
+                          {{row.3[0:18]}} ...
+  
+                        </button>
+                        <!--modal sql column-->
+                        <div class="modal fade" id="modalSQL{{row.0}}" tabindex="-1" role="dialog"
+                          aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  
+                          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+  
+                            <div class="modal-content">
+  
+                              <div class="modal-header">
+  
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+  
+                                  SQL script for {{row.0}}
+  
+                                </h5>
+  
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+  
+                                  <span aria-hidden="true">&times;</span>
+  
+                                </button>
+  
+                              </div>
+  
+                              <div id='mydiv' class="modal-body" style="height:auto; word-wrap: break-word;">
+  
+                                <p>
+  
+                                  {{row.3}}
+  
+                                <h6 style="float: right;">Usage frequency: {{row.8}}</h6>
+  
+                                </p>
+  
+  
+                              </div>
+  
+                            </div>
+  
+                          </div>
+  
+                        </div>
+  
+                      </td>
+  
+                      <td>{{row.4}}</td>
+  
+                      <td>{{row.5}}</td>
+  
+                      <td>{{row.6}}</td>
+  
+                      <td>{{row.7}}</td>
+  
+                      <td>{{row.8}}</td>
+  
+                      <td>
+  
+                        {%if row.9 != "" %}
+                        <p><b>Automate link:</b><br>
+                          {{row.9}}</p>
+                        <br />
+                        {% endif %}
+                        {%if row.10 != "" %}
+                        <p><b>Manual link:</b><br>
+                          {{row.10}}</a>
+  
+                          {% endif %}
+  
+                      </td>
+  
+                      <td>{{row.11}}</td>
+  
+                      <td>{{row.12}}</td>
+  
+                      <td>{{row.13}}</td>
+  
+                      <td>
+                        <!--edit-->
+                        <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
+                          data-target="#modaledit{{row.0}}"><i class="fa fa-edit"></i></a>
+  
+                      </td>
+  
+                    </tr>
+  
+                    <!--end enable check-->
+  
+                    <!--modal edit-->
+                    <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+  
+                      <div class="modal-dialog">
+  
+                        <div class="modal-content">
+  
+                          <div class="modal-header">
+  
+                            <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
+  
+  
+  
+                            <button type="button" class="close" data-dismiss="modal">
+  
+                              &times;
+  
+                            </button>
+  
+                          </div>
+  
+                          <div class="modal-body">
+  
+                            <form action="/update" method="POST">
+  
+                              <div class="form-group">
+  
+                                <label>Status : </label>
+  
+                                {% if row.13 == "Enable" %}
+  
+                                <select name="status" id="status" class="form-control">
+                                  <option value="Enable">Enable</option>
+                                  <option value="Disable">Disable</option>
+                                </select>
+  
+                                {% else %}
+                                <select name="status" id="status" class="form-control">
+                                  <option value="Disable">Disable</option>
+                                  <option value="Enable">Enable</option>
+                                </select>
+                                {% endif %}
+  
+                                <input type="hidden" name="pc" value="{{row.0}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Pattern Code:</label>
+  
+                                <label> {{row.0}} </label>
+  
+                                <input type="hidden" name="pc" value="{{row.0}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Pattern Name</label>
+  
+                                <input type="text" class="form-control" name="pn" value="{{row.1}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Type</label>
+  
+                                <input type="text" class="form-control" name="type" value="{{row.2}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>SQL</label>
+  
+                                <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>System</label>
+  
+                                <input type="text" class="form-control" name="system" value="{{row.4}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Confidential Score</label>
+  
+                                <input type="text" class="form-control" name="confident" value="{{row.5}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Relate</label>
+  
+                                <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>sequence</label>
+  
+                                <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
+  
+                              </div>
+  
+  
+                              <div class="form-group">
+  
+                                <label>Automate Link</label>
+  
+                                <input type="text" class="form-control" name="auto" value="{{row.9}}" />
+  
+                              </div>
+  
+  
+                              <div class="form-group">
+  
+                                <label>Manual Link</label>
+  
+                                <input type="text" class="form-control" name="manual" value="{{row.10}}" />
+  
+                              </div>
+  
+  
+                              <div class="form-group">
+  
+                                <label>Tag</label>
+  
+                                <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <label>Remark</label>
+  
+                                <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+  
+                              </div>
+  
+                              <div class="form-group">
+  
+                                <button class="btn btn-primary" type="submit">
+  
+                                  อัพเดท
+  
+                                </button>
+  
+                              </div>
+                            </form>
+                          </div>
+  
+                        </div>
+  
+                      </div>
+                      <!--end modal edit-->
+  
+  
+                      {% endfor %}
+  
+                  </tbody>
+  
+                </table>
+  
+                <!--end table-->
+              </div>
