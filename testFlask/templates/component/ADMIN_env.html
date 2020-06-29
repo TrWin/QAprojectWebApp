@@ -1,0 +1,328 @@
+<div>
+
+  <h3 style="text-align: center;">Environment</h3>
+
+  <br />
+
+  <div class="oneline" style="margin-bottom: 20px;">
+
+    <input type="text" id="InputEnv" onkeyup="searchEnv()"
+      placeholder="Search  (System, Databases, Set, URL, IP)" style="
+
+          border-radius: 13px;
+
+          padding-left: 10px;
+
+          border-color: #d11141;
+
+          min-width: 430px;
+
+        " />
+
+  </div>
+
+  <div class="oneline" style="float: right; margin-right: 50px;">
+
+    <a href="/add" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+        class="fa fa-plus fa-2x"></i></a>
+
+  </div>
+  <!--table-->
+
+  <table id="EnvTable" class="table table-hover table-bordered">
+    <!--table head-->
+    <thead style="background-color: #d11141; color:#FFFAFA;">
+
+      <tr style="width: 100%;">
+
+        <th scope="col">System/Application</th>
+
+        <th scope="col">Database</th>
+
+        <th scope="col">Set</th>
+
+        <th scope="col">URL</th>
+
+        <th scope="col">TNSName/IP</th>
+
+        <th scope="col">User/Password App</th>
+
+        <th scope="col">User/Password DB</th>
+
+        <th scope="col">Remark</th>
+
+        <th scope="col">Status</th>
+
+        <th scope="col">Edit</th>
+
+      </tr>
+
+    </thead>
+    <!--table body-->
+    <tbody>
+
+      {% for row in datas %}
+      <!--enable check-->
+      {% if row.13 == "Enable" %}
+      <tr>
+        {% elif row.13 == "Disable" %}
+      <tr style="background-color: rgba(220, 220, 220, 0.4);">
+        {% endif %}
+
+        <td id='pcode'>{{row.0}}</td>
+
+        <td>{{row.1}}</td>
+
+        <td>{{row.2}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.5}}</td>
+
+        <td>{{row.6}}</td>
+
+        <td>{{row.7}}</td>
+
+        <td>{{row.13}}</td>
+
+        <td>
+          <!--edit-->
+          <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
+            data-target="#modaleditEnv{{row.0}}"><i class="fa fa-edit"></i></a>
+        </td>
+
+      </tr>
+
+      <!--end enable check-->
+
+      <!--modal edit-->
+      <div id="modaleditEnv{{row.0}}" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+
+            <div class="modal-header">
+
+              <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
+
+
+
+              <button type="button" class="close" data-dismiss="modal">
+
+                &times;
+
+              </button>
+
+            </div>
+
+            <div class="modal-body">
+
+              <form action="/update" method="POST">
+
+                <div class="form-group">
+
+                  <label>Status : </label>
+
+                  {% if row.13 == "Enable" %}
+
+                  <select name="status" id="status" class="form-control">
+                    <option value="Enable">Enable</option>
+                    <option value="Disable">Disable</option>
+                  </select>
+
+                  {% else %}
+                  <select name="status" id="status" class="form-control">
+                    <option value="Disable">Disable</option>
+                    <option value="Enable">Enable</option>
+                  </select>
+                  {% endif %}
+
+                  <input type="hidden" name="pc" value="{{row.0}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Pattern Code:</label>
+
+                  <label> {{row.0}} </label>
+
+                  <input type="hidden" name="pc" value="{{row.0}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Pattern Name</label>
+
+                  <input type="text" class="form-control" name="pn" value="{{row.1}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Type</label>
+
+                  <input type="text" class="form-control" name="type" value="{{row.2}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>SQL</label>
+
+                  <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>System</label>
+
+                  <input type="text" class="form-control" name="system" value="{{row.4}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Confidential Score</label>
+
+                  <input type="text" class="form-control" name="confident" value="{{row.5}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Relate</label>
+
+                  <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>sequence</label>
+
+                  <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>Automate Link</label>
+
+                  <input type="text" class="form-control" name="auto" value="{{row.9}}" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>Manual Link</label>
+
+                  <input type="text" class="form-control" name="manual" value="{{row.10}}" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>Tag</label>
+
+                  <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Remark</label>
+
+                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <button class="btn btn-primary" type="submit">
+
+                    อัพเดท
+
+                  </button>
+
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+        <!--end modal edit-->
+
+
+        {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  <!--end table-->
+</div>
+
+
+<script>
+  function searchEnv() {
+    // Declare variables
+
+    var input, filter, table, tr, td, i, txtValue;
+
+    input = document.getElementById("InputEnv");
+
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("EnvTable");
+
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+
+      td1 = tr[i].getElementsByTagName("td")[1];
+
+      td2 = tr[i].getElementsByTagName("td")[2];
+
+      td3 = tr[i].getElementsByTagName("td")[3];
+
+      td4 = tr[i].getElementsByTagName("td")[4];
+
+      if (td || td1 || td2 || td3 || td4) {
+        txtValue = td.textContent || td.innerText;
+
+        txtValue1 = td1.textContent || td1.innerText;
+
+        txtValue2 = td2.textContent || td2.innerText;
+
+        txtValue3 = td3.textContent || td3.innerText;
+
+        txtValue4 = td4.textContent || td4.innerText;
+
+        if (
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+          txtValue3.toUpperCase().indexOf(filter) > -1 ||
+          txtValue4.toUpperCase().indexOf(filter) > -1
+        ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>

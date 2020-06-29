@@ -1,7 +1,6 @@
-
 <div>
 
-  <h3 style="text-align: center;">For 3rd party</h3>
+  <h3 style="text-align: center;">For SIT support</h3>
 
   <br />
 
@@ -9,7 +8,7 @@
 
   <div class="oneline" style="margin-bottom: 20px;">
 
-    <input type="text" id="myInput" onkeyup="myFunction()"
+    <input type="text" id="InputSit" onkeyup="searchSit()"
       placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)" style="
 
           border-radius: 13px;
@@ -32,15 +31,13 @@
   </div>
   <!--table-->
 
-  <table id="myTable" class="table table-hover table-bordered">
+  <table id="SitTable" class="table table-hover table-bordered">
     <!--table head-->
     <thead style="background-color: #d11141; color:#FFFAFA;">
 
       <tr style="width: 100%;">
 
         <th scope="col">Pattern code</th>
-
-        <th scope="col" style="width: 15%;">Pattern name</th>
 
         <th scope="col">Thai ID</th>
 
@@ -49,8 +46,6 @@
         <th scope="col">Product ID</th>
 
         <th scope="col">Company</th>
-
-        <th scope="col">Enquiry/Use</th>
 
         <th scope="col">Test Env.</th>
 
@@ -96,16 +91,12 @@
 
         <td>{{row.8}}</td>
 
-        <td>{{row.10}}</td>
-
-        <td>{{row.12}}</td>
-
         <td>{{row.13}}</td>
 
         <td>
           <!--edit-->
           <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-            data-target="#modaledit{{row.0}}"><i class="fa fa-edit"></i></a>
+            data-target="#modaleditSIT{{row.0}}"><i class="fa fa-edit"></i></a>
 
         </td>
 
@@ -114,7 +105,7 @@
       <!--end enable check-->
 
       <!--modal edit-->
-      <div id="modaledit{{row.0}}" class="modal fade" role="dialog">
+      <div id="modaleditSIT{{row.0}}" class="modal fade" role="dialog">
 
         <div class="modal-dialog">
 

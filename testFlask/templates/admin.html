@@ -146,7 +146,7 @@
               aria-labelledby="v-pills-qa-tab"
             >
               <!-- tab 1 -->
-              {% include "ADMIN_qa.html" %}
+              {% include "component/ADMIN_qa.html" %}
             </div>
 
             <!--tab2-->
@@ -156,7 +156,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-rd-tab"
             >
-              {% include "ADMIN_third.html" %}
+              {% include "component/ADMIN_third.html" %}
             </div>
 
             <!--tab3-->
@@ -166,7 +166,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
             >
-              {% include "ADMIN_sit.html" %}
+              {% include "component/ADMIN_sit.html" %}
             </div>
 
             <!--tab4-->
@@ -176,7 +176,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-doc-tab"
             >
-              {% include "ADMIN_doc.html" %}
+              {% include "component/ADMIN_doc.html" %}
             </div>
             <!--tab4-->
             <div
@@ -185,7 +185,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-env"
             >
-              {% include "ADMIN_env.html" %}
+              {% include "component/ADMIN_env.html" %}
             </div>
           </div>
         </div>
@@ -284,53 +284,6 @@
 </style>
 
 <script>
-  function myFunction() {
-    // Declare variables
-
-    var input, filter, table, tr, td, i, txtValue;
-
-    input = document.getElementById("myInput");
-
-    filter = input.value.toUpperCase();
-
-    table = document.getElementById("myTable");
-
-    tr = table.getElementsByTagName("tr");
-
-    // Loop through all table rows, and hide those who don't match the search query
-
-    for (i = 0; i < tr.length; i++) {
-      td = tr[i].getElementsByTagName("td")[0];
-
-      td1 = tr[i].getElementsByTagName("td")[1];
-
-      td2 = tr[i].getElementsByTagName("td")[3];
-
-      td3 = tr[i].getElementsByTagName("td")[10];
-
-      if (td || td1 || td2 || td3) {
-        txtValue = td.textContent || td.innerText;
-
-        txtValue1 = td1.textContent || td1.innerText;
-
-        txtValue2 = td2.textContent || td2.innerText;
-
-        txtValue3 = td3.textContent || td3.innerText;
-
-        if (
-          txtValue.toUpperCase().indexOf(filter) > -1 ||
-          txtValue1.toUpperCase().indexOf(filter) > -1 ||
-          txtValue2.toUpperCase().indexOf(filter) > -1 ||
-          txtValue3.toUpperCase().indexOf(filter) > -1
-        ) {
-          tr[i].style.display = "";
-        } else {
-          tr[i].style.display = "none";
-        }
-      }
-    }
-  }
-
   function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
     document.getElementById("main").style.marginLeft = "250px";
