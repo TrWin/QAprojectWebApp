@@ -126,7 +126,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.13 == "Enable" %}
+                  {% if row.8 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -146,94 +146,57 @@
 
                 <div class="form-group">
 
-                  <label>Pattern Code:</label>
+                  <label>System/Application</label>
 
-                  <label> {{row.0}} </label>
-
-                  <input type="hidden" name="pc" value="{{row.0}}" />
+                  <input type="text" class="form-control" name="system" value="{{row.0}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>Pattern Name</label>
+                  <label>Database</label>
 
-                  <input type="text" class="form-control" name="pn" value="{{row.1}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>Type</label>
-
-                  <input type="text" class="form-control" name="type" value="{{row.2}}" />
+                  <input type="text" class="form-control" name="db" value="{{row.1}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>SQL</label>
+                  <label>Set</label>
 
-                  <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>System</label>
-
-                  <input type="text" class="form-control" name="system" value="{{row.4}}" />
+                  <textarea class="form-control" name="set">{{row.2}}</textarea>
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>Confidential Score</label>
+                  <label>URL</label>
 
-                  <input type="text" class="form-control" name="confident" value="{{row.5}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>Relate</label>
-
-                  <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+                  <input type="text" class="form-control" name="url" value="{{row.3}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>sequence</label>
+                  <label>TNSName/IP</label>
 
-                  <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>Automate Link</label>
-
-                  <input type="text" class="form-control" name="auto" value="{{row.9}}" />
+                  <input type="text" class="form-control" name="ip" value="{{row.4}}" />
 
                 </div>
 
-
                 <div class="form-group">
 
-                  <label>Manual Link</label>
+                  <label>Username/Password App</label>
 
-                  <input type="text" class="form-control" name="manual" value="{{row.10}}" />
+                  <input type="text" class="form-control" name="passApp" value="{{row.5}}" />
 
                 </div>
 
-
                 <div class="form-group">
 
-                  <label>Tag</label>
+                  <label>Username/Password DB</label>
 
-                  <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+                  <input type="text" class="form-control" name="passDb" value="{{row.6}}" />
 
                 </div>
 
@@ -241,7 +204,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.7}}" />
 
                 </div>
 

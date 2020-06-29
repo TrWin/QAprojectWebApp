@@ -142,7 +142,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.13 == "Enable" %}
+                  {% if row.11 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -180,76 +180,67 @@
 
                 <div class="form-group">
 
-                  <label>Type</label>
+                  <label>Thai ID</label>
 
-                  <input type="text" class="form-control" name="type" value="{{row.2}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>SQL</label>
-
-                  <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
+                  <input type="text" class="form-control" name="thai" value="{{row.2}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>System</label>
+                  <label>BAN</label>
 
-                  <input type="text" class="form-control" name="system" value="{{row.4}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>Confidential Score</label>
-
-                  <input type="text" class="form-control" name="confident" value="{{row.5}}" />
+                  <textarea class="form-control" name="ban">{{row.3}}</textarea>
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>Relate</label>
+                  <label>Product ID</label>
 
-                  <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+                  <input type="text" class="form-control" name="product" value="{{row.4}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>sequence</label>
+                  <label>Company</label>
 
-                  <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
+                  <input type="text" class="form-control" name="company" value="{{row.5}}" />
 
                 </div>
 
+                <div class="form-group">
+
+                  <label>Enquiry/Use</label>
+
+                  <input type="text" class="form-control" name="use" value="{{row.6}}" />
+
+                </div>
 
                 <div class="form-group">
 
-                  <label>Automate Link</label>
+                  <label>Test env.</label>
 
-                  <input type="text" class="form-control" name="auto" value="{{row.9}}" />
+                  <input type="text" class="form-control" name="env" value="{{row.7}}" />
 
                 </div>
 
 
                 <div class="form-group">
 
-                  <label>Manual Link</label>
+                  <label>Current User</label>
 
-                  <input type="text" class="form-control" name="manual" value="{{row.10}}" />
+                  <input type="text" class="form-control" name="current" value="{{row.8}}" />
 
                 </div>
 
 
                 <div class="form-group">
 
-                  <label>Tag</label>
+                  <label>Period</label>
 
-                  <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+                  <input type="text" class="form-control" name="period" value="{{row.9}}" />
 
                 </div>
 
@@ -257,7 +248,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.10}}" />
 
                 </div>
 
