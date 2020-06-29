@@ -255,7 +255,7 @@ def updateparty():
                 test[11]=request.form['status']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update for_3rd_party set Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s,test_env=%s,current_user=%s,period=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[0]))
+                        cursor.execute("update for_3rd_party set Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s, test_env=%s, current_user=%s, period=%s, remark=%s, status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[0]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #For 3rd Party#
