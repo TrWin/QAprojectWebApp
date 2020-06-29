@@ -97,6 +97,17 @@
 
               <a
                 class="nav-link"
+                id="v-pills-test-tab"
+                data-toggle="pill"
+                href="#v-pills-test"
+                role="tab"
+                aria-controls="v-pills-test"
+                aria-selected="false"
+                >Automate</a
+              >
+
+              <a
+                class="nav-link"
                 id="v-pills-doc-tab"
                 data-toggle="pill"
                 href="#v-pills-doc"
@@ -126,7 +137,9 @@
                   margin-top: 10px;
                   font-size: large;
                   color: blanchedalmond;
-                ">Login</a>
+                "
+                >Login</a
+              >
             </div>
           </div>
         </div>
@@ -168,13 +181,23 @@
             <!--tab4-->
             <div
               class="tab-pane fade"
+              id="v-pills-test"
+              role="tabpanel"
+              aria-labelledby="v-pills-test-tab"
+            >
+              {% include "component/USER_test.html" %}
+            </div>
+
+            <!--tab5-->
+            <div
+              class="tab-pane fade"
               id="v-pills-doc"
               role="tabpanel"
               aria-labelledby="v-pills-doc-tab"
             >
               {% include "component/USER_doc.html" %}
             </div>
-            <!--tab4-->
+            <!--tab6-->
             <div
               class="tab-pane fade"
               id="v-pills-env"
@@ -183,6 +206,7 @@
             >
               {% include "component/USER_env.html" %}
             </div>
+            
           </div>
         </div>
       </div>
@@ -206,7 +230,6 @@
       crossorigin="anonymous"
     ></script>
   </body>
-
 </html>
 
 <style>
