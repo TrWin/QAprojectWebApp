@@ -55,7 +55,10 @@ def profile():
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         conn.commit()
-        return render_template('admin.html',datas=rows)
+        cur.execute("""select * from for_3rd_party """)
+        third = cur.fetchall()
+        conn.commit()
+        return render_template('admin.html',datas=rows,rd=third)
 
 @app.route('/dropsession')
 def dropsession():
@@ -73,10 +76,7 @@ def Showdata():
         cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
         rows = cur.fetchall()
         conn.commit()
-        cur.execute("""select * from for_3rd_party """)
-        third = cur.fetchall()
-        conn.commit()
-        return render_template('user.html',datas=rows,rd=third)
+        return render_template('user.html',datas=rows)
 
 
 #For_QA#
