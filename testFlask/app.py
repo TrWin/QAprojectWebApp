@@ -80,8 +80,16 @@ def Showdata():
         cur=conn.cursor()
         cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
         rows = cur.fetchall()
+        cur.execute("select * from for_3rd_party ")
+        third = cur.fetchall()
+        cur.execute("select * from for_sit ")
+        sit = cur.fetchall()
+        cur.execute("select * from document ")
+        doc = cur.fetchall()
+        cur.execute("select * from env ")
+        env = cur.fetchall() 
         conn.commit()
-        return render_template('user.html',datas=rows)
+        return render_template('user.html',datas=rows,rd=third,sit=sit,doc=doc,env=env)
 
 
 #For_QA#

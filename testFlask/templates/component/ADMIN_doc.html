@@ -122,7 +122,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.13 == "Enable" %}
+                  {% if row.6 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -152,84 +152,33 @@
 
                 <div class="form-group">
 
-                  <label>Pattern Name</label>
-
-                  <input type="text" class="form-control" name="pn" value="{{row.1}}" />
-
-                </div>
-
-                <div class="form-group">
-
                   <label>Type</label>
 
-                  <input type="text" class="form-control" name="type" value="{{row.2}}" />
+                  <input type="text" class="form-control" name="type" value="{{row.1}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>SQL</label>
+                  <label>Path/URL</label>
 
-                  <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>System</label>
-
-                  <input type="text" class="form-control" name="system" value="{{row.4}}" />
+                  <textarea class="form-control" name="url">{{row.2}}</textarea>
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>Confidential Score</label>
+                  <label>File Name</label>
 
-                  <input type="text" class="form-control" name="confident" value="{{row.5}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <label>Relate</label>
-
-                  <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+                  <input type="text" class="form-control" name="fn" value="{{row.3}}" />
 
                 </div>
 
                 <div class="form-group">
 
-                  <label>sequence</label>
+                  <label>Topic/Test case name</label>
 
-                  <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>Automate Link</label>
-
-                  <input type="text" class="form-control" name="auto" value="{{row.9}}" />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>Manual Link</label>
-
-                  <input type="text" class="form-control" name="manual" value="{{row.10}}" />
-
-                </div>
-
-
-                <div class="form-group">
-
-                  <label>Tag</label>
-
-                  <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+                  <input type="text" class="form-control" name="topic" value="{{row.4}}" />
 
                 </div>
 
@@ -237,7 +186,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.5}}" />
 
                 </div>
 
