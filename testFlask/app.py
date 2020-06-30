@@ -88,7 +88,7 @@ def Showdata():
         sit = cur.fetchall()
         cur.execute("""select * from document where status = "Enable" order by Pattern_code""")
         doc = cur.fetchall()
-        cur.execute("""select * from env where status = "Enable" order by system""")
+        cur.execute("""select * from env where status = "Enable" order by oursystem""")
         env = cur.fetchall() 
         conn.commit()
         return render_template('user.html',datas=rows,rd=third,sit=sit,doc=doc,env=env)
