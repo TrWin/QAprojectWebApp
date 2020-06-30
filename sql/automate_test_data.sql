@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2020 at 11:01 AM
+-- Generation Time: Jun 30, 2020 at 07:54 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -29,14 +29,36 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `automate_test_data` (
-  `thai_id` int(11) NOT NULL,
-  `ban` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `company` int(11) NOT NULL,
-  `test_env` int(11) NOT NULL,
-  `owner` int(11) NOT NULL,
-  `remark` int(11) NOT NULL
+  `id` int(11) NOT NULL,
+  `thai_id` varchar(255) NOT NULL,
+  `ban` varchar(255) NOT NULL,
+  `product_id` varchar(255) NOT NULL,
+  `company` varchar(255) NOT NULL,
+  `test_env` varchar(255) NOT NULL,
+  `owner` varchar(255) NOT NULL,
+  `remark` varchar(1000) NOT NULL,
+  `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `automate_test_data`
+--
+ALTER TABLE `automate_test_data`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `automate_test_data`
+--
+ALTER TABLE `automate_test_data`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
