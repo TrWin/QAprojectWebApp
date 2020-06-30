@@ -13,15 +13,8 @@
 
   <body>
     <div class="container" style="margin-bottom: 15px;">
-      <h2>บันทึกข้อมูลสำหรับ 3rd party</h2>
+      <h2>บันทึกข้อมูลสำหรับ Automate test data</h2>
       <form action="{{ url_for('insert') }}" method="post">
-        <div class="form-group">
-          <label for="pc">Pattern Code : {{ patternid }} </label>
-        </div>
-        <div class="form-group">
-          <label for="pn">Pattern Name</label>
-          <input type="text" class="form-control" name="pn" />
-        </div>
         <div class="form-group">
           <label for="type">Thai ID</label>
           <input type="text" class="form-control" name="type" />
@@ -39,20 +32,12 @@
           <input type="text" class="form-control" name="confident" />
         </div>
         <div class="form-group">
-          <label for="relate">Enquiry/Use</label>
-          <input type="text" class="form-control" name="relate" />
-        </div>
-        <div class="form-group">
           <label for="sequence">Test Env.</label>
           <input type="text" class="form-control" name="sequence" />
         </div>
         <div class="form-group">
-          <label for="frequency">Current user</label>
+          <label for="frequency">Owner</label>
           <input type="text" class="form-control" name="frequency" />
-        </div>
-        <div class="form-group">
-          <label for="auto">Period</label>
-          <input type="text" class="form-control" name="auto" />
         </div>
         <div class="form-group">
           <label for="remark">Remark</label>

@@ -106,7 +106,7 @@ def showForm():
         elif lengh >= 99:
             p_id = 'A'+str(lengh+1)
         conn.commit()
-        return render_template('adddata.html',patternid=p_id)
+        return render_template('adddata/adddataQA.html',patternid=p_id)
 
 @app.route("/insert",methods=['POST'])
 def insert():

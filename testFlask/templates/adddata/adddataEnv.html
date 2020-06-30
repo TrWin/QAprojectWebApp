@@ -13,46 +13,34 @@
 
   <body>
     <div class="container" style="margin-bottom: 15px;">
-      <h2>บันทึกข้อมูลสำหรับ 3rd party</h2>
+      <h2>บันทึกข้อมูลสำหรับ Environment</h2>
       <form action="{{ url_for('insert') }}" method="post">
         <div class="form-group">
-          <label for="pc">Pattern Code : {{ patternid }} </label>
+          <label for="pc">System/Application</label>
         </div>
         <div class="form-group">
-          <label for="pn">Pattern Name</label>
+          <label for="pn">Database</label>
           <input type="text" class="form-control" name="pn" />
         </div>
         <div class="form-group">
-          <label for="type">Thai ID</label>
+          <label for="type">Set</label>
           <input type="text" class="form-control" name="type" />
         </div>
         <div class="form-group">
-          <label for="sqlcode">BAN</label>
+          <label for="sqlcode">URL</label>
           <input type="text" class="form-control" name="sqlcode" />
         </div>
         <div class="form-group">
-          <label for="fnamsystem">Product ID</label>
+          <label for="fnamsystem">TNSName/IP</label>
           <input type="text" class="form-control" name="system" />
         </div>
         <div class="form-group">
-          <label for="confident">Company</label>
+          <label for="confident">User/Password App</label>
           <input type="text" class="form-control" name="confident" />
         </div>
         <div class="form-group">
-          <label for="relate">Enquiry/Use</label>
+          <label for="relate">User/Password Database</label>
           <input type="text" class="form-control" name="relate" />
-        </div>
-        <div class="form-group">
-          <label for="sequence">Test Env.</label>
-          <input type="text" class="form-control" name="sequence" />
-        </div>
-        <div class="form-group">
-          <label for="frequency">Current user</label>
-          <input type="text" class="form-control" name="frequency" />
-        </div>
-        <div class="form-group">
-          <label for="auto">Period</label>
-          <input type="text" class="form-control" name="auto" />
         </div>
         <div class="form-group">
           <label for="remark">Remark</label>
