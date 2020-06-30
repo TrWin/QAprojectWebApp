@@ -26,7 +26,7 @@
 
   <div class="oneline" style="float: right; margin-right: 50px;">
 
-    <a href="../adddata/adddata3.html" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+    <a href="/addparty" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
         class="fa fa-plus fa-2x"></i></a>
 
   </div>
@@ -72,19 +72,17 @@
 
       {% for row in rd %}
       <!--enable check-->
-      {% if row.11 == "Enable" %}
+      {% if row.12 == "Enable" %}
       <tr>
-      {% elif row.11 == "Disable" %}
+      {% elif row.12 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
       {% endif %}
 
-        <td id='pcode'>{{row.0}}</td>
-
-        <td>{{row.1}}</td>
+        <td id='pcode'>{{row.1}}</td>
 
         <td>{{row.2}}</td>
 
-        <td>{{row.4}}</td>
+        <td>{{row.3}}</td>
 
         <td>{{row.4}}</td>
 
@@ -102,10 +100,12 @@
 
         <td>{{row.11}}</td>
 
+        <td>{{row.12}}</td>
+
         <td>
           <!--edit-->
           <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-            data-target="#modaledit3{{row.0}}"><i class="fa fa-edit"></i></a>
+            data-target="#modaledit3{{row.1}}"><i class="fa fa-edit"></i></a>
 
         </td>
 
@@ -114,7 +114,7 @@
       <!--end enable check-->
 
       <!--modal edit-->
-      <div id="modaledit3{{row.0}}" class="modal fade" role="dialog">
+      <div id="modaledit3{{row.1}}" class="modal fade" role="dialog">
 
         <div class="modal-dialog">
 
@@ -142,7 +142,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.11 == "Enable" %}
+                  {% if row.12 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -156,7 +156,7 @@
                   </select>
                   {% endif %}
 
-                  <input type="hidden" name="pc" value="{{row.0}}" />
+                  <input type="hidden" name="pc" value="{{row.1}}" />
 
                 </div>
 
@@ -164,9 +164,9 @@
 
                   <label>Pattern Code:</label>
 
-                  <label> {{row.0}} </label>
+                  <label> {{row.1}} </label>
 
-                  <input type="hidden" name="pc" value="{{row.0}}" />
+                  <input type="hidden" name="pc" value="{{row.1}}" />
 
                 </div>
 
@@ -174,7 +174,7 @@
 
                   <label>Pattern Name</label>
 
-                  <input type="text" class="form-control" name="pn" value="{{row.1}}" />
+                  <input type="text" class="form-control" name="pn" value="{{row.2}}" />
 
                 </div>
 
@@ -182,7 +182,7 @@
 
                   <label>Thai ID</label>
 
-                  <input type="text" class="form-control" name="thai" value="{{row.2}}" />
+                  <input type="text" class="form-control" name="thai" value="{{row.3}}" />
 
                 </div>
 
@@ -190,7 +190,7 @@
 
                   <label>BAN</label>
 
-                  <textarea class="form-control" name="ban">{{row.3}}</textarea>
+                  <textarea class="form-control" name="ban">{{row.4}}</textarea>
 
                 </div>
 
@@ -198,7 +198,7 @@
 
                   <label>Product ID</label>
 
-                  <input type="text" class="form-control" name="product" value="{{row.4}}" />
+                  <input type="text" class="form-control" name="product" value="{{row.5}}" />
 
                 </div>
 
@@ -206,7 +206,7 @@
 
                   <label>Company</label>
 
-                  <input type="text" class="form-control" name="company" value="{{row.5}}" />
+                  <input type="text" class="form-control" name="company" value="{{row.6}}" />
 
                 </div>
 
@@ -214,7 +214,7 @@
 
                   <label>Enquiry/Use</label>
 
-                  <input type="text" class="form-control" name="use" value="{{row.6}}" />
+                  <input type="text" class="form-control" name="use" value="{{row.7}}" />
 
                 </div>
 
@@ -222,7 +222,7 @@
 
                   <label>Test env.</label>
 
-                  <input type="text" class="form-control" name="env" value="{{row.7}}" />
+                  <input type="text" class="form-control" name="env" value="{{row.8}}" />
 
                 </div>
 
@@ -231,7 +231,7 @@
 
                   <label>Current User</label>
 
-                  <input type="text" class="form-control" name="current" value="{{row.8}}" />
+                  <input type="text" class="form-control" name="current" value="{{row.9}}" />
 
                 </div>
 
@@ -240,7 +240,7 @@
 
                   <label>Period</label>
 
-                  <input type="text" class="form-control" name="period" value="{{row.9}}" />
+                  <input type="text" class="form-control" name="period" value="{{row.10}}" />
 
                 </div>
 
@@ -248,7 +248,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.10}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.11}}" />
 
                 </div>
 

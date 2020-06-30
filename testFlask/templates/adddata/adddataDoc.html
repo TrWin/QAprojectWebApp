@@ -14,25 +14,27 @@
   <body>
     <div class="container" style="margin-bottom: 15px;">
       <h2>บันทึกข้อมูลสำหรับ Document</h2>
-      <form action="{{ url_for('insert') }}" method="post">
+      <form action="{{ url_for('insertdoc') }}" method="post">
         <div class="form-group">
-          <label for="pc">Pattern Code : {{ patternid }} </label>
+          <label for="pc">Pattern Code : </label>
+          <input type="text" class="form-control" name="pc" />
         </div>
         <div class="form-group">
-          <label for="pn">Type</label>
-          <input type="text" class="form-control" name="pn" />
-        </div>
-        <div class="form-group">
-          <label for="type">Path/URL</label>
+          <label for="type">Type</label>
           <input type="text" class="form-control" name="type" />
         </div>
         <div class="form-group">
-          <label for="sqlcode">File name</label>
-          <input type="text" class="form-control" name="sqlcode" />
+          <label for="path">Path/URL</label>
+          <input type="text" class="form-control" name="path" />
+        </div>
+        
+        <div class="form-group">
+          <label for="fn">File name</label>
+          <input type="text" class="form-control" name="fn" />
         </div>
         <div class="form-group">
-          <label for="fnamsystem">Topic/Test case name</label>
-          <input type="text" class="form-control" name="system" />
+          <label for="topic">Topic/Test case name</label>
+          <input type="text" class="form-control" name="topic" />
         </div>
         <div class="form-group">
           <label for="remark">Remark</label>

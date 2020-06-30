@@ -186,39 +186,15 @@ def count(pcode):
 #For 3rd Party#
 @app.route("/addparty")
 def showFormparty():
-    #wait...#
-        cur=conn.cursor()
-        cur.execute("select * from for_3rd_party order by Pattern_code")
-        rows = cur.fetchall()
-        lengh = len(rows)
-        if lengh < 9:
-            p_id = 'A00'+str(lengh+1)
-        elif lengh >= 9 and lengh < 99 :
-            p_id = 'A0'+str(lengh+1)
-        elif lengh >= 99:
-            p_id = 'A'+str(lengh+1)
-    #wait...#
         conn.commit()
-        return render_template('adddata.html',patternid=p_id)
+        return render_template('adddata/adddata3.html')
 
 @app.route("/insertparty",methods=['POST'])
 def insertparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
-                cur=conn.cursor()
-                cur.execute("select * from for_3rd_party order by Pattern_code")
-                rows = cur.fetchall()
-                lengh = len(rows)
-                if lengh < 9:
-                    p_id = 'A00'+str(lengh+1)
-                elif lengh >= 9 and lengh < 99 :
-                    p_id = 'A0'+str(lengh+1)
-                elif lengh >= 99 :
-                    p_id = 'A'+str(lengh+1)
-                conn.commit()
-
-                test[0]=p_id
+                test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['thai']
                 test[3]=request.form['ban']
@@ -232,7 +208,7 @@ def insertparty():
                 test[11]="Enable"
 
                 with conn.cursor() as cursor:
-                        cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,current_user,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
+                        cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,current,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11]))
                         conn.commit()
                 return redirect(url_for('profile'))
 
@@ -264,39 +240,15 @@ def updateparty():
 #For sit##
 @app.route("/addsit")
 def showFormsit():
-    #wait...#
-        cur=conn.cursor()
-        cur.execute("select * from for_sit order by Pattern_code")
-        rows = cur.fetchall()
-        lengh = len(rows)
-        if lengh < 9:
-            p_id = 'A00'+str(lengh+1)
-        elif lengh >= 9 and lengh < 99 :
-            p_id = 'A0'+str(lengh+1)
-        elif lengh >= 99:
-            p_id = 'A'+str(lengh+1)
-    #wait...#
         conn.commit()
-        return render_template('adddata.html',patternid=p_id)
+        return render_template('adddata/adddataSIT.html')
 
 @app.route("/insertsit",methods=['POST'])
 def insertsit():
         test=['0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
-                cur=conn.cursor()
-                cur.execute("select * from for_sit order by Pattern_code")
-                rows = cur.fetchall()
-                lengh = len(rows)
-                if lengh < 9:
-                    p_id = 'A00'+str(lengh+1)
-                elif lengh >= 9 and lengh < 99 :
-                    p_id = 'A0'+str(lengh+1)
-                elif lengh >= 99 :
-                    p_id = 'A'+str(lengh+1)
-                conn.commit()
-
-                test[0]=p_id
+                test[0]=request.form['pc']
                 test[1]=request.form['thai']
                 test[2]=request.form['ban']
                 test[3]=request.form['product']
@@ -308,7 +260,7 @@ def insertsit():
                 test[9]="Enable"
 
                 with conn.cursor() as cursor:
-                        cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,current_user,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9]))
+                        cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,current,period,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9]))
                         conn.commit()
                 return redirect(url_for('profile'))
 
@@ -338,39 +290,15 @@ def updatesit():
 #For document##
 @app.route("/adddoc")
 def showFormdoc():
-    #wait...#
-        cur=conn.cursor()
-        cur.execute("select * from document order by Pattern_code")
-        rows = cur.fetchall()
-        lengh = len(rows)
-        if lengh < 9:
-            p_id = 'A00'+str(lengh+1)
-        elif lengh >= 9 and lengh < 99 :
-            p_id = 'A0'+str(lengh+1)
-        elif lengh >= 99:
-            p_id = 'A'+str(lengh+1)
-    #wait...#
         conn.commit()
-        return render_template('adddata.html',patternid=p_id)
+        return render_template('adddata/adddataDoc.html')
 
 @app.route("/insertdoc",methods=['POST'])
 def insertdoc():
         test=['0','0','0','0','0','0','0']
         if request.method=="POST":
 
-                cur=conn.cursor()
-                cur.execute("select * from document order by Pattern_code")
-                rows = cur.fetchall()
-                lengh = len(rows)
-                if lengh < 9:
-                    p_id = 'A00'+str(lengh+1)
-                elif lengh >= 9 and lengh < 99 :
-                    p_id = 'A0'+str(lengh+1)
-                elif lengh >= 99 :
-                    p_id = 'A'+str(lengh+1)
-                conn.commit()
-
-                test[0]=p_id
+                test[0]=request.form['pc']
                 test[1]=request.form['type']
                 test[2]=request.form['path']
                 test[3]=request.form['fn']
@@ -406,29 +334,17 @@ def updatedoc():
 #For env##
 @app.route("/addenv")
 def showFormEnv():
-    #wait...#
-        cur=conn.cursor()
-        cur.execute("select * from env")
-        rows = cur.fetchall()
-        lengh = len(rows)
-        if lengh < 9:
-            p_id = 'A00'+str(lengh+1)
-        elif lengh >= 9 and lengh < 99 :
-            p_id = 'A0'+str(lengh+1)
-        elif lengh >= 99:
-            p_id = 'A'+str(lengh+1)
-    #wait...#
         conn.commit()
-        return render_template('adddata.html',patternid=p_id)
+        return render_template('adddata/adddataEnv.html')
 
 @app.route("/insertenv",methods=['POST'])
 def insertEnv():
-        test=['0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0']
 
         test[0]=request.form['system']
         test[1]=request.form['db']
         test[2]=request.form['set']
-        test[3]=request.form['url']
+        test[3]=request.form['path']
         test[4]=request.form['ip']
         test[5]=request.form['passApp']
         test[6]=request.form['passDb']
@@ -436,7 +352,7 @@ def insertEnv():
         test[8]="Enable"
 
         with conn.cursor() as cursor:
-            cursor.execute("insert into env(system,database,set,url,ip,user_pass_app,user_pass_db,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
+            cursor.execute("insert into env(oursystem,db,ourset,path,ip,user_pass_app,user_pass_db,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
             conn.commit()
         return redirect(url_for('profile'))
 

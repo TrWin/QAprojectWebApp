@@ -26,7 +26,7 @@
 
   <div class="oneline" style="float: right; margin-right: 50px;">
 
-    <a href="/add" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+    <a href="/adddoc" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
         class="fa fa-plus fa-2x"></i></a>
 
   </div>
@@ -62,15 +62,13 @@
 
       {% for row in doc %}
       <!--enable check-->
-      {% if row.6 == "Enable" %}
+      {% if row.7 == "Enable" %}
       <tr>
-        {% elif row.6 == "Disable" %}
+        {% elif row.7 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
-        <td id='pcode'>{{row.0}}</td>
-
-        <td>{{row.1}}</td>
+        <td id='pcode'>{{row.1}}</td>
 
         <td>{{row.2}}</td>
 
@@ -81,11 +79,13 @@
         <td>{{row.5}}</td>
 
         <td>{{row.6}}</td>
+
+        <td>{{row.7}}</td>
         
         <td>
           <!--edit-->
           <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-            data-target="#modaleditDoc{{row.0}}"><i class="fa fa-edit"></i></a>
+            data-target="#modaleditDoc{{row.1}}"><i class="fa fa-edit"></i></a>
 
         </td>
 
@@ -94,7 +94,7 @@
       <!--end enable check-->
 
       <!--modal edit-->
-      <div id="modaleditDoc{{row.0}}" class="modal fade" role="dialog">
+      <div id="modaleditDoc{{row.1}}" class="modal fade" role="dialog">
 
         <div class="modal-dialog">
 
@@ -122,7 +122,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.6 == "Enable" %}
+                  {% if row.7 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -136,17 +136,15 @@
                   </select>
                   {% endif %}
 
-                  <input type="hidden" name="pc" value="{{row.0}}" />
-
                 </div>
 
                 <div class="form-group">
 
                   <label>Pattern Code:</label>
 
-                  <label> {{row.0}} </label>
+                  <label> {{row.1}} </label>
 
-                  <input type="hidden" name="pc" value="{{row.0}}" />
+                  <input type="hidden" name="pc" value="{{row.1}}" />
 
                 </div>
 
@@ -154,7 +152,7 @@
 
                   <label>Type</label>
 
-                  <input type="text" class="form-control" name="type" value="{{row.1}}" />
+                  <input type="text" class="form-control" name="type" value="{{row.2}}" />
 
                 </div>
 
@@ -162,7 +160,7 @@
 
                   <label>Path/URL</label>
 
-                  <textarea class="form-control" name="path">{{row.2}}</textarea>
+                  <textarea class="form-control" name="path">{{row.3}}</textarea>
 
                 </div>
 
@@ -170,7 +168,7 @@
 
                   <label>File Name</label>
 
-                  <input type="text" class="form-control" name="fn" value="{{row.3}}" />
+                  <input type="text" class="form-control" name="fn" value="{{row.4}}" />
 
                 </div>
 
@@ -178,7 +176,7 @@
 
                   <label>Topic/Test case name</label>
 
-                  <input type="text" class="form-control" name="topic" value="{{row.4}}" />
+                  <input type="text" class="form-control" name="topic" value="{{row.5}}" />
 
                 </div>
 
@@ -186,7 +184,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.5}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.6}}" />
 
                 </div>
 

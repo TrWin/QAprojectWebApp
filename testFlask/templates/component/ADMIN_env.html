@@ -23,7 +23,7 @@
 
   <div class="oneline" style="float: right; margin-right: 50px;">
 
-    <a href="/add" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+    <a href="/addenv" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
         class="fa fa-plus fa-2x"></i></a>
 
   </div>
@@ -63,15 +63,13 @@
 
       {% for row in env %}
       <!--enable check-->
-      {% if row.8 == "Enable" %}
+      {% if row.9 == "Enable" %}
       <tr>
-        {% elif row.8 == "Disable" %}
+        {% elif row.9 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
-        <td id='pcode'>{{row.0}}</td>
-
-        <td>{{row.1}}</td>
+        <td id='pcode'>{{row.1}}</td>
 
         <td>{{row.2}}</td>
 
@@ -87,10 +85,12 @@
 
         <td>{{row.8}}</td>
 
+        <td>{{row.9}}</td>
+
         <td>
           <!--edit-->
           <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-            data-target="#modaleditEnv{{row.0}}"><i class="fa fa-edit"></i></a>
+            data-target="#modaleditEnv{{row.1}}"><i class="fa fa-edit"></i></a>
         </td>
 
       </tr>
@@ -98,7 +98,7 @@
       <!--end enable check-->
 
       <!--modal edit-->
-      <div id="modaleditEnv{{row.0}}" class="modal fade" role="dialog">
+      <div id="modaleditEnv{{row.1}}" class="modal fade" role="dialog">
 
         <div class="modal-dialog">
 
@@ -126,7 +126,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.8 == "Enable" %}
+                  {% if row.9 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -140,7 +140,7 @@
                   </select>
                   {% endif %}
 
-                  <input type="hidden" name="pc" value="{{row.0}}" />
+                  <input type="hidden" name="pc" value="{{row.1}}" />
 
                 </div>
 
@@ -148,7 +148,9 @@
 
                   <label>System/Application   :  </label>
 
-                  <label for="">{{row.0}}</label>
+                  <label for="">{{row.1}}</label>
+
+                  <input type="hidden" name="system" value="{{row.1}}" />
 
                 </div>
 
@@ -156,7 +158,7 @@
 
                   <label>Database</label>
 
-                  <input type="text" class="form-control" name="db" value="{{row.1}}" />
+                  <input type="text" class="form-control" name="db" value="{{row.2}}" />
 
                 </div>
 
@@ -164,7 +166,7 @@
 
                   <label>Set</label>
 
-                  <textarea class="form-control" name="set">{{row.2}}</textarea>
+                  <textarea class="form-control" name="set">{{row.3}}</textarea>
 
                 </div>
 
@@ -172,7 +174,7 @@
 
                   <label>URL</label>
 
-                  <input type="text" class="form-control" name="path" value="{{row.3}}" />
+                  <input type="text" class="form-control" name="path" value="{{row.4}}" />
 
                 </div>
 
@@ -180,7 +182,7 @@
 
                   <label>TNSName/IP</label>
 
-                  <input type="text" class="form-control" name="ip" value="{{row.4}}" />
+                  <input type="text" class="form-control" name="ip" value="{{row.5}}" />
 
                 </div>
 
@@ -188,7 +190,7 @@
 
                   <label>Username/Password App</label>
 
-                  <input type="text" class="form-control" name="passApp" value="{{row.5}}" />
+                  <input type="text" class="form-control" name="passApp" value="{{row.6}}" />
 
                 </div>
 
@@ -196,7 +198,7 @@
 
                   <label>Username/Password DB</label>
 
-                  <input type="text" class="form-control" name="passDb" value="{{row.6}}" />
+                  <input type="text" class="form-control" name="passDb" value="{{row.7}}" />
 
                 </div>
 
@@ -204,7 +206,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.7}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.8}}" />
 
                 </div>
 
