@@ -26,7 +26,7 @@
   
     <div class="oneline" style="float: right; margin-right: 50px;">
   
-      <a href="/add" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
+      <a href="/addauto" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
           class="fa fa-plus fa-2x"></i></a>
   
     </div>
@@ -62,15 +62,13 @@
       <!--table body-->
       <tbody>
   
-        {% for row in datas %}
+        {% for row in auto %}
         <!--enable check-->
-        {% if row.13 == "Enable" %}
+        {% if row.8 == "Enable" %}
         <tr>
-          {% elif row.13 == "Disable" %}
+          {% elif row.8 == "Disable" %}
         <tr style="background-color: rgba(220, 220, 220, 0.4);">
           {% endif %}
-  
-          <td>{{row.0}}</td>
   
           <td>{{row.1}}</td>
   
@@ -86,10 +84,12 @@
   
           <td>{{row.7}}</td>
 
+          <td>{{row.8}}</td>
+
           <td>
             <!--edit-->
             <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-              data-target="#modaleditTest{{row.0}}"><i class="fa fa-edit"></i></a>
+              data-target="#modaleditTest{{row.1}}"><i class="fa fa-edit"></i></a>
   
           </td>
   
@@ -98,7 +98,7 @@
         <!--end enable check-->
   
         <!--modal edit-->
-        <div id="modaleditTest{{row.0}}" class="modal fade" role="dialog">
+        <div id="modaleditTest{{row.1}}" class="modal fade" role="dialog">
   
           <div class="modal-dialog">
   
@@ -120,13 +120,13 @@
   
               <div class="modal-body">
   
-                <form action="/update" method="POST">
+                <form action="/updateauto" method="POST">
   
                   <div class="form-group">
   
                     <label>Status : </label>
   
-                    {% if row.13 == "Enable" %}
+                    {% if row.8 == "Enable" %}
   
                     <select name="status" id="status" class="form-control">
                       <option value="Enable">Enable</option>
@@ -140,100 +140,56 @@
                     </select>
                     {% endif %}
   
-                    <input type="hidden" name="pc" value="{{row.0}}" />
   
                   </div>
   
                   <div class="form-group">
   
-                    <label>Pattern Code:</label>
+                    <label>Thai ID : </label>
   
-                    <label> {{row.0}} </label>
+                    <label> {{row.1}} </label>
   
-                    <input type="hidden" name="pc" value="{{row.0}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Pattern Name</label>
-  
-                    <input type="text" class="form-control" name="pn" value="{{row.1}}" />
+                    <input type="hidden" name="thai" value="{{row.1}}" />
   
                   </div>
   
                   <div class="form-group">
   
-                    <label>Type</label>
+                    <label>BAN</label>
   
-                    <input type="text" class="form-control" name="type" value="{{row.2}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>SQL</label>
-  
-                    <textarea class="form-control" name="sqlcode">{{row.3}}</textarea>
+                    <input type="text" class="form-control" name="ban" value="{{row.2}}" />
   
                   </div>
   
                   <div class="form-group">
   
-                    <label>System</label>
+                    <label>Product ID : </label>
   
-                    <input type="text" class="form-control" name="system" value="{{row.4}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Confidential Score</label>
-  
-                    <input type="text" class="form-control" name="confident" value="{{row.5}}" />
+                    <input type="text" class="form-control" name="product" value="{{row.3}}" />
   
                   </div>
   
                   <div class="form-group">
   
-                    <label>Relate</label>
+                    <label>Company</label>
   
-                    <input type="text" class="form-control" name="relate" value="{{row.6}}" />
+                    <textarea class="form-control" name="company">{{row.4}}</textarea>
   
                   </div>
   
                   <div class="form-group">
   
-                    <label>sequence</label>
+                    <label>Test Env. : </label>
   
-                    <input type="text" class="form-control" name="sequence" value="{{row.7}}" />
-  
-                  </div>
-  
-  
-                  <div class="form-group">
-  
-                    <label>Automate Link</label>
-  
-                    <input type="text" class="form-control" name="auto" value="{{row.9}}" />
+                    <input type="text" class="form-control" name="env" value="{{row.5}}" />
   
                   </div>
   
-  
                   <div class="form-group">
   
-                    <label>Manual Link</label>
+                    <label>Owner</label>
   
-                    <input type="text" class="form-control" name="manual" value="{{row.10}}" />
-  
-                  </div>
-  
-  
-                  <div class="form-group">
-  
-                    <label>Tag</label>
-  
-                    <input type="text" class="form-control" name="tag" value="{{row.11}}" />
+                    <input type="text" class="form-control" name="owner" value="{{row.6}}" />
   
                   </div>
   
@@ -241,7 +197,7 @@
   
                     <label>Remark</label>
   
-                    <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+                    <input type="text" class="form-control" name="remark" value="{{row.7}}" />
   
                   </div>
   
