@@ -120,7 +120,7 @@
 
             <div class="modal-body">
 
-              <form action="/update" method="POST">
+              <form action="/updateenv" method="POST">
 
                 <div class="form-group">
 
@@ -146,9 +146,9 @@
 
                 <div class="form-group">
 
-                  <label>System/Application</label>
+                  <label>System/Application   :  </label>
 
-                  <input type="text" class="form-control" name="system" value="{{row.0}}" />
+                  <label for="">{{row.0}}</label>
 
                 </div>
 
@@ -172,7 +172,7 @@
 
                   <label>URL</label>
 
-                  <input type="text" class="form-control" name="url" value="{{row.3}}" />
+                  <input type="text" class="form-control" name="path" value="{{row.3}}" />
 
                 </div>
 
