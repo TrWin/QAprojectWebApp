@@ -58,12 +58,14 @@ def profile():
         third = cur.fetchall()
         cur.execute("select * from for_sit ")
         sit = cur.fetchall()
+        cur.execute("select * from automate_test_data ")
+        auto = cur.fetchall()
         cur.execute("select * from document ")
         doc = cur.fetchall()
         cur.execute("select * from env ")
-        env = cur.fetchall()        
+        env = cur.fetchall()  
         conn.commit()
-        return render_template('admin.html',datas=rows,rd=third,sit=sit,doc=doc,env=env)
+        return render_template('admin.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
 
 @app.route('/dropsession')
 def dropsession():
@@ -285,6 +287,51 @@ def updatesit():
                         conn.commit()
                 return redirect(url_for('profile'))
 #end sit##
+
+
+#For Automate##
+@app.route("/addauto")
+def showFormAuto():
+        conn.commit()
+        return render_template('adddata/adddataAutomate.html')
+
+@app.route("/insertauto",methods=['POST'])
+def insertAuto():
+        test=['0','0','0','0','0','0','0','0']
+
+        test[0]=request.form['thai']
+        test[1]=request.form['ban']
+        test[2]=request.form['product']
+        test[3]=request.form['company']
+        test[4]=request.form['env']
+        test[5]=request.form['owner']
+        test[6]=request.form['remark']
+        test[7]="Enable"
+
+        with conn.cursor() as cursor:
+            cursor.execute("insert into automate_test_data(thai_id,ban,product_id,company,test_env,owner,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
+            conn.commit()
+        return redirect(url_for('profile'))
+
+@app.route("/updateauto",methods=['POST'])
+def updateAuto():
+        test=['0','0','0','0','0','0','0','0']
+        if request.method=="POST":
+
+                test[0]=request.form['thai']
+                test[1]=request.form['ban']
+                test[2]=request.form['product']
+                test[3]=request.form['company']
+                test[4]=request.form['env']
+                test[5]=request.form['owner']
+                test[6]=request.form['remark']
+                test[7]=request.form['status']
+
+                with conn.cursor() as cursor:
+                        cursor.execute("update automate_test_data set ban=%s ,product_id=%s ,company=%s ,test_env=%s ,owner=%s ,remark=%s ,status=%s where thai_id=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[0]))
+                        conn.commit()
+                return redirect(url_for('profile'))
+#end Automate##
 
 
 #For document##
