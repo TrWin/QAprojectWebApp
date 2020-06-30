@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 04:15 AM
+-- Generation Time: Jun 30, 2020 at 07:57 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `for_sit` (
+  `id` int(11) NOT NULL,
   `pattern_code` varchar(255) NOT NULL,
   `thai_id` varchar(255) NOT NULL,
   `ban` varchar(255) NOT NULL,
@@ -49,7 +50,17 @@ CREATE TABLE `for_sit` (
 -- Indexes for table `for_sit`
 --
 ALTER TABLE `for_sit`
-  ADD PRIMARY KEY (`ban`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `for_sit`
+--
+ALTER TABLE `for_sit`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

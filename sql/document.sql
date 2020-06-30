@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 04:16 AM
+-- Generation Time: Jun 30, 2020 at 07:56 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `document` (
+  `id` int(11) NOT NULL,
   `pattern_code` varchar(255) NOT NULL,
   `type` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL,
@@ -46,7 +47,17 @@ CREATE TABLE `document` (
 -- Indexes for table `document`
 --
 ALTER TABLE `document`
-  ADD PRIMARY KEY (`pattern_code`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `document`
+--
+ALTER TABLE `document`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
