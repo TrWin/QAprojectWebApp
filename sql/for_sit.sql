@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2020 at 11:00 AM
+-- Generation Time: Jun 30, 2020 at 04:15 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -35,18 +35,11 @@ CREATE TABLE `for_sit` (
   `product_id` varchar(255) NOT NULL,
   `company` varchar(255) NOT NULL,
   `test_env` varchar(255) NOT NULL,
-  `current_user` varchar(255) NOT NULL,
+  `current` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `period` varchar(255) NOT NULL,
   `remark` varchar(1000) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `for_sit`
---
-
-INSERT INTO `for_sit` (`pattern_code`, `thai_id`, `ban`, `product_id`, `company`, `test_env`, `current_user`, `period`, `remark`, `status`) VALUES
-('sadasd', 'asdasdas', 'asdas', 'dasdasd', 'as', 'as', 'dsadas', 'dsasdsad', 'sadasdasd', 'Enable');
 
 --
 -- Indexes for dumped tables
