@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2020 at 11:01 AM
+-- Generation Time: Jun 30, 2020 at 04:16 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -37,13 +37,6 @@ CREATE TABLE `document` (
   `remark` varchar(1000) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `document`
---
-
-INSERT INTO `document` (`pattern_code`, `type`, `path`, `file_name`, `topic`, `remark`, `status`) VALUES
-('dgsfsd', 'sdfasfsa', 'dsadasd', 'sadsa', 'dasdasd', 'sadasd', 'Enable');
 
 --
 -- Indexes for dumped tables

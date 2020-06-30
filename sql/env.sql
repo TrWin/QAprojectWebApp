@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 29, 2020 at 11:00 AM
+-- Generation Time: Jun 30, 2020 at 04:16 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -29,23 +29,16 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `env` (
-  `system` varchar(255) NOT NULL,
-  `database` varchar(255) NOT NULL,
-  `set` varchar(255) NOT NULL,
-  `url` varchar(255) NOT NULL,
+  `oursystem` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `db` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `ourset` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `path` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `ip` varchar(255) NOT NULL,
   `user_pass_app` varchar(255) NOT NULL,
   `user_pass_db` varchar(255) NOT NULL,
   `remark` varchar(1000) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `env`
---
-
-INSERT INTO `env` (`system`, `database`, `set`, `url`, `ip`, `user_pass_app`, `user_pass_db`, `remark`, `status`) VALUES
-('sdsD', 'ASDASDAS', 'DASDdsfsdf', 'dsfsd', 'fdsfsdf', 'dsfsdf', 'dsfsdf', 'sdfsdfds', 'Disable');
 
 --
 -- Indexes for dumped tables
@@ -55,7 +48,7 @@ INSERT INTO `env` (`system`, `database`, `set`, `url`, `ip`, `user_pass_app`, `u
 -- Indexes for table `env`
 --
 ALTER TABLE `env`
-  ADD PRIMARY KEY (`system`);
+  ADD PRIMARY KEY (`oursystem`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
