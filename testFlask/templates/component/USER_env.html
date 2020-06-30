@@ -1,156 +1,144 @@
 <div>
-    <h3 style="text-align: center;">Environment</h3>
-  
-    <br />
-  
-    <div class="oneline" style="margin-bottom: 20px;">
-      <input
-        type="text"
-        id="myInput"
-        onkeyup="myFunction()"
-        placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)"
-        style="
+
+  <h3 style="text-align: center;">Environment</h3>
+
+  <br />
+
+  <div class="oneline" style="margin-bottom: 20px;">
+
+    <input type="text" id="InputEnv" onkeyup="searchEnv()"
+      placeholder="Search  (System, Databases, Set, URL, IP)" style="
+
           border-radius: 13px;
-  
+
           padding-left: 10px;
-  
+
           border-color: #d11141;
-  
+
           min-width: 430px;
-        "
-      />
-    </div>
-    <!--table-->
-  
-    <table id="myTable" class="table table-hover table-bordered">
-      <!--table head-->
-  
-      <thead style="background-color: #d11141; color: #fffafa;">
-        <tr style="width: 100%;">
-          <th scope="col">Pattern code</th>
-  
-          <th scope="col" style="width: 15%;">Pattern name</th>
-  
-          <th scope="col">Type</th>
-  
-          <th scope="col">SQL script</th>
-  
-          <th scope="col">System</th>
-  
-          <th scope="col">Confidential score</th>
-  
-          <th scope="col">Relate</th>
-  
-          <th scope="col">Sequence</th>
-  
-          <th scope="col" style="width: 8%;">Doc</th>
-  
-          <th scope="col">Tag</th>
-  
-          <th scope="col">Remark</th>
-        </tr>
-      </thead>
-      <!--table body-->
-      <tbody>
-        {% for row in datas %}
-  
-        <tr>
-          <td id="pcode">{{row.0}}</td>
-  
-          <td>{{row.1}}</td>
-  
-          <td>{{row.2}}</td>
-  
-          <td>
-            <!--sql column-->
-  
-            <button
-              type="button"
-              class="btn btn-outline-secondary btn-sm"
-              data-toggle="modal"
-              data-target="#modalSQL{{row.0}}"
-            >
-              {{row.3[0:18]}} ...
-            </button>
-            <!--modal sql column-->
-            <div
-              class="modal fade"
-              id="modalSQL{{row.0}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="exampleModalCenterTitle"
-              aria-hidden="true"
-            >
-              <div
-                class="modal-dialog modal-dialog-centered modal-lg"
-                role="document"
-              >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLongTitle">
-                      SQL script for {{row.0}}
-                    </h5>
-  
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-  
-                  <div
-                    id="mydiv"
-                    class="modal-body"
-                    style="height: auto; word-wrap: break-word;"
-                  >
-                    <p
-                      oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);"
-                    >
-                      {{row.3}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
-  
-          <td>{{row.4}}</td>
-  
-          <td>{{row.5}}</td>
-  
-          <td>{{row.6}}</td>
-  
-          <td>{{row.7}}</td>
-  
-          <td>
-            {%if row.9 != "" %}
-            <p>
-              <b>Automate link:</b><br />
-              {{row.9}}
-            </p>
-            <br />
-            {% endif %} {%if row.10 != "" %}
-            <p>
-              <b>Manual link:</b><br />
-              {{row.10}}
-            </p>
-  
-            {% endif %}
-          </td>
-  
-          <td>{{row.11}}</td>
-  
-          <td>{{row.12}}</td>
-        </tr>
-  
-        <!--end enable check-->
-  
-        {% endfor %}
-      </tbody>
-    </table>
-    <!--end table-->
+
+        " />
+
   </div>
-  
+
+  <!--table-->
+
+  <table id="EnvTable" class="table table-hover table-bordered">
+    <!--table head-->
+    <thead style="background-color: #d11141; color:#FFFAFA;">
+
+      <tr style="width: 100%;">
+
+        <th scope="col">System/Application</th>
+
+        <th scope="col">Database</th>
+
+        <th scope="col">Set</th>
+
+        <th scope="col">URL</th>
+
+        <th scope="col">TNSName/IP</th>
+
+        <th scope="col">User/Password App</th>
+
+        <th scope="col">User/Password DB</th>
+
+        <th scope="col">Remark</th>
+
+      </tr>
+
+    </thead>
+    <!--table body-->
+    <tbody>
+
+      {% for row in env %}
+      <!--enable check-->
+      {% if row.9 == "Enable" %}
+      <tr>
+        {% elif row.9 == "Disable" %}
+      <tr style="background-color: rgba(220, 220, 220, 0.4);">
+        {% endif %}
+
+        <td id='pcode'>{{row.1}}</td>
+
+        <td>{{row.2}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.5}}</td>
+
+        <td>{{row.6}}</td>
+
+        <td>{{row.7}}</td>
+
+        <td>{{row.8}}</td>
+
+      </tr>
+
+      <!--end enable check-->
+
+        {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  <!--end table-->
+</div>
+
+
+<script>
+  function searchEnv() {
+    // Declare variables
+
+    var input, filter, table, tr, td, i, txtValue;
+
+    input = document.getElementById("InputEnv");
+
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("EnvTable");
+
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+
+      td1 = tr[i].getElementsByTagName("td")[1];
+
+      td2 = tr[i].getElementsByTagName("td")[2];
+
+      td3 = tr[i].getElementsByTagName("td")[3];
+
+      td4 = tr[i].getElementsByTagName("td")[4];
+
+      if (td || td1 || td2 || td3 || td4) {
+        txtValue = td.textContent || td.innerText;
+
+        txtValue1 = td1.textContent || td1.innerText;
+
+        txtValue2 = td2.textContent || td2.innerText;
+
+        txtValue3 = td3.textContent || td3.innerText;
+
+        txtValue4 = td4.textContent || td4.innerText;
+
+        if (
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+          txtValue3.toUpperCase().indexOf(filter) > -1 ||
+          txtValue4.toUpperCase().indexOf(filter) > -1
+        ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+</script>

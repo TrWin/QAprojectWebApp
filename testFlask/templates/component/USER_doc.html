@@ -1,15 +1,17 @@
+
 <div>
-    <h3 style="text-align: center;">Documents</h3>
 
-    <br />
+  <h3 style="text-align: center;">Documents</h3>
 
-    <div class="oneline" style="margin-bottom: 20px;">
-      <input
-        type="text"
-        id="myInput"
-        onkeyup="myFunction()"
-        placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)"
-        style="
+  <br />
+
+
+
+  <div class="oneline" style="margin-bottom: 20px;">
+
+    <input type="text" id="InputDoc" onkeyup="searchDoc()"
+      placeholder="Search  (Pattern code, Pattern name, SQL Script, Tag)" style="
+
           border-radius: 13px;
 
           padding-left: 10px;
@@ -17,142 +19,66 @@
           border-color: #d11141;
 
           min-width: 430px;
-        "
-      />
-    </div>
-    <!--table-->
 
-    <table id="myTable" class="table table-hover table-bordered">
-      <!--table head-->
+        " />
 
-      <thead style="background-color: #d11141; color: #fffafa;">
-        <tr style="width: 100%;">
-          <th scope="col">Pattern code</th>
+  </div>
 
-          <th scope="col" style="width: 15%;">Pattern name</th>
+  <!--table-->
 
-          <th scope="col">Type</th>
+  <table id="DocTable" class="table table-hover table-bordered">
+    <!--table head-->
+    <thead style="background-color: #d11141; color:#FFFAFA;">
 
-          <th scope="col">SQL script</th>
+      <tr style="width: 100%;">
 
-          <th scope="col">System</th>
+        <th scope="col">Pattern code</th>
 
-          <th scope="col">Confidential score</th>
+        <th scope="col">Type</th>
 
-          <th scope="col">Relate</th>
+        <th scope="col">Path/URL</th>
 
-          <th scope="col">Sequence</th>
+        <th scope="col">File name</th>
 
-          <th scope="col" style="width: 8%;">Doc</th>
+        <th scope="col">Topic/Test case name</th>
 
-          <th scope="col">Tag</th>
+        <th scope="col">Remark</th>
 
-          <th scope="col">Remark</th>
-        </tr>
-      </thead>
-      <!--table body-->
-      <tbody>
-        {% for row in datas %}
+      </tr>
 
-        <tr>
-          <td id="pcode">{{row.0}}</td>
+    </thead>
+    <!--table body-->
+    <tbody>
 
-          <td>{{row.1}}</td>
+      {% for row in doc %}
+      <!--enable check-->
+      {% if row.7 == "Enable" %}
+      <tr>
+        {% elif row.7 == "Disable" %}
+      <tr style="background-color: rgba(220, 220, 220, 0.4);">
+        {% endif %}
 
-          <td>{{row.2}}</td>
+        <td id='pcode'>{{row.1}}</td>
 
-          <td>
-            <!--sql column-->
+        <td>{{row.2}}</td>
 
-            <button
-              type="button"
-              class="btn btn-outline-secondary btn-sm"
-              data-toggle="modal"
-              data-target="#modalSQL{{row.0}}"
-            >
-              {{row.3[0:18]}} ...
-            </button>
-            <!--modal sql column-->
-            <div
-              class="modal fade"
-              id="modalSQL{{row.0}}"
-              tabindex="-1"
-              role="dialog"
-              aria-labelledby="exampleModalCenterTitle"
-              aria-hidden="true"
-            >
-              <div
-                class="modal-dialog modal-dialog-centered modal-lg"
-                role="document"
-              >
-                <div class="modal-content">
-                  <div class="modal-header">
-                    <h5
-                      class="modal-title"
-                      id="exampleModalLongTitle"
-                    >
-                      SQL script for {{row.0}}
-                    </h5>
+        <td>{{row.4}}</td>
 
-                    <button
-                      type="button"
-                      class="close"
-                      data-dismiss="modal"
-                      aria-label="Close"
-                    >
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
+        <td>{{row.4}}</td>
 
-                  <div
-                    id="mydiv"
-                    class="modal-body"
-                    style="height: auto; word-wrap: break-word;"
-                  >
-                    <p
-                      oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);"
-                    >
-                      {{row.3}}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </td>
+        <td>{{row.5}}</td>
 
-          <td>{{row.4}}</td>
+        <td>{{row.6}}</td>
 
-          <td>{{row.5}}</td>
+      </tr>
 
-          <td>{{row.6}}</td>
-
-          <td>{{row.7}}</td>
-
-          <td>
-            {%if row.9 != "" %}
-            <p>
-              <b>Automate link:</b><br />
-              {{row.9}}
-            </p>
-            <br />
-            {% endif %} {%if row.10 != "" %}
-            <p>
-              <b>Manual link:</b><br />
-              {{row.10}}
-            </p>
-
-            {% endif %}
-          </td>
-
-          <td>{{row.11}}</td>
-
-          <td>{{row.12}}</td>
-        </tr>
-
-        <!--end enable check-->
+      <!--end enable check-->
 
         {% endfor %}
-      </tbody>
-    </table>
-    <!--end table-->
-  </div>
+
+    </tbody>
+
+  </table>
+
+  <!--end table-->
+</div>
