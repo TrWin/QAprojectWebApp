@@ -170,6 +170,9 @@ def update():
 
                 with conn.cursor() as cursor:
                         cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
+                        
+                        cursor.execute("update document set path=%s where Pattern_code=%s and type='Automate'",(test[9],test[0]))
+                        cursor.execute("update document set path=%s where Pattern_code=%s and type='Manual'",(test[10],test[0]))
                         conn.commit()
                 return redirect(url_for('profile'))
 
@@ -364,7 +367,6 @@ def insertdoc():
 def updatedoc():
         test=['0','0','0','0','0','0','0']
         if request.method=="POST":
-
                 test[0]=request.form['pc']
                 test[1]=request.form['type']
                 test[2]=request.form['path']
@@ -374,7 +376,7 @@ def updatedoc():
                 test[6]=request.form['status']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update document set type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[0]))
+                        cursor.execute("update document set path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s",(test[2],test[3],test[4],test[5],test[6],test[0],test[1]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end document##
