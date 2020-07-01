@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.1
+-- version 4.9.2
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Jun 30, 2020 at 07:54 AM
--- Server version: 8.0.17
--- PHP Version: 7.3.10
+-- Host: 127.0.0.1
+-- Generation Time: Jun 30, 2020 at 02:51 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -41,6 +41,16 @@ CREATE TABLE `automate_test_data` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Dumping data for table `automate_test_data`
+--
+
+INSERT INTO `automate_test_data` (`id`, `thai_id`, `ban`, `product_id`, `company`, `test_env`, `owner`, `remark`, `status`) VALUES
+(2, 'CORP010', '200046789', '0938160131', 'RF', 'Set2', '', '', 'Enable'),
+(3, '3101000023609', '200052123', '0902350946', 'RM', 'Set2', '', '', 'Enable'),
+(4, 'CORP010', '200046789', '0938160131', 'RF', 'Set2', '', '', ''),
+(5, '3101000023609', '200052123', '0902350946', 'RM', 'Set2', '', '', 'Enable');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -58,7 +68,7 @@ ALTER TABLE `automate_test_data`
 -- AUTO_INCREMENT for table `automate_test_data`
 --
 ALTER TABLE `automate_test_data`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
