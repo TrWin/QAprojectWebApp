@@ -167,9 +167,13 @@ def update():
                 test[11]=request.form['tag']
                 test[12]=request.form['remark']
                 test[13]=request.form['status']
+                auto = 'Automate'
+                manual = 'Manual'
 
                 with conn.cursor() as cursor:
                         cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
+                        cursor.execute("update document set path=%s where pattern_code=%s and type=%s ",(test[9],test[0],auto))
+                        cursor.execute("update document set path=%s where pattern_code=%s and type=%s ",(test[10],test[0],manual))
                         conn.commit()
                 return redirect(url_for('profile'))
 
