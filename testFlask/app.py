@@ -374,9 +374,14 @@ def updatedoc():
                 test[4]=request.form['topic']
                 test[5]=request.form['remark']
                 test[6]=request.form['status']
+                auto='Automate'
+                manual='Manual'
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update document set path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s",(test[2],test[3],test[4],test[5],test[6],test[0],test[1]))
+                        cursor.execute("update document set type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s ",(test[1],test[2],test[3],test[4],test[5],test[6],test[0],auto))
+                        cursor.execute("update document set type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s ",(test[1],test[2],test[3],test[4],test[5],test[6],test[0],manual))
+                        cursor.execute("update data_pattern set automate_path=%s where pattern_code=%s ",(test[2],test[0]))
+                        cursor.execute("update data_pattern set manual_path=%s where pattern_code=%s ",(test[2],test[0]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end document##
