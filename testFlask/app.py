@@ -48,11 +48,6 @@ def before_request():
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
-    cur = conn.cursor()
-
-    cur.execute("select username from user_password")
-    userDB = cur.fetchall()[1][0]
-
     if g.user:
         return redirect(url_for('profile'))
     if request.method == 'POST':
