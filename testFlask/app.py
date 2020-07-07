@@ -1,18 +1,37 @@
 from flask import Flask,g,redirect,render_template,request,session,url_for
 import pymysql
 
+#login database##
+conn = pymysql.connect('localhost','root','test','qa')
+
 ##login control##
 class User:
-    def __init__(self, id, username, password):
+    def __init__(self, id, username, password, typeRole):
         self.id = id
         self.username = username
         self.password = password
+        self.typeRole = typeRole
 
     def __repr__(self):
         return f'<User: {self.username}>'
 
+cur = conn.cursor()
+cur.execute("select id from user_password")
+idDB = cur.fetchall()
+
+cur.execute("select username from user_password")
+userDB = cur.fetchall()
+
+cur.execute("select password from user_password")
+pwDB = cur.fetchall()
+
+cur.execute("select type from user_password")
+typeDB = cur.fetchall()
+
 users = []
-users.append(User(id=1, username='admin', password='12345678'))
+users.append(User(id=1, username='admin', password='12345678', typeRole='admin'))
+for i in range(len(idDB)):
+        users.append(User(id=idDB[i][0], username=userDB[i][0], password=pwDB[i][0], typeRole=typeDB[i][0]))
 
 
 app = Flask(__name__)
@@ -27,8 +46,13 @@ def before_request():
         g.user = user
         
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
+    cur = conn.cursor()
+
+    cur.execute("select username from user_password")
+    userDB = cur.fetchall()[1][0]
+
     if g.user:
         return redirect(url_for('profile'))
     if request.method == 'POST':
@@ -40,11 +64,17 @@ def login():
         user = [x for x in users if x.username == username][0]
         if user and user.password == password:
             session['user_id'] = user.id
-            return redirect(url_for('profile'))             #login success
+            if user.typeRole == 'admin':
+                return redirect(url_for('profile'))             #login success
+            elif user.typeRole == 'qa':
+                return redirect(url_for('Showdata'))
+            elif user.typeRole == '3rdsit':
+                return redirect(url_for('Show3SIT'))
 
         return redirect(url_for('login'))                   #invalid pw
 
-    return render_template('login.html')
+    return render_template('login.html',userDB=userDB)
+
 
 @app.route('/profile')
 def profile():
@@ -70,14 +100,11 @@ def profile():
 @app.route('/dropsession')
 def dropsession():
         session.pop('user_id',None)
-        return redirect(url_for('Showdata'))
+        return redirect(url_for('login'))
 ##end login control##
 
-#login database##
-conn = pymysql.connect('localhost','root','test','qa')
 
-
-@app.route("/")
+@app.route("/qa")
 def Showdata():
         cur=conn.cursor()
         cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
@@ -94,6 +121,17 @@ def Showdata():
         env = cur.fetchall() 
         conn.commit()
         return render_template('user.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
+
+
+@app.route("/3sit")
+def Show3SIT():
+        cur=conn.cursor()
+        cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
+        third = cur.fetchall()
+        cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
+        sit = cur.fetchall()
+        conn.commit()
+        return render_template('user_sit.html',rd=third,sit=sit)
 
 
 #For_QA#

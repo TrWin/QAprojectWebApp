@@ -83,18 +83,21 @@
                 aria-selected="false"
                 >SIT</a
               >
+              <a
+                class="nav-link"
+                ><pre>	&nbsp;</pre></a
+              >
 
               <a
                 class="nav-link"
-                href="/login"
+                href="/dropsession"
                 role="tab"
                 aria-selected="false"
                 style="
-                  margin-top: 10px;
                   font-size: large;
                   color: blanchedalmond;
                 "
-                >Login</a
+                >Log out</a
               >
             </div>
           </div>
@@ -111,7 +114,7 @@
               aria-labelledby="v-pills-rd-tab"
             >
               <!-- tab 3rd -->
-              {% include "component/USER_third.html" %}
+              {% include "component/ADMIN_third.html" %}
             </div>
 
             <!--tab sit-->
@@ -121,7 +124,7 @@
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
             >
-              {% include "component/USER_sit.html" %}
+              {% include "component/ADMIN_sit.html" %}
             </div>
             
           </div>
