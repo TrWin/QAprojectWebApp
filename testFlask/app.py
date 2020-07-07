@@ -13,7 +13,7 @@ class User:
         self.typeRole = typeRole
 
     def __repr__(self):
-        return self.username
+        return f'<User: {self.username}>'
 
 cur = conn.cursor()
 cur.execute("select id from user_password")
@@ -76,7 +76,7 @@ def login():
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-    elif str(g.user) == 'admin':
+    elif str(g.user) == '<User: admin>':
         cur=conn.cursor()
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
@@ -106,7 +106,7 @@ def dropsession():
 def Showdata():
         if not g.user:
                 return redirect(url_for('login'))
-        elif str(g.user) == 'qauser':                
+        elif str(g.user) == '<User: qauser>':                
                 cur=conn.cursor()
                 cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
                 rows = cur.fetchall()
@@ -129,7 +129,7 @@ def Showdata():
 def Show3SIT():
         if not g.user:
                 return redirect(url_for('login'))
-        elif str(g.user) == '3situser':                
+        elif str(g.user) == '<User: 3situser>':                
                 cur=conn.cursor()
                 cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
                 third = cur.fetchall()
