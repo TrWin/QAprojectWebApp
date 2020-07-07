@@ -102,7 +102,7 @@ def Showdata():
         cur.execute("""select * from env where status = "Enable" order by oursystem""")
         env = cur.fetchall() 
         conn.commit()
-        return render_template('user.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
+        return render_template('user_sit.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
 
 
 #For_QA#

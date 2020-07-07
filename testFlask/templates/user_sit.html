@@ -1,0 +1,232 @@
+<!-- admin -->
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+
+    <meta charset="utf-8" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+
+    <title>Data Inventory</title>
+  </head>
+
+  <body>
+    <div id="main" style="margin: 10px;">
+      <div class="oneline">
+        <span
+          style="
+            margin-left: 5px;
+            cursor: pointer;
+            font-size: 35px;
+            color: transparent;
+            text-shadow: 0 0 0 #d11141;
+          "
+          onclick="openNav()"
+          >&#9776;</span
+        >
+      </div>
+      <div class="oneline" style="margin-left: 15px;">
+        <h2>Data Inventory</h2>
+      </div>
+      <br />
+
+      <div class="row">
+        <div id="mySidenav" class="sidenav">
+          <a href="javascript:void(0)" class="closebtn" onclick="closeNav()"
+            >&times;</a
+          >
+          <div class="col-2">
+            <div
+              class="nav flex-column nav-pills"
+              id="v-pills-tab"
+              role="tablist"
+              aria-orientation="vertical"
+            >
+              <a
+                class="nav-link active"
+                id="v-pills-rd-tab"
+                data-toggle="pill"
+                href="#v-pills-rd"
+                role="tab"
+                aria-controls="v-pills-rd"
+                aria-selected="true"
+                >3rd</a
+              >
+
+              <a
+                class="nav-link"
+                id="v-pills-sit-tab"
+                data-toggle="pill"
+                href="#v-pills-sit"
+                role="tab"
+                aria-controls="v-pills-sit"
+                aria-selected="false"
+                >SIT</a
+              >
+
+              <a
+                class="nav-link"
+                href="/login"
+                role="tab"
+                aria-selected="false"
+                style="
+                  margin-top: 10px;
+                  font-size: large;
+                  color: blanchedalmond;
+                "
+                >Login</a
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- content -->
+
+        <div class="col-12">
+          <div class="tab-content" id="v-pills-tabContent">
+            <div
+              class="tab-pane fade show active"
+              id="v-pills-rd"
+              role="tabpanel"
+              aria-labelledby="v-pills-rd-tab"
+            >
+              <!-- tab 3rd -->
+              {% include "component/USER_third.html" %}
+            </div>
+
+            <!--tab sit-->
+            <div
+              class="tab-pane fade"
+              id="v-pills-sit"
+              role="tabpanel"
+              aria-labelledby="v-pills-sit-tab"
+            >
+              {% include "component/USER_sit.html" %}
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+      integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+      integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+      crossorigin="anonymous"
+    ></script>
+
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+      integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
+
+<style>
+  body {
+    background-color: rgba(255, 0, 0, 0.02);
+  }
+
+  a {
+    color: #d11141;
+  }
+
+  #v-pills-tab a.active {
+    border-bottom-color: transparent;
+
+    background-color: #ffffff;
+
+    color: #d11141;
+  }
+
+  .oneline {
+    display: inline-block;
+  }
+
+  .sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #d11141;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+  }
+
+  .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: black;
+    display: block;
+    transition: 0.3s;
+  }
+
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+
+  .sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+  }
+
+  #main {
+    transition: margin-left 0.5s;
+    padding: 16px;
+  }
+
+  @media screen and (max-height: 450px) {
+    .sidenav {
+      padding-top: 15px;
+    }
+    .sidenav a {
+      font-size: 18px;
+    }
+  }
+</style>
+
+<script>
+  function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+    document.getElementById("main").style.marginLeft = "250px";
+  }
+
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+    document.getElementById("main").style.marginLeft = "10px";
+  }
+</script>
