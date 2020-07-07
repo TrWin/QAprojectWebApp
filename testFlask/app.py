@@ -29,10 +29,19 @@ def before_request():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    cur = conn.cursor()
+    cur.execute("select username from user_password")
+    user = cur.fetchall()
+    cur.execute("select password from user_password")
+    pw = cur.fetchall()
+    cur.execute("select type from user_password")
+    typeUser = cur.fetchall()
     if g.user:
         return redirect(url_for('profile'))
     if request.method == 'POST':
         session.pop('user_id', None)
+
+
 
         username = request.form['username']
         password = request.form['password']
@@ -44,7 +53,7 @@ def login():
 
         return redirect(url_for('login'))                   #invalid pw
 
-    return render_template('login.html')
+    return render_template('login.html', user=user, pw=pw, typeUser=typeUser)
 
 @app.route('/profile')
 def profile():
