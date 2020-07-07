@@ -1,16 +1,14 @@
-
 <div>
 
-    <h3 style="text-align: center;">Automate test data</h3>
-  
-    <br />
-  
-  
-  
-    <div class="oneline" style="margin-bottom: 20px;">
-  
-      <input type="text" id="TestInput" onkeyup="searchTest()"
-        placeholder="Search  (All fields)" style="
+  <h3 style="text-align: center;">Automate test data</h3>
+
+  <br />
+
+
+
+  <div class="oneline" style="margin-bottom: 20px;">
+
+    <input type="text" id="TestInput" onkeyup="searchTest()" placeholder="Search  (All fields)" style="
   
             border-radius: 13px;
   
@@ -21,261 +19,261 @@
             min-width: 430px;
   
           " />
-  
-    </div>
-  
-    <div class="oneline" style="float: right; margin-right: 50px;">
-  
-      <a href="/addauto" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
-          class="fa fa-plus fa-2x"></i></a>
-  
-    </div>
-    <!--table-->
-  
-    <table id="TestTable" class="table table-hover table-bordered">
-      <!--table head-->
-      <thead style="background-color: #d11141; color:#FFFAFA;">
-  
-        <tr style="width: 100%;">
-  
-          <th scope="col">Thai ID</th>
-  
-          <th scope="col">BAN</th>
-  
-          <th scope="col">Product ID</th>
-  
-          <th scope="col">Company</th>
-  
-          <th scope="col">Test Env.</th>
-  
-          <th scope="col">Owner</th>
-  
-          <th scope="col">Remark</th>
-  
-          <th scope="col">Status</th>
-  
-          <th scope="col">Edit</th>
-  
-        </tr>
-  
-      </thead>
-      <!--table body-->
-      <tbody>
-  
-        {% for row in auto %}
-        <!--enable check-->
-        {% if row.8 == "Enable" %}
-        <tr>
-          {% elif row.8 == "Disable" %}
-        <tr style="background-color: rgba(220, 220, 220, 0.4);">
-          {% endif %}
-  
-          <td>{{row.1}}</td>
-  
-          <td>{{row.2}}</td>
-  
-          <td>{{row.3}}</td>
-  
-          <td>{{row.4}}</td>
-  
-          <td>{{row.5}}</td>
-  
-          <td>{{row.6}}</td>
-  
-          <td>{{row.7}}</td>
 
-          <td>{{row.8}}</td>
-
-          <td>
-            <!--edit-->
-            <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-              data-target="#modaleditTest{{row.0}}"><i class="fa fa-edit"></i></a>
-  
-          </td>
-  
-        </tr>
-  
-        <!--end enable check-->
-  
-        <!--modal edit-->
-        <div id="modaleditTest{{row.0}}" class="modal fade" role="dialog">
-  
-          <div class="modal-dialog">
-  
-            <div class="modal-content">
-  
-              <div class="modal-header">
-  
-                <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
-  
-  
-  
-                <button type="button" class="close" data-dismiss="modal">
-  
-                  &times;
-  
-                </button>
-  
-              </div>
-  
-              <div class="modal-body">
-  
-                <form action="/updateauto" method="POST">
-  
-                  <div class="form-group">
-  
-                    <label>Status : </label>
-  
-                    {% if row.8 == "Enable" %}
-  
-                    <select name="status" id="status" class="form-control">
-                      <option value="Enable">Enable</option>
-                      <option value="Disable">Disable</option>
-                    </select>
-  
-                    {% else %}
-                    <select name="status" id="status" class="form-control">
-                      <option value="Disable">Disable</option>
-                      <option value="Enable">Enable</option>
-                    </select>
-                    {% endif %}
-  
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Thai ID : </label>
-  
-                    <label> {{row.1}} </label>
-  
-                    <input type="hidden" name="thai" value="{{row.1}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>BAN</label>
-  
-                    <input type="text" class="form-control" name="ban" value="{{row.2}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Product ID : </label>
-  
-                    <input type="text" class="form-control" name="product" value="{{row.3}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Company</label>
-  
-                    <textarea class="form-control" name="company">{{row.4}}</textarea>
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Test Env. : </label>
-  
-                    <input type="text" class="form-control" name="env" value="{{row.5}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Owner</label>
-  
-                    <input type="text" class="form-control" name="owner" value="{{row.6}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <label>Remark</label>
-  
-                    <input type="text" class="form-control" name="remark" value="{{row.7}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <button class="btn btn-primary" type="submit">
-  
-                      อัพเดท
-  
-                    </button>
-  
-                  </div>
-                </form>
-              </div>
-  
-            </div>
-  
-          </div>
-          <!--end modal edit-->
-  
-  
-          {% endfor %}
-  
-      </tbody>
-  
-    </table>
-  
-    <!--end table-->
   </div>
 
-  <script>
-    function searchTest() {
-     // Declare variables
- 
-     var input, filter, table, tr, td, i, txtValue;
- 
-     input = document.getElementById("TestInput");
- 
-     filter = input.value.toUpperCase();
- 
-     table = document.getElementById("TestTable");
- 
-     tr = table.getElementsByTagName("tr");
- 
-     // Loop through all table rows, and hide those who don't match the search query
- 
-     for (i = 0; i < tr.length; i++) {
-       td = tr[i].getElementsByTagName("td")[0];
-       td1 = tr[i].getElementsByTagName("td")[1];
-       td2 = tr[i].getElementsByTagName("td")[2];
-       td3 = tr[i].getElementsByTagName("td")[3];
-       td4 = tr[i].getElementsByTagName("td")[4];
-       td5 = tr[i].getElementsByTagName("td")[5];
-       td6 = tr[i].getElementsByTagName("td")[6];
- 
-       if (td || td1 || td2 || td3 || td4 || td5 || td6 ) {
-      txtValue = td.textContent || td.innerText;
-      txtValue1 = td1.textContent || td1.innerText;
-      txtValue2 = td2.textContent || td2.innerText;
-      txtValue3 = td3.textContent || td3.innerText;
-      txtValue4 = td4.textContent || td4.innerText;
-      txtValue5 = td5.textContent || td5.innerText;
-      txtValue6 = td6.textContent || td6.innerText;
+  <div class="oneline" style="float: right; margin-right: 50px;">
 
-      if (
-        txtValue.toUpperCase().indexOf(filter) > -1 ||
-        txtValue1.toUpperCase().indexOf(filter) > -1 ||
-        txtValue2.toUpperCase().indexOf(filter) > -1 ||
-        txtValue3.toUpperCase().indexOf(filter) > -1 ||
-        txtValue4.toUpperCase().indexOf(filter) > -1 ||
-        txtValue5.toUpperCase().indexOf(filter) > -1 ||
-        txtValue6.toUpperCase().indexOf(filter) > -1
-      ) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+    <a href="/addauto" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i class="fa fa-plus fa-2x"></i></a>
+
+  </div>
+  <!--table-->
+
+  <table id="TestTable" class="table table-hover table-bordered">
+    <!--table head-->
+    <thead style="background-color: #d11141; color:#FFFAFA;">
+
+      <tr style="width: 100%;">
+
+        <th scope="col">Thai ID</th>
+
+        <th scope="col">BAN</th>
+
+        <th scope="col">Product ID</th>
+
+        <th scope="col">Company</th>
+
+        <th scope="col">Test Env.</th>
+
+        <th scope="col">Owner</th>
+
+        <th scope="col">Remark</th>
+
+        <th scope="col">Status</th>
+
+        <th scope="col">Edit</th>
+
+      </tr>
+
+    </thead>
+    <!--table body-->
+    <tbody>
+
+      {% for row in auto %}
+      <!--enable check-->
+      {% if row.8 == "Enable" %}
+      <tr>
+        {% elif row.8 == "Disable" %}
+      <tr style="background-color: rgba(220, 220, 220, 0.4);">
+        {% endif %}
+
+        <td>{{row.1}}</td>
+
+        <td>{{row.2}}</td>
+
+        <td>{{row.3}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.5}}</td>
+
+        <td>{{row.6}}</td>
+
+        <td>{{row.7}}</td>
+
+        <td>{{row.8}}</td>
+
+        <td>
+          <!--edit-->
+          <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaleditTest{{row.0}}"><i
+              class="fa fa-edit"></i></a>
+
+        </td>
+
+      </tr>
+
+      <!--end enable check-->
+
+      <!--modal edit-->
+      <div id="modaleditTest{{row.0}}" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+
+            <div class="modal-header">
+
+              <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
+
+
+
+              <button type="button" class="close" data-dismiss="modal">
+
+                &times;
+
+              </button>
+
+            </div>
+
+            <div class="modal-body">
+
+              <form action="/updateauto" method="POST">
+
+                <div class="form-group">
+
+                  <label>Status : </label>
+
+                  {% if row.8 == "Enable" %}
+
+                  <select name="status" id="status" class="form-control">
+                    <option value="Enable">Enable</option>
+                    <option value="Disable">Disable</option>
+                  </select>
+
+                  {% else %}
+                  <select name="status" id="status" class="form-control">
+                    <option value="Disable">Disable</option>
+                    <option value="Enable">Enable</option>
+                  </select>
+                  {% endif %}
+
+                </div>
+
+                <input type="hidden" name="id" value="{{row.0}}" />
+
+                <div class="form-group">
+
+                  <label>Thai ID : </label>
+
+                  <label> {{row.1}} </label>
+
+                  <input type="hidden" name="thai" value="{{row.1}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>BAN</label>
+
+                  <input type="text" class="form-control" name="ban" value="{{row.2}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Product ID : </label>
+
+                  <input type="text" class="form-control" name="product" value="{{row.3}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Company</label>
+
+                  <textarea class="form-control" name="company">{{row.4}}</textarea>
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Test Env. : </label>
+
+                  <input type="text" class="form-control" name="env" value="{{row.5}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Owner</label>
+
+                  <input type="text" class="form-control" name="owner" value="{{row.6}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Remark</label>
+
+                  <input type="text" class="form-control" name="remark" value="{{row.7}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <button class="btn btn-primary" type="submit">
+
+                    อัพเดท
+
+                  </button>
+
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+        <!--end modal edit-->
+
+
+        {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  <!--end table-->
+</div>
+
+<script>
+  function searchTest() {
+    // Declare variables
+
+    var input, filter, table, tr, td, i, txtValue;
+
+    input = document.getElementById("TestInput");
+
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("TestTable");
+
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td1 = tr[i].getElementsByTagName("td")[1];
+      td2 = tr[i].getElementsByTagName("td")[2];
+      td3 = tr[i].getElementsByTagName("td")[3];
+      td4 = tr[i].getElementsByTagName("td")[4];
+      td5 = tr[i].getElementsByTagName("td")[5];
+      td6 = tr[i].getElementsByTagName("td")[6];
+
+      if (td || td1 || td2 || td3 || td4 || td5 || td6) {
+        txtValue = td.textContent || td.innerText;
+        txtValue1 = td1.textContent || td1.innerText;
+        txtValue2 = td2.textContent || td2.innerText;
+        txtValue3 = td3.textContent || td3.innerText;
+        txtValue4 = td4.textContent || td4.innerText;
+        txtValue5 = td5.textContent || td5.innerText;
+        txtValue6 = td6.textContent || td6.innerText;
+
+        if (
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+          txtValue3.toUpperCase().indexOf(filter) > -1 ||
+          txtValue4.toUpperCase().indexOf(filter) > -1 ||
+          txtValue5.toUpperCase().indexOf(filter) > -1 ||
+          txtValue6.toUpperCase().indexOf(filter) > -1
+        ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
       }
     }
   }
-}
 </script>
