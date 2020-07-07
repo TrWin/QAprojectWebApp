@@ -254,7 +254,7 @@ def insertparty():
 
 @app.route("/updateparty",methods=['POST'])
 def updateparty():
-        test=['0','0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 test[0]=request.form['pc']
@@ -269,9 +269,10 @@ def updateparty():
                 test[9]=request.form['period']
                 test[10]=request.form['remark']
                 test[11]=request.form['status']
+                test[12]=request.form['id']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update for_3rd_party set Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s ,test_env=%s ,current=%s ,period=%s ,remark=%s ,status=%s  where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[0]))
+                        cursor.execute("update for_3rd_party set Pattern_code=%s, Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s ,test_env=%s ,current=%s ,period=%s ,remark=%s ,status=%s  where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #For 3rd Party#
@@ -306,7 +307,7 @@ def insertsit():
 
 @app.route("/updatesit",methods=['POST'])
 def updatesit():
-        test=['0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 test[0]=request.form['pc']
@@ -319,9 +320,10 @@ def updatesit():
                 test[7]=request.form['period']
                 test[8]=request.form['remark']
                 test[9]=request.form['status']
+                test[10]=request.form['id']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update for_sit set thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[0]))
+                        cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end sit##
@@ -353,7 +355,7 @@ def insertAuto():
 
 @app.route("/updateauto",methods=['POST'])
 def updateAuto():
-        test=['0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 test[0]=request.form['thai']
@@ -364,9 +366,10 @@ def updateAuto():
                 test[5]=request.form['owner']
                 test[6]=request.form['remark']
                 test[7]=request.form['status']
+                test[8]=request.form['id']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update automate_test_data set ban=%s ,product_id=%s ,company=%s ,test_env=%s ,owner=%s ,remark=%s ,status=%s where thai_id=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[0]))
+                        cursor.execute("update automate_test_data set thai_id=%s, ban=%s ,product_id=%s ,company=%s ,test_env=%s ,owner=%s ,remark=%s ,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end Automate##
@@ -398,7 +401,7 @@ def insertdoc():
 
 @app.route("/updatedoc",methods=['POST'])
 def updatedoc():
-        test=['0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0']
         if request.method=="POST":
                 test[0]=request.form['pc']
                 test[1]=request.form['type']
@@ -407,14 +410,16 @@ def updatedoc():
                 test[4]=request.form['topic']
                 test[5]=request.form['remark']
                 test[6]=request.form['status']
+                test[7]=request.form['id']
                 auto='Automate'
                 manual='Manual'
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update document set type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s ",(test[1],test[2],test[3],test[4],test[5],test[6],test[0],auto))
-                        cursor.execute("update document set type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where Pattern_code=%s and type=%s ",(test[1],test[2],test[3],test[4],test[5],test[6],test[0],manual))
-                        cursor.execute("update data_pattern set automate_path=%s where pattern_code=%s ",(test[2],test[0]))
-                        cursor.execute("update data_pattern set manual_path=%s where pattern_code=%s ",(test[2],test[0]))
+                        cursor.execute("update document set Pattern_code=%s, type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where id=%s ",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
+                        if test[1] == auto:
+                                cursor.execute("update data_pattern set automate_path=%s where pattern_code=%s ",(test[2],test[0]))
+                        elif test[1] == manual:
+                                cursor.execute("update data_pattern set manual_path=%s where pattern_code=%s ",(test[2],test[0]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end document##
@@ -447,7 +452,7 @@ def insertEnv():
 
 @app.route("/updateenv",methods=['POST'])
 def updateEnv():
-        test=['0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
 
                 test[0]=request.form['system']
@@ -459,9 +464,10 @@ def updateEnv():
                 test[6]=request.form['passDb']
                 test[7]=request.form['remark']
                 test[8]=request.form['status']
+                test[9]=request.form['id']
 
                 with conn.cursor() as cursor:
-                        cursor.execute("update env set db=%s ,ourset=%s ,path=%s ,ip=%s ,user_pass_app=%s ,user_pass_db=%s ,remark=%s ,status=%s where oursystem=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[0]))
+                        cursor.execute("update env set oursystem=%s, db=%s ,ourset=%s ,path=%s ,ip=%s ,user_pass_app=%s ,user_pass_db=%s ,remark=%s ,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9]))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end env##
