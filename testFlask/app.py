@@ -30,7 +30,7 @@ typeDB = cur.fetchall()
 conn.commit()
 
 users = []
-users.append(User(id=1, username='admin', password='12345678', typeRole='admin'))
+users.append(User(id=0, username='admin', password='12345678', typeRole='admin'))
 for i in range(len(idDB)):
         users.append(User(id=idDB[i][0], username=userDB[i][0], password=pwDB[i][0], typeRole=typeDB[i][0]))
 
@@ -69,14 +69,14 @@ def login():
 
         return redirect(url_for('login'))                   #invalid pw
 
-    return render_template('login.html',userDB=userDB)
+    return render_template('login.html')
 
 
 @app.route('/profile')
 def profile():
     if not g.user:
         return redirect(url_for('login'))
-    else :
+    elif str(g.user) == '<User: admin>':
         cur=conn.cursor()
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
@@ -92,6 +92,8 @@ def profile():
         env = cur.fetchall()  
         conn.commit()
         return render_template('admin.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
+    else:
+        return redirect(url_for('dropsession'))
 
 @app.route('/dropsession')
 def dropsession():
@@ -102,33 +104,41 @@ def dropsession():
 
 @app.route("/qa")
 def Showdata():
-        cur=conn.cursor()
-        cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
-        rows = cur.fetchall()
-        cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
-        third = cur.fetchall()
-        cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
-        sit = cur.fetchall()
-        cur.execute("""select * from automate_test_data where status = "Enable" order by thai_id""")
-        auto = cur.fetchall()
-        cur.execute("""select * from document where status = "Enable" order by Pattern_code""")
-        doc = cur.fetchall()
-        cur.execute("""select * from env where status = "Enable" order by oursystem""")
-        env = cur.fetchall() 
-        conn.commit()
-        return render_template('user.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
-
+        if not g.user:
+                return redirect(url_for('login'))
+        elif str(g.user) == '<User: qauser>':                
+                cur=conn.cursor()
+                cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
+                rows = cur.fetchall()
+                cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
+                third = cur.fetchall()
+                cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
+                sit = cur.fetchall()
+                cur.execute("""select * from automate_test_data where status = "Enable" order by thai_id""")
+                auto = cur.fetchall()
+                cur.execute("""select * from document where status = "Enable" order by Pattern_code""")
+                doc = cur.fetchall()
+                cur.execute("""select * from env where status = "Enable" order by oursystem""")
+                env = cur.fetchall() 
+                conn.commit()
+                return render_template('user.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
+        else:
+                return redirect(url_for('dropsession'))
 
 @app.route("/3sit")
 def Show3SIT():
-        cur=conn.cursor()
-        cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
-        third = cur.fetchall()
-        cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
-        sit = cur.fetchall()
-        conn.commit()
-        return render_template('user_sit.html',rd=third,sit=sit)
-
+        if not g.user:
+                return redirect(url_for('login'))
+        elif str(g.user) == '<User: 3situser>':                
+                cur=conn.cursor()
+                cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
+                third = cur.fetchall()
+                cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
+                sit = cur.fetchall()
+                conn.commit()
+                return render_template('user_sit.html',rd=third,sit=sit)
+        else:
+                return redirect(url_for('dropsession'))
 
 #For_QA#
 @app.route("/add")
