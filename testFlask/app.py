@@ -286,6 +286,20 @@ def updateparty():
                         cursor.execute("update for_3rd_party set Pattern_code=%s, Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s ,test_env=%s ,current=%s ,period=%s ,remark=%s ,status=%s  where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12]))
                         conn.commit()
                 return redirect(url_for('profile'))
+
+@app.route("/enquiry",methods=['POST'])
+def enquiry():
+        test=['0','0']
+        if request.method=="POST":
+
+                test[0]=request.form['use']
+                test[1]=request.form['id']
+
+                with conn.cursor() as cursor:
+                        cursor.execute("update for_3rd_party set enquiry=%s  where id=%s",(test[0],test[1]))
+                        conn.commit()
+                return redirect(url_for('Showdata'))
+
 #For 3rd Party#
 
 
