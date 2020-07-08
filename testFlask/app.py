@@ -298,7 +298,7 @@ def enquiry():
                 with conn.cursor() as cursor:
                         cursor.execute("update for_3rd_party set enquiry=%s  where id=%s",(test[0],test[1]))
                         conn.commit()
-                return redirect(url_for('Showdata'))
+                return redirect(url_for('Show3SIT'))
 
 #For 3rd Party#
 

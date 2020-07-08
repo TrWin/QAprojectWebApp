@@ -78,12 +78,7 @@
 
         <td>{{row.6}}</td>
 
-        <td>
-          <!--edit-->
-          {{row.7}}
-          <a href="" data-toggle="modal" data-target="#modaledit3{{row.0}}" style="float: right;"><i
-              class="fa fa-exchange fa-lg"></i></a>
-        </td>
+        <td>{{row.7}}</td>
 
         <td>{{row.8}}</td>
 
@@ -96,71 +91,6 @@
       </tr>
 
       <!--end enable check-->
-
-      <!--modal edit-->
-      <div id="modaledit3{{row.0}}" class="modal fade" role="dialog">
-
-        <div class="modal-dialog">
-
-          <div class="modal-content">
-
-            <div class="modal-header">
-
-              <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
-
-
-
-              <button type="button" class="close" data-dismiss="modal">
-
-                &times;
-
-              </button>
-
-            </div>
-
-            <div class="modal-body">
-
-              <form action="/enquiry" method="POST">
-
-                <div class="form-group">
-
-                  <label>Enquiry/Used : </label>
-
-                  {% if row.7 == "Enquiry" %}
-
-                  <select name="use" id="use" class="form-control">
-                    <option value="Enquiry">Enquiry</option>
-                    <option value="Used">Used</option>
-                  </select>
-
-                  {% else %}
-                  <select name="use" id="use" class="form-control">
-                    <option value="Used">Used</option>
-                    <option value="Enquiry">Enquiry</option>
-                  </select>
-                  {% endif %}
-
-                  <input type="hidden" name="id" value="{{row.0}}" />
-
-                </div>
-
-                <div class="form-group">
-
-                  <button class="btn btn-primary" type="submit">
-
-                    อัพเดท
-
-                  </button>
-
-                </div>
-              </form>
-            </div>
-
-          </div>
-
-        </div>
-        <!--end modal edit-->
-
 
         {% endfor %}
 
