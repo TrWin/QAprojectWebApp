@@ -27,6 +27,7 @@ pwDB = cur.fetchall()
 
 cur.execute("select type from user_password")
 typeDB = cur.fetchall()
+conn.commit()
 
 users = []
 users.append(User(id=1, username='admin', password='12345678', typeRole='admin'))
