@@ -56,12 +56,8 @@
     <tbody>
 
       {% for row in sit %}
-      <!--enable check-->
-      {% if row.10 == "Enable" %}
+
       <tr>
-        {% elif row.10 == "Disable" %}
-      <tr style="background-color: rgba(220, 220, 220, 0.4);">
-        {% endif %}
 
         <td id='pcode'>{{row.1}}</td>
 
@@ -77,9 +73,13 @@
 
         <td>{{row.7}}</td>
 
-        <td>{{row.8}}</td>
+        <td>
+          {% if row.8 != '' and row.9 != '' %}
+          <p>{{row.8}} to {{row.9}}</p>
+          {% endif %}
+        </td>
 
-        <td>{{row.9}}</td>
+        <td>{{row.10}}</td>
 
       </tr>
 
