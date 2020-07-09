@@ -78,12 +78,20 @@ def profile():
         return redirect(url_for('login'))
     elif str(g.user) == '<User: admin>':
         cur=conn.cursor()
+
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
+        cur.execute("select * from update_log where updated_table='qa'")
+        qaUpdate = cur.fetchone()
+
         cur.execute("select * from for_3rd_party order by pattern_code")
         third = cur.fetchall()
+
         cur.execute("select * from for_sit order by pattern_code")
         sit = cur.fetchall()
+        cur.execute("select * from update_log where updated_table='sit'")
+        sitUpdate = cur.fetchone()
+
         cur.execute("""select * from automate_test_data order by thai_id""")
         auto = cur.fetchall()
         cur.execute("select * from document order by pattern_code")
@@ -91,7 +99,7 @@ def profile():
         cur.execute("select * from env order by oursystem")
         env = cur.fetchall()  
         conn.commit()
-        return render_template('admin.html',datas=rows,rd=third,sit=sit,auto=auto,doc=doc,env=env)
+        return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,rd=third,sit=sit,sitUpdate=sitUpdate,auto=auto,doc=doc,env=env)
     else:
         return redirect(url_for('dropsession'))
 
@@ -131,12 +139,17 @@ def Show3SIT():
                 return redirect(url_for('login'))
         elif str(g.user) == '<User: 3situser>':                
                 cur=conn.cursor()
+
                 cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
                 third = cur.fetchall()
+
                 cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
                 sit = cur.fetchall()
+                cur.execute("select * from update_log where updated_table='sit'")
+                sitUpdate = cur.fetchone()
+
                 conn.commit()
-                return render_template('user_sit.html',rd=third,sit=sit)
+                return render_template('user_sit.html',rd=third,sit=sit,sitUpdate=sitUpdate)
         else:
                 return redirect(url_for('dropsession'))
 
@@ -217,6 +230,9 @@ def update():
                         
                         cursor.execute("update document set path=%s where Pattern_code=%s and type='Automate'",(test[9],test[0]))
                         cursor.execute("update document set path=%s where Pattern_code=%s and type='Manual'",(test[10],test[0]))
+
+                        cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
+
                         conn.commit()
                 return redirect(url_for('profile'))
 
@@ -350,6 +366,7 @@ def updatesit():
 
                 with conn.cursor() as cursor:
                         cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10]))
+                        cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                         conn.commit()
                 return redirect(url_for('profile'))
 #end sit##
