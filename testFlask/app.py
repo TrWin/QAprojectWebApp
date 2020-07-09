@@ -272,9 +272,9 @@ def count(pcode):
 def showFormparty():
         cur=conn.cursor()
         cur.execute("""select distinct ourset from env """)
-        env = cur.fetchall()        
+        ourset = cur.fetchall()        
         conn.commit()
-        return render_template('adddata/adddata3.html',env=env)
+        return render_template('adddata/adddata3.html',ourset=ourset)
 
 @app.route("/insertparty",methods=['POST'])
 def insertparty():
