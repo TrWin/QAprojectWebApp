@@ -1,59 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Insert data</title>
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
-    />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  </head>
 
-  <body>
-    <div class="container" style="margin-bottom: 15px;">
-      <h2>บันทึกข้อมูลสำหรับ SIT support</h2>
-      <form action="{{ url_for('insertsit') }}" method="post">
-        <div class="form-group">
-            <label for="pc">Pattern Code : </label>
-            <input type="text" class="form-control" name="pc" />
+<head>
+  <meta charset="UTF-8" />
+  <title>Insert data</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container" style="margin-bottom: 15px;">
+    <h2>บันทึกข้อมูลสำหรับ SIT support</h2>
+    <form action="{{ url_for('insertsit') }}" method="post">
+      <div class="form-group">
+        <label for="pc">Pattern Code : </label>
+        <input type="text" class="form-control" name="pc" />
+      </div>
+      <div class="form-group">
+        <label for="thai">Thai ID</label>
+        <input type="text" class="form-control" name="thai" />
+      </div>
+      <div class="form-group">
+        <label for="ban">BAN</label>
+        <input type="text" class="form-control" name="ban" />
+      </div>
+      <div class="form-group">
+        <label for="product">Product ID</label>
+        <input type="text" class="form-control" name="product" />
+      </div>
+      <div class="form-group">
+        <label for="company">Company</label>
+        <input type="text" class="form-control" name="company" />
+      </div>
+      <div class="form-group">
+        <label for="env">Test Env.</label>
+        <select name="env" id="env" class="form-control">
+          {% for rows in env %}
+          <option value=" {{rows.0}} ">{{rows.0}}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="current">Current user</label>
+        <input type="text" class="form-control" name="current" />
+      </div>
+      <div class="form-group">
+        <div class="row-cols-2">
+          <label for="period">Start Date:</label>
+          <div class="col">
+            <input type="date" class="form-control" name="periods" />
           </div>
-        <div class="form-group">
-          <label for="thai">Thai ID</label>
-          <input type="text" class="form-control" name="thai" />
-        </div>
-        <div class="form-group">
-          <label for="ban">BAN</label>
-          <input type="text" class="form-control" name="ban" />
-        </div>
-        <div class="form-group">
-          <label for="product">Product ID</label>
-          <input type="text" class="form-control" name="product" />
-        </div>
-        <div class="form-group">
-          <label for="company">Company</label>
-          <input type="text" class="form-control" name="company" />
-        </div>
-        <div class="form-group">
-          <label for="env">Test Env.</label>
-          <input type="text" class="form-control" name="env" />
-        </div>
-        <div class="form-group">
-          <label for="current">Current user</label>
-          <input type="text" class="form-control" name="current" />
-        </div>
-        <div class="form-group">
-            <label for="period">Period</label>
-            <input type="text" class="form-control" name="period" />
+          <label for="period">End Date :</label>
+          <div class="col">
+            <input type="date" class="form-control" name="periode" />
           </div>
-        <div class="form-group">
-          <label for="remark">Remark</label>
-          <input type="text" class="form-control" name="remark" />
+
         </div>
-        <a class="btn btn-" href="/profile">กลับหน้าแรก</a>
-        <button type="submit" class="pull-right btn btn-success">บันทึก</button>
-      </form>
-    </div>
-  </body>
+      </div>
+      <div class="form-group">
+        <label for="remark">Remark</label>
+        <input type="text" class="form-control" name="remark" />
+      </div>
+      <a class="btn btn-" href="/profile">กลับหน้าแรก</a>
+      <button type="submit" class="pull-right btn btn-success">บันทึก</button>
+    </form>
+  </div>
+</body>
+
 </html>

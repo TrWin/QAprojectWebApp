@@ -8,8 +8,7 @@
 
   <div class="oneline" style="margin-bottom: 20px;">
 
-    <input type="text" id="InputSit" onkeyup="searchSit()"
-      placeholder="Search  (All fields)" style="
+    <input type="text" id="InputSit" onkeyup="searchSit()" placeholder="Search  (All fields)" style="
 
           border-radius: 13px;
 
@@ -25,8 +24,7 @@
 
   <div class="oneline" style="float: right; margin-right: 50px;">
 
-    <a href="/addsit" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i
-        class="fa fa-plus fa-2x"></i></a>
+    <a href="/addsit" class="btn btn-warning btn-sm" style="border-radius: 30px;"><i class="fa fa-plus fa-2x"></i></a>
 
   </div>
   <!--table-->
@@ -87,16 +85,18 @@
 
         <td>{{row.7}}</td>
 
-        <td>{{row.8}}</td>
-
-        <td>{{row.9}}</td>
+        <td>{% if row.8 != '' and row.9 != '' %}
+          <p>{{row.8}} to {{row.9}}</p>
+          {% endif %}</td>
 
         <td>{{row.10}}</td>
 
+        <td>{{row.11}}</td>
+
         <td>
           <!--edit-->
-          <a href="" class="btn btn-secondary btn-xs" data-toggle="modal"
-            data-target="#modaleditSIT{{row.0}}"><i class="fa fa-edit"></i></a>
+          <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaleditSIT{{row.0}}"><i
+              class="fa fa-edit"></i></a>
 
         </td>
 
@@ -133,7 +133,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.10 == "Enable" %}
+                  {% if row.11 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -195,9 +195,23 @@
 
                 <div class="form-group">
 
-                  <label>Test env.</label>
-
-                  <input type="text" class="form-control" name="env" value="{{row.6}}" />
+                  <div class="row">
+                    <label class="col">Test Env : </label>
+                    <h6 class="col"> {{row.6}} </h6>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <label> &nbsp;&nbsp;&nbsp;Change Set => </label>
+                    </div>
+                    <div class="col">
+                      <select name="env" id="env" class="form-control">
+                        <option value=" {{row.6}} "></option>
+                        {% for en in ourset %}
+                        <option value=" {{en.0}} ">{{en.0}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
 
                 </div>
 
@@ -211,9 +225,15 @@
 
                 <div class="form-group">
 
-                  <label>Period</label>
+                  <div class="row-cols-1">
+                    <label class="col">Start Date :</label>
+                    <input type="date" class="form-control col" name="periods" value="{{row.8}}" />
+                  </div>
+                  <div class="row-cols-1">
+                    <label class="col">End Date :</label>
+                    <input type="date" class="form-control col" name="periode" value="{{row.9}}" />
+                  </div>
 
-                  <input type="text" class="form-control" name="period" value="{{row.8}}" />
 
                 </div>
 
@@ -221,7 +241,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.9}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.10}}" />
 
                 </div>
 
@@ -254,59 +274,59 @@
 
 
 <script>
-function searchSit() {
-  // Declare variables
+  function searchSit() {
+    // Declare variables
 
-  var input, filter, table, tr, td, i, txtValue;
+    var input, filter, table, tr, td, i, txtValue;
 
-  input = document.getElementById("InputSit");
+    input = document.getElementById("InputSit");
 
-  filter = input.value.toUpperCase();
+    filter = input.value.toUpperCase();
 
-  table = document.getElementById("SitTable");
+    table = document.getElementById("SitTable");
 
-  tr = table.getElementsByTagName("tr");
+    tr = table.getElementsByTagName("tr");
 
-  // Loop through all table rows, and hide those who don't match the search query
+    // Loop through all table rows, and hide those who don't match the search query
 
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    td1 = tr[i].getElementsByTagName("td")[1];
-    td2 = tr[i].getElementsByTagName("td")[2];
-    td3 = tr[i].getElementsByTagName("td")[3];
-    td4 = tr[i].getElementsByTagName("td")[4];
-    td5 = tr[i].getElementsByTagName("td")[5];
-    td6 = tr[i].getElementsByTagName("td")[6];
-    td7 = tr[i].getElementsByTagName("td")[7];
-    td8 = tr[i].getElementsByTagName("td")[8];
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td1 = tr[i].getElementsByTagName("td")[1];
+      td2 = tr[i].getElementsByTagName("td")[2];
+      td3 = tr[i].getElementsByTagName("td")[3];
+      td4 = tr[i].getElementsByTagName("td")[4];
+      td5 = tr[i].getElementsByTagName("td")[5];
+      td6 = tr[i].getElementsByTagName("td")[6];
+      td7 = tr[i].getElementsByTagName("td")[7];
+      td8 = tr[i].getElementsByTagName("td")[8];
 
-    if (td || td1 || td2 || td3 || td4 || td5 || td6 || td7 || td8 ) {
-      txtValue = td.textContent || td.innerText;
-      txtValue1 = td1.textContent || td1.innerText;
-      txtValue2 = td2.textContent || td2.innerText;
-      txtValue3 = td3.textContent || td3.innerText;
-      txtValue4 = td4.textContent || td4.innerText;
-      txtValue5 = td5.textContent || td5.innerText;
-      txtValue6 = td6.textContent || td6.innerText;
-      txtValue7 = td7.textContent || td7.innerText;
-      txtValue8 = td8.textContent || td8.innerText;
+      if (td || td1 || td2 || td3 || td4 || td5 || td6 || td7 || td8) {
+        txtValue = td.textContent || td.innerText;
+        txtValue1 = td1.textContent || td1.innerText;
+        txtValue2 = td2.textContent || td2.innerText;
+        txtValue3 = td3.textContent || td3.innerText;
+        txtValue4 = td4.textContent || td4.innerText;
+        txtValue5 = td5.textContent || td5.innerText;
+        txtValue6 = td6.textContent || td6.innerText;
+        txtValue7 = td7.textContent || td7.innerText;
+        txtValue8 = td8.textContent || td8.innerText;
 
-      if (
-        txtValue.toUpperCase().indexOf(filter) > -1 ||
-        txtValue1.toUpperCase().indexOf(filter) > -1 ||
-        txtValue2.toUpperCase().indexOf(filter) > -1 ||
-        txtValue3.toUpperCase().indexOf(filter) > -1 ||
-        txtValue4.toUpperCase().indexOf(filter) > -1 ||
-        txtValue5.toUpperCase().indexOf(filter) > -1 ||
-        txtValue6.toUpperCase().indexOf(filter) > -1 ||
-        txtValue7.toUpperCase().indexOf(filter) > -1 ||
-        txtValue8.toUpperCase().indexOf(filter) > -1
-      ) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+        if (
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+          txtValue3.toUpperCase().indexOf(filter) > -1 ||
+          txtValue4.toUpperCase().indexOf(filter) > -1 ||
+          txtValue5.toUpperCase().indexOf(filter) > -1 ||
+          txtValue6.toUpperCase().indexOf(filter) > -1 ||
+          txtValue7.toUpperCase().indexOf(filter) > -1 ||
+          txtValue8.toUpperCase().indexOf(filter) > -1
+        ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
       }
     }
   }
-}
 </script>

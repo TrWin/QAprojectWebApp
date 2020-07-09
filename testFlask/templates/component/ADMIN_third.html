@@ -69,9 +69,9 @@
 
       {% for row in rd %}
       <!--enable check-->
-      {% if row.12 == "Enable" %}
+      {% if row.13 == "Enable" %}
       <tr>
-        {% elif row.12 == "Disable" %}
+        {% elif row.13 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
@@ -89,11 +89,11 @@
 
         <td>
           {{row.7}}
-          <a href="" data-toggle="modal" data-target="#modaledit2{{row.0}}" style="float: right;"><i
-              class="fa fa-exchange fa-lg"></i></a>
+          <!--<a href="" data-toggle="modal" data-target="#modaledit2{{row.0}}" style="float: right;"><i
+              class="fa fa-exchange fa-lg"></i></a>-->
 
           <!--modal Enquiry-->
-        <!--<div id="modaledit2{{row.0}}" class="modal fade" role="dialog">
+          <!--<div id="modaledit2{{row.0}}" class="modal fade" role="dialog">
 
           <div class="modal-dialog">
 
@@ -162,11 +162,15 @@
 
         <td>{{row.9}}</td>
 
-        <td>{{row.10}}</td>
-
-        <td>{{row.11}}</td>
+        <td>
+          {% if row.10 != '' and row.11 != '' %}
+          <p>{{row.10}} to {{row.11}}</p>
+          {% endif %}
+        </td>
 
         <td>{{row.12}}</td>
+
+        <td>{{row.13}}</td>
 
         <td>
           <!--edit-->
@@ -208,7 +212,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.12 == "Enable" %}
+                  {% if row.13 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -280,16 +284,39 @@
 
                   <label>Enquiry/Use</label>
 
-                  <input type="text" class="form-control" name="use" value="{{row.7}}" />
+                  {% if row.7 == "Enquiry" %}
 
+                  <select name="use" id="use" class="form-control">
+                    <option value="Enquiry">Enquiry</option>
+                    <option value="Used">Used</option>
+                  </select>
+
+                  {% else %}
+                  <select name="use" id="use" class="form-control">
+                    <option value="Used">Used</option>
+                    <option value="Enquiry">Enquiry</option>
+                  </select>
+                  {% endif %}
                 </div>
 
                 <div class="form-group">
-
-                  <label>Test env.</label>
-
-                  <input type="text" class="form-control" name="env" value="{{row.8}}" />
-
+                  <div class="row">
+                    <label class="col">Test Env : </label>
+                    <h6 class="col"> {{row.8}} </h6>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <label> &nbsp;&nbsp;&nbsp;Change Set => </label>
+                    </div>
+                    <div class="col">
+                      <select name="env" id="env" class="form-control">
+                        <option value=" {{row.8}} "></option>
+                        {% for en in ourset %}
+                        <option value=" {{en.0}} ">{{en.0}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
                 </div>
 
 
@@ -304,9 +331,14 @@
 
                 <div class="form-group">
 
-                  <label>Period</label>
-
-                  <input type="text" class="form-control" name="period" value="{{row.10}}" />
+                  <div class="row-cols-1">
+                    <label class="col">Start Date :</label>
+                    <input type="date" class="form-control col" name="periods" value="{{row.10}}" />
+                  </div>
+                  <div class="row-cols-1">
+                    <label class="col">End Date :</label>
+                    <input type="date" class="form-control col" name="periode" value="{{row.11}}" />
+                  </div>
 
                 </div>
 
@@ -314,7 +346,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.11}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
 
                 </div>
 
@@ -335,7 +367,7 @@
         </div>
         <!--end modal edit-->
 
-          {% endfor %}
+        {% endfor %}
 
     </tbody>
 
