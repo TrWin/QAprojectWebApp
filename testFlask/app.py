@@ -291,15 +291,13 @@ def updateparty():
 def enquiry():
         test=['0','0']
         if request.method=="POST":
-
                 test[0]=request.form['use']
                 test[1]=request.form['id']
 
                 with conn.cursor() as cursor:
                         cursor.execute("update for_3rd_party set enquiry=%s  where id=%s",(test[0],test[1]))
                         conn.commit()
-                return redirect(url_for('Show3SIT'))
-
+                return redirect(url_for('Showdata'))
 #For 3rd Party#
 
 

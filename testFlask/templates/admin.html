@@ -46,7 +46,8 @@
         >
       </div>
       <div class="oneline" style="margin-left: 15px;">
-        <h2>Data Inventory</h2>
+        <h2>Data Inventory</h2> 
+        {{request.META.HTTP_REFERER}} 
       </div>
       <br />
 
@@ -155,6 +156,7 @@
               id="v-pills-qa"
               role="tabpanel"
               aria-labelledby="v-pills-qa-tab"
+              
             >
               <!-- tab 1 -->
               {% include "component/ADMIN_qa.html" %}
@@ -177,7 +179,12 @@
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
             >
+            check = {{checksit}}
+            {% if checksit==1 %}
+            class="tab-pane fade show active"
+          {% endif %}
               {% include "component/ADMIN_sit.html" %}
+              <div id='3tab'> TRY </div>
             </div>
 
             <!--tab4-->
