@@ -237,8 +237,11 @@ def count(pcode):
 #For 3rd Party#
 @app.route("/addparty")
 def showFormparty():
+        cur=conn.cursor()
+        cur.execute("""select * from env """)
+        env = cur.fetchall()        
         conn.commit()
-        return render_template('adddata/adddata3.html')
+        return render_template('adddata/adddata3.html',env=env)
 
 @app.route("/insertparty",methods=['POST'])
 def insertparty():
