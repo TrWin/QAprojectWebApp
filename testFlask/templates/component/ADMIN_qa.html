@@ -352,7 +352,9 @@
     </tbody>
 
   </table>
-
+  {% if qaUpdate %}
+  <b>Last updated on</b> {{qaUpdate[2]}} <b>by</b> {{qaUpdate[1][7:-1]}}
+  {% endif %}
   <!--end table-->
 </div>
 
