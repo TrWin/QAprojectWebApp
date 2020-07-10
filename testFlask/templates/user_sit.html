@@ -63,7 +63,7 @@
               aria-orientation="vertical"
             >
               <a
-              {% if check3SIT == 'third' or check3SIT == None %}
+              {% if check == 'third3SIT' or check == None %}
                 class="nav-link active"
               {% else %}
                 class="nav-link"
@@ -78,7 +78,7 @@
               >
 
               <a
-              {% if check3SIT == 'sit'  %}
+              {% if check == 'sit3SIT'  %}
                 class="nav-link active"
               {% else %}
                 class="nav-link"
@@ -116,7 +116,7 @@
         <div class="col-12">
           <div class="tab-content" id="v-pills-tabContent">
             <div
-            {% if check3SIT == 'third' or check3SIT == None %}
+            {% if check == 'third3SIT' or check == None %}
               class="tab-pane fade show active"
             {% else %}
               class="tab-pane fade"
@@ -134,7 +134,7 @@
 
             <!--tab sit-->
             <div
-            {% if check3SIT == 'sit' %}
+            {% if check == 'sit3SIT' %}
               class="tab-pane fade show active"
             {% else %}
               class="tab-pane fade"
