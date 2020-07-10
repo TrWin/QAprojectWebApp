@@ -65,9 +65,9 @@
 
       {% for row in sit %}
       <!--enable check-->
-      {% if row.10 == "Enable" %}
+      {% if row.11 == "Enable" %}
       <tr>
-        {% elif row.10 == "Disable" %}
+        {% elif row.11 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
@@ -86,9 +86,7 @@
         <td>{{row.7}}</td>
 
         <td>
-          {% if row.8 != '' and row.9 != '' %}
-          <p>{{row.8}} to {{row.9}}</p>
-          {% endif %}
+          <p>{{row.8}}</p>
         </td>
 
         <td>{{row.10}}</td>
@@ -183,7 +181,7 @@
 
                   <label>Product ID</label>
 
-                  <textarea class="form-control" name="product">{{row.4}}</textarea>
+                  <input type="text" class="form-control" name="product" value="{{row.4}}"/>
 
                 </div>
 
@@ -221,21 +219,15 @@
 
                   <label>Current User</label>
 
-                  <input type="text" class="form-control" name="current" value="{{row.7}}" />
+                  <textarea class="form-control" name="current" >{{row.7}}</textarea>
 
                 </div>
 
                 <div class="form-group">
 
-                  <div class="row-cols-1">
-                    <label class="col">Start Date :</label>
-                    <input type="date" class="form-control col" name="periods" value="{{row.8}}" />
-                  </div>
-                  <div class="row-cols-1">
-                    <label class="col">End Date :</label>
-                    <input type="date" class="form-control col" name="periode" value="{{row.9}}" />
-                  </div>
+                  <label>Period</label>
 
+                  <textarea class="form-control" name="periods" >{{row.8}}</textarea>
 
                 </div>
 

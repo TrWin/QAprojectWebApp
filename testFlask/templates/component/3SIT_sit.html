@@ -1,14 +1,14 @@
 <div>
 
-    <h3 style="text-align: center;">For SIT support</h3>
-  
-    <br />
-  
-  
-  
-    <div class="oneline" style="margin-bottom: 20px;">
-  
-      <input type="text" id="InputSit" onkeyup="searchSit()" placeholder="Search  (All fields)" style="
+  <h3 style="text-align: center;">For SIT support</h3>
+
+  <br />
+
+
+
+  <div class="oneline" style="margin-bottom: 20px;">
+
+    <input type="text" id="InputSit" onkeyup="searchSit()" placeholder="Search  (All fields)" style="
   
             border-radius: 13px;
   
@@ -19,229 +19,234 @@
             min-width: 430px;
   
           " />
-  
-    </div>
 
-    <!--table-->
-  
-    <table id="SitTable" class="table table-hover table-bordered">
-      <!--table head-->
-      <thead style="background-color: #d11141; color:#FFFAFA;">
-  
-        <tr style="width: 100%;">
-  
-          <th scope="col">Pattern code</th>
-  
-          <th scope="col">Thai ID</th>
-  
-          <th scope="col">BAN</th>
-  
-          <th scope="col">Product ID</th>
-  
-          <th scope="col">Company</th>
-  
-          <th scope="col">Test Env.</th>
-  
-          <th scope="col">Current user</th>
-  
-          <th scope="col">Period</th>
-  
-          <th scope="col">Remark</th>
-  
-          <th scope="col">Status</th>
-  
-          <th scope="col">Edit</th>
-  
-        </tr>
-  
-      </thead>
-      <!--table body-->
-      <tbody>
-  
-        {% for row in sit %}
-        <!--enable check-->
-        {% if row.10 == "Enable" %}
-        <tr>
-          {% elif row.10 == "Disable" %}
-        <tr style="background-color: rgba(220, 220, 220, 0.4);">
-          {% endif %}
-  
-          <td id='pcode'>{{row.1}}</td>
-  
-          <td>{{row.2}}</td>
-  
-          <td>{{row.3}}</td>
-  
-          <td>{{row.4}}</td>
-  
-          <td>{{row.5}}</td>
-  
-          <td>{{row.6}}</td>
-  
-          <td>{{row.7}}</td>
-  
-          <td>
-            {% if row.8 != '' and row.9 != '' %}
-            <p>{{row.8}} to {{row.9}}</p>
-            {% endif %}
-          </td>
-  
-          <td>{{row.10}}</td>
-  
-          <td>{{row.11}}</td>
-  
-          <td>
-            <!--edit-->
-            <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaleditSIT{{row.0}}"><i
-                class="fa fa-edit"></i></a>
-  
-          </td>
-  
-        </tr>
-  
-        <!--end enable check-->
-  
-        <!--modal edit-->
-        <div id="modaleditSIT{{row.0}}" class="modal fade" role="dialog">
-  
-          <div class="modal-dialog">
-  
-            <div class="modal-content">
-  
-              <div class="modal-header">
-  
-                <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
-  
-  
-  
-                <button type="button" class="close" data-dismiss="modal">
-  
-                  &times;
-  
-                </button>
-  
-              </div>
-  
-              <div class="modal-body">
-  
-                <form action="/updatesit" method="POST">
-  
-  
-                  <div class="form-group">
-  
-                    <label>Pattern Code:</label>
-  
-                    <label> {{row.1}} </label>
-  
-                    <input type="hidden" name="pc" value="{{row.1}}" />
-  
-                  </div>
-  
-  
-                  <div class="form-group">
-  
-                    <label>Current User</label>
-  
-                    <input type="text" class="form-control" name="current" value="{{row.7}}" />
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <div class="row-cols-1">
-                      <label class="col">Start Date :</label>
-                      <input type="date" class="form-control col" name="periods" value="{{row.8}}" />
-                    </div>
-                    <div class="row-cols-1">
-                      <label class="col">End Date :</label>
-                      <input type="date" class="form-control col" name="periode" value="{{row.9}}" />
-                    </div>
-  
-  
-                  </div>
-  
-                  <div class="form-group">
-  
-                    <button class="btn btn-primary" type="submit">
-  
-                      อัพเดท
-  
-                    </button>
-  
-                  </div>
-                </form>
-              </div>
-  
-            </div>
-  
-          </div>
-          <!--end modal edit-->
-  
-  
-          {% endfor %}
-  
-      </tbody>
-  
-    </table>
-
-    <!--end table-->
   </div>
-  
-  
-  <script>
-    function searchSit() {
-      // Declare variables
-  
-      var input, filter, table, tr, td, i, txtValue;
-  
-      input = document.getElementById("InputSit");
-  
-      filter = input.value.toUpperCase();
-  
-      table = document.getElementById("SitTable");
-  
-      tr = table.getElementsByTagName("tr");
-  
-      // Loop through all table rows, and hide those who don't match the search query
-  
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        td1 = tr[i].getElementsByTagName("td")[1];
-        td2 = tr[i].getElementsByTagName("td")[2];
-        td3 = tr[i].getElementsByTagName("td")[3];
-        td4 = tr[i].getElementsByTagName("td")[4];
-        td5 = tr[i].getElementsByTagName("td")[5];
-        td6 = tr[i].getElementsByTagName("td")[6];
-        td7 = tr[i].getElementsByTagName("td")[7];
-        td8 = tr[i].getElementsByTagName("td")[8];
-  
-        if (td || td1 || td2 || td3 || td4 || td5 || td6 || td7 || td8) {
-          txtValue = td.textContent || td.innerText;
-          txtValue1 = td1.textContent || td1.innerText;
-          txtValue2 = td2.textContent || td2.innerText;
-          txtValue3 = td3.textContent || td3.innerText;
-          txtValue4 = td4.textContent || td4.innerText;
-          txtValue5 = td5.textContent || td5.innerText;
-          txtValue6 = td6.textContent || td6.innerText;
-          txtValue7 = td7.textContent || td7.innerText;
-          txtValue8 = td8.textContent || td8.innerText;
-  
-          if (
-            txtValue.toUpperCase().indexOf(filter) > -1 ||
-            txtValue1.toUpperCase().indexOf(filter) > -1 ||
-            txtValue2.toUpperCase().indexOf(filter) > -1 ||
-            txtValue3.toUpperCase().indexOf(filter) > -1 ||
-            txtValue4.toUpperCase().indexOf(filter) > -1 ||
-            txtValue5.toUpperCase().indexOf(filter) > -1 ||
-            txtValue6.toUpperCase().indexOf(filter) > -1 ||
-            txtValue7.toUpperCase().indexOf(filter) > -1 ||
-            txtValue8.toUpperCase().indexOf(filter) > -1
-          ) {
-            tr[i].style.display = "";
-          } else {
-            tr[i].style.display = "none";
-          }
+
+  <!--table-->
+
+  <table id="SitTable" class="table table-hover table-bordered">
+    <!--table head-->
+    <thead style="background-color: #d11141; color:#FFFAFA;">
+
+      <tr style="width: 100%;">
+
+        <th scope="col">Pattern code</th>
+
+        <th scope="col">Thai ID</th>
+
+        <th scope="col">BAN</th>
+
+        <th scope="col">Product ID</th>
+
+        <th scope="col">Company</th>
+
+        <th scope="col">Test Env.</th>
+
+        <th scope="col" style="width: 8%;">Current user</th>
+
+        <th scope="col" style="width: 13%;">Period</th>
+
+        <th scope="col">Remark</th>
+
+        <th scope="col">Status</th>
+
+        <th scope="col">Check-in</th>
+
+      </tr>
+
+    </thead>
+    <!--table body-->
+    <tbody>
+
+      {% for row in sit %}
+      <!--enable check-->
+      {% if row.10 == "Enable" %}
+      <tr>
+        {% elif row.10 == "Disable" %}
+      <tr style="background-color: rgba(220, 220, 220, 0.4);">
+        {% endif %}
+
+        <td id='pcode'>{{row.1}}</td>
+
+        <td>{{row.2}}</td>
+
+        <td>{{row.3}}</td>
+
+        <td>{{row.4}}</td>
+
+        <td>{{row.5}}</td>
+
+        <td>{{row.6}}</td>
+
+        <td>{{row.7}}</td>
+
+        <td>
+          <p>{{row.8}}</p>
+        </td>
+
+        <td>{{row.10}}</td>
+
+        <td>{{row.11}}</td>
+
+        <td>
+          <!--edit-->
+          <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaleditSIT{{row.0}}">+ <i
+              class="fa fa-user"></i></a>
+
+        </td>
+
+      </tr>
+
+      <!--end enable check-->
+
+      <!--modal edit-->
+      <div id="modaleditSIT{{row.0}}" class="modal fade" role="dialog">
+
+        <div class="modal-dialog">
+
+          <div class="modal-content">
+
+            <div class="modal-header">
+
+              <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
+
+
+
+              <button type="button" class="close" data-dismiss="modal">
+
+                &times;
+
+              </button>
+
+            </div>
+
+            <div class="modal-body">
+
+              <form action="/3sitx" method="POST">
+                <div class="form-group">
+
+                  <input type="hidden" name="id" value="{{row.0}}" />
+
+                </div>
+
+                <div class="form-group">
+
+                  <label>Pattern Code:</label>
+
+                  <label> {{row.1}} </label>
+
+
+                  <input type="hidden" name="oldUser" value="{{row.7}}" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <label>Current User</label>
+
+                  <input type="text" class="form-control" name="current" value="" />
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <div class="row-cols-1">
+                    <label class="col">Start Date :</label>
+                    <input type="date" class="form-control col" name="periods" value="" />
+                    <input type="hidden" class="form-control col" name="oldPeriods" value="{{row.8}}" />
+                  </div>
+                  <div class="row-cols-1">
+                    <label class="col">End Date :</label>
+                    <input type="date" class="form-control col" name="periode" value="" />
+                    <input type="hidden" class="form-control col" name="oldPeriode" value="{{row.9}}" />
+                  </div>
+
+                </div>
+
+                <div class="form-group">
+
+                  <button class="btn btn-primary" type="submit">
+
+                    อัพเดท
+
+                  </button>
+
+                </div>
+              </form>
+            </div>
+
+          </div>
+
+        </div>
+        <!--end modal edit-->
+
+
+        {% endfor %}
+
+    </tbody>
+
+  </table>
+
+  <!--end table-->
+</div>
+
+
+<script>
+  function searchSit() {
+    // Declare variables
+
+    var input, filter, table, tr, td, i, txtValue;
+
+    input = document.getElementById("InputSit");
+
+    filter = input.value.toUpperCase();
+
+    table = document.getElementById("SitTable");
+
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      td1 = tr[i].getElementsByTagName("td")[1];
+      td2 = tr[i].getElementsByTagName("td")[2];
+      td3 = tr[i].getElementsByTagName("td")[3];
+      td4 = tr[i].getElementsByTagName("td")[4];
+      td5 = tr[i].getElementsByTagName("td")[5];
+      td6 = tr[i].getElementsByTagName("td")[6];
+      td7 = tr[i].getElementsByTagName("td")[7];
+      td8 = tr[i].getElementsByTagName("td")[8];
+
+      if (td || td1 || td2 || td3 || td4 || td5 || td6 || td7 || td8) {
+        txtValue = td.textContent || td.innerText;
+        txtValue1 = td1.textContent || td1.innerText;
+        txtValue2 = td2.textContent || td2.innerText;
+        txtValue3 = td3.textContent || td3.innerText;
+        txtValue4 = td4.textContent || td4.innerText;
+        txtValue5 = td5.textContent || td5.innerText;
+        txtValue6 = td6.textContent || td6.innerText;
+        txtValue7 = td7.textContent || td7.innerText;
+        txtValue8 = td8.textContent || td8.innerText;
+
+        if (
+          txtValue.toUpperCase().indexOf(filter) > -1 ||
+          txtValue1.toUpperCase().indexOf(filter) > -1 ||
+          txtValue2.toUpperCase().indexOf(filter) > -1 ||
+          txtValue3.toUpperCase().indexOf(filter) > -1 ||
+          txtValue4.toUpperCase().indexOf(filter) > -1 ||
+          txtValue5.toUpperCase().indexOf(filter) > -1 ||
+          txtValue6.toUpperCase().indexOf(filter) > -1 ||
+          txtValue7.toUpperCase().indexOf(filter) > -1 ||
+          txtValue8.toUpperCase().indexOf(filter) > -1
+        ) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
         }
       }
     }
-  </script>
+  }
+</script>
