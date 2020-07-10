@@ -114,7 +114,10 @@
               aria-labelledby="v-pills-rd-tab"
             >
               <!-- tab 3rd -->
-              {% include "component/ADMIN_third.html" %}
+              {% include "component/3SIT_third.html" %}
+              {% if thirdUpdate %}
+              <b>Last updated on</b> {{thirdUpdate[2]}} <b>by</b> {{thirdUpdate[1][7:-1]}}
+              {% endif %}
             </div>
 
             <!--tab sit-->
@@ -124,7 +127,10 @@
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
             >
-              {% include "component/ADMIN_sit.html" %}
+              {% include "component/3SIT_sit.html" %}
+              {% if sitUpdate %}
+              <b>Last updated on</b> {{sitUpdate[2]}} <b>by</b> {{sitUpdate[1][7:-1]}}
+              {% endif %}
             </div>
             
           </div>

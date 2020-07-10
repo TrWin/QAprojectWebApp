@@ -156,6 +156,9 @@
             >
               <!-- tab 1 -->
               {% include "component/USER_qa.html" %}
+              {% if qaUpdate %}
+              <b>Last updated on</b> {{qaUpdate[2]}} <b>by</b> {{qaUpdate[1][7:-1]}}
+              {% endif %}
             </div>
 
             <!--tab2-->
@@ -166,6 +169,9 @@
               aria-labelledby="v-pills-rd-tab"
             >
               {% include "component/USER_third.html" %}
+              {% if thirdUpdate %}
+              <b>Last updated on</b> {{thirdUpdate[2]}} <b>by</b> {{thirdUpdate[1][7:-1]}}
+              {% endif %}
             </div>
 
             <!--tab3-->
@@ -176,6 +182,9 @@
               aria-labelledby="v-pills-sit-tab"
             >
               {% include "component/USER_sit.html" %}
+              {% if sitUpdate %}
+              <b>Last updated on</b> {{sitUpdate[2]}} <b>by</b> {{sitUpdate[1][7:-1]}}
+              {% endif %}
             </div>
 
             <!--tab4-->
@@ -186,6 +195,9 @@
               aria-labelledby="v-pills-test-tab"
             >
               {% include "component/ADMIN_test.html" %}
+              {% if autoUpdate %}
+              <b>Last updated on</b> {{autoUpdate[2]}} <b>by</b> {{autoUpdate[1][7:-1]}}
+              {% endif %}
             </div>
 
             <!--tab5-->
@@ -196,6 +208,9 @@
               aria-labelledby="v-pills-doc-tab"
             >
               {% include "component/USER_doc.html" %}
+              {% if docUpdate %}
+              <b>Last updated on</b> {{docUpdate[2]}} <b>by</b> {{docUpdate[1][7:-1]}}
+              {% endif %}
             </div>
             <!--tab6-->
             <div
@@ -205,6 +220,9 @@
               aria-labelledby="v-pills-env"
             >
               {% include "component/USER_env.html" %}
+              {% if envUpdate %}
+              <b>Last updated on</b> {{envUpdate[2]}} <b>by</b> {{envUpdate[1][7:-1]}}
+              {% endif %}
             </div>
             
           </div>
