@@ -63,6 +63,11 @@
               aria-orientation="vertical"
             >
               <a
+              {% if check == 'qaAdmin' or check == None %}
+                class="nav-link active"
+              {% else %}
+                class="nav-link"
+              {% endif %}
                 class="nav-link active"
                 id="v-pills-qa-tab"
                 data-toggle="pill"
@@ -74,7 +79,11 @@
               >
 
               <a
+              {% if check == 'thirdAdmin'  %}
+                class="nav-link active"
+              {% else %}
                 class="nav-link"
+              {% endif %}
                 id="v-pills-rd-tab"
                 data-toggle="pill"
                 href="#v-pills-rd"
@@ -85,7 +94,11 @@
               >
 
               <a
-                class="nav-link"
+                {% if check == 'sitAdmin'  %}
+                  class="nav-link active"
+                {% else %}
+                  class="nav-link"
+                {% endif %}
                 id="v-pills-sit-tab"
                 data-toggle="pill"
                 href="#v-pills-sit"
@@ -96,7 +109,11 @@
               >
 
               <a
-                class="nav-link"
+                {% if check == 'autoAdmin'  %}
+                  class="nav-link active"
+                {% else %}
+                  class="nav-link"
+                {% endif %}
                 id="v-pills-test-tab"
                 data-toggle="pill"
                 href="#v-pills-test"
@@ -107,7 +124,11 @@
               >
 
               <a
-                class="nav-link"
+                {% if check == 'docAdmin'  %}
+                  class="nav-link active"
+                {% else %}
+                  class="nav-link"
+                {% endif %}
                 id="v-pills-doc-tab"
                 data-toggle="pill"
                 href="#v-pills-doc"
@@ -118,7 +139,11 @@
               >
 
               <a
-                class="nav-link"
+                {% if check == 'envAdmin'  %}
+                  class="nav-link active"
+                {% else %}
+                  class="nav-link"
+                {% endif %}
                 id="v-pills-env-tab"
                 data-toggle="pill"
                 href="#v-pills-env"
@@ -151,7 +176,11 @@
         <div class="col-12">
           <div class="tab-content" id="v-pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              {% if check == 'qaAdmin' or check == None %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-qa"
               role="tabpanel"
               aria-labelledby="v-pills-qa-tab"
@@ -166,7 +195,11 @@
 
             <!--tab2-->
             <div
-              class="tab-pane fade"
+              {% if check == 'thirdAdmin' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-rd"
               role="tabpanel"
               aria-labelledby="v-pills-rd-tab"
@@ -179,7 +212,11 @@
 
             <!--tab3-->
             <div
-              class="tab-pane fade"
+              {% if check == 'sitAdmin' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-sit"
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
@@ -192,7 +229,11 @@
 
             <!--tab4-->
             <div
-              class="tab-pane fade"
+              {% if check == 'autoAdmin' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-test"
               role="tabpanel"
               aria-labelledby="v-pills-test-tab"
@@ -205,7 +246,11 @@
 
             <!--tab5-->
             <div
-              class="tab-pane fade"
+              {% if check == 'docAdmin' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-doc"
               role="tabpanel"
               aria-labelledby="v-pills-doc-tab"
@@ -217,7 +262,11 @@
             </div>
             <!--tab6-->
             <div
-              class="tab-pane fade"
+              {% if check == 'envAdmin' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-env"
               role="tabpanel"
               aria-labelledby="v-pills-env"

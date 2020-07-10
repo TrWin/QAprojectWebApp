@@ -294,7 +294,7 @@ def showFormparty():
 def insertparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-                check = 'third3SIT'
+                check = 'thirdAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['thai']
@@ -385,7 +385,7 @@ def showFormsit():
 def insertsit():
         test=['0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-                check = 'sit3SIT'
+                check = 'sitAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['thai']
                 test[2]=request.form['ban']
@@ -402,7 +402,7 @@ def insertsit():
                         cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,current,period_start,period_end,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[10],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                         conn.commit()
-                return redirect(url_for('Show3SIT',check=check))
+                return redirect(url_for('profile',check=check))
 
 @app.route("/updatesit",methods=['POST'])
 def updatesit():
