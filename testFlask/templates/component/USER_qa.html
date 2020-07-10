@@ -79,16 +79,16 @@
                 </div>
 
                 <div id="mydiv" class="modal-body" style="height: auto; word-wrap: break-word;">
-                  
+
                   <p oncopy="setTimeout(function(){location.href='/count/{{row.0}}';} , 1500);">
                     {{row.3}}
-
+                    <input style="width: 10%;" type="text" value=" {{row.3}} " id="mycopy">
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <input style="width: 10%;" type="text" value=" {{row.3}} " id = "mycopy">
-                  <button onclick="copyFunction(); setTimeout(function(){location.href='/count/{{row.0}}';} , 1500); " type="button" class="btn btn-primary"
-                    style="float: right;">copy</button>
+
+                  <button onclick="copyFunction(); setTimeout(function(){location.href='/count/{{row.0}}';} , 1500); "
+                    type="button" class="btn btn-primary" style="float: right;">copy</button>
                 </div>
               </div>
             </div>
