@@ -107,7 +107,7 @@ def profile():
         return redirect(url_for('login'))
     elif str(g.user) == '<User: admin>':
         cur=conn.cursor()
-
+        check3SIT = request.args.get('check3SIT')              
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         cur.execute("select * from for_3rd_party order by pattern_code")
@@ -123,7 +123,13 @@ def profile():
         cur.execute("select distinct ourset from env")
         ourset = cur.fetchall()  
         conn.commit()
-        return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,auto=auto,autoUpdate=autoUpdate,doc=doc,docUpdate=docUpdate,env=env,envUpdate=envUpdate)
+        return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,
+                                                rd=third,thirdUpdate=thirdUpdate,
+                                                sit=sit,sitUpdate=sitUpdate,
+                                                auto=auto,autoUpdate=autoUpdate,
+                                                doc=doc,docUpdate=docUpdate,
+                                                env=env,envUpdate=envUpdate,
+                                                check3SIT=check3SIT)
     else:
         return redirect(url_for('dropsession'))
 
@@ -155,7 +161,7 @@ def Show3SIT():
         if not g.user:
                 return redirect(url_for('login'))
         elif str(g.user) == '<User: 3situser>':  
-                checkSIT = request.args.get('checkSIT')              
+                check3SIT = request.args.get('check3SIT')              
                 cur=conn.cursor()
 
                 cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
@@ -164,7 +170,7 @@ def Show3SIT():
                 sit = cur.fetchall()
 
                 conn.commit()
-                return render_template('user_sit.html',rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,checkSIT=checkSIT)
+                return render_template('user_sit.html',rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,check3SIT=check3SIT)
         else:
                 return redirect(url_for('dropsession'))
 #end Show main table
@@ -281,7 +287,7 @@ def showFormparty():
 def insertparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check3SIT = 'third'
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['thai']
@@ -300,12 +306,14 @@ def insertparty():
                         cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,current,period_start,period_end,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[12],test[10],test[11]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit() 
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check3SIT=check3SIT))
 
 @app.route("/updateparty",methods=['POST'])
 def updateparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                
+                check3SIT = 'third'
                 if str(g.user) == '<User: admin>': 
                         test[0]=request.form['pc']
                         test[1]=request.form['pn']
@@ -326,7 +334,7 @@ def updateparty():
                                 cursor.execute("update for_3rd_party set Pattern_code=%s, Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s ,test_env=%s ,current=%s ,period_start=%s, period_end=%s ,remark=%s ,status=%s  where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[13],test[10],test[11],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('profile'))
+                        return redirect(url_for('profile',check3SIT=check3SIT))
 
                 elif str(g.user) == '<User: 3situser>': 
                         test[8]=request.form['current']
@@ -338,7 +346,7 @@ def updateparty():
                                 cursor.execute("update for_3rd_party set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('Show3SIT'))
+                        return redirect(url_for('Show3SIT',check3SIT=check3SIT))
 
 @app.route("/enquiry",methods=['POST'])
 def enquiry():
@@ -369,7 +377,7 @@ def showFormsit():
 def insertsit():
         test=['0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check3SIT = 'sit'
                 test[0]=request.form['pc']
                 test[1]=request.form['thai']
                 test[2]=request.form['ban']
@@ -386,12 +394,13 @@ def insertsit():
                         cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,current,period_start,period_end,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[10],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                         conn.commit()
-                return redirect(url_for('Show3SIT'))
+                return redirect(url_for('Show3SIT',check3SIT=check3SIT))
 
 @app.route("/updatesit",methods=['POST'])
 def updatesit():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                check3SIT = 'sit'
                 if str(g.user) == '<User: admin>': 
                         test[0]=request.form['pc']
                         test[1]=request.form['thai']
@@ -410,9 +419,8 @@ def updatesit():
                                 cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,period_end=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[11],test[8],test[9],test[10]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('profile'))
+                        return redirect(url_for('profile',check3SIT=check3SIT))
                 elif str(g.user) == '<User: 3situser>': 
-                        checkSIT=1
                         test[8]=request.form['current']
                         test[9]=request.form['periods']
                         test[12]=request.form['id']
@@ -422,7 +430,7 @@ def updatesit():
                                 cursor.execute("update for_sit set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('Show3SIT',checkSIT=checkSIT))
+                        return redirect(url_for('Show3SIT',check3SIT=check3SIT))
 #end sit##
 
 
