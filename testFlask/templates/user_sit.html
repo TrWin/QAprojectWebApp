@@ -46,7 +46,7 @@
         >
       </div>
       <div class="oneline" style="margin-left: 15px;">
-        <h2>Data Inventory</h2>
+        <h2>Data Inventory</h2>check={{checkSIT}}
       </div>
       <br />
 
@@ -63,7 +63,11 @@
               aria-orientation="vertical"
             >
               <a
+              {% if checkSIT %}
+                class="nav-link"
+              {% else %}
                 class="nav-link active"
+              {% endif %}
                 id="v-pills-rd-tab"
                 data-toggle="pill"
                 href="#v-pills-rd"
@@ -74,7 +78,11 @@
               >
 
               <a
+              {% if checkSIT %}
+                class="nav-link active"
+              {% else %}
                 class="nav-link"
+              {% endif %}
                 id="v-pills-sit-tab"
                 data-toggle="pill"
                 href="#v-pills-sit"
@@ -108,7 +116,11 @@
         <div class="col-12">
           <div class="tab-content" id="v-pills-tabContent">
             <div
+            {% if checkSIT %}
+              class="tab-pane fade"
+            {% else %}
               class="tab-pane fade show active"
+            {% endif %}
               id="v-pills-rd"
               role="tabpanel"
               aria-labelledby="v-pills-rd-tab"
@@ -122,7 +134,12 @@
 
             <!--tab sit-->
             <div
+            {% if checkSIT %}
+              class="tab-pane fade show active"
+            {% else %}
               class="tab-pane fade"
+            {% endif %}
+
               id="v-pills-sit"
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
