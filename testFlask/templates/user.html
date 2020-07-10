@@ -63,7 +63,11 @@
               aria-orientation="vertical"
             >
               <a
-                class="nav-link active"
+                {% if check == 'autoQA' %}
+                  class="nav-link"
+                {% else %}
+                  class="nav-link active"
+                {% endif %}
                 id="v-pills-qa-tab"
                 data-toggle="pill"
                 href="#v-pills-qa"
@@ -96,7 +100,11 @@
               >
 
               <a
-                class="nav-link"
+                {% if check == 'autoQA'  %}
+                  class="nav-link active"
+                {% else %}
+                  class="nav-link"
+                {% endif %}
                 id="v-pills-test-tab"
                 data-toggle="pill"
                 href="#v-pills-test"
@@ -149,7 +157,11 @@
         <div class="col-12">
           <div class="tab-content" id="v-pills-tabContent">
             <div
-              class="tab-pane fade show active"
+              {% if check == 'autoQA' %}
+                class="tab-pane fade"
+              {% else %}
+                class="tab-pane fade show active"
+              {% endif %}
               id="v-pills-qa"
               role="tabpanel"
               aria-labelledby="v-pills-qa-tab"
@@ -189,7 +201,11 @@
 
             <!--tab4-->
             <div
-              class="tab-pane fade"
+              {% if check == 'autoQA' %}
+                class="tab-pane fade show active"
+              {% else %}
+                class="tab-pane fade"
+              {% endif %}
               id="v-pills-test"
               role="tabpanel"
               aria-labelledby="v-pills-test-tab"

@@ -107,7 +107,7 @@ def profile():
         return redirect(url_for('login'))
     elif str(g.user) == '<User: admin>':
         cur=conn.cursor()
-
+        check = request.args.get('check')              
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
         cur.execute("select * from for_3rd_party order by pattern_code")
@@ -123,7 +123,13 @@ def profile():
         cur.execute("select distinct ourset from env")
         ourset = cur.fetchall()  
         conn.commit()
-        return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,auto=auto,autoUpdate=autoUpdate,doc=doc,docUpdate=docUpdate,env=env,envUpdate=envUpdate)
+        return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,
+                                                rd=third,thirdUpdate=thirdUpdate,
+                                                sit=sit,sitUpdate=sitUpdate,
+                                                auto=auto,autoUpdate=autoUpdate,
+                                                doc=doc,docUpdate=docUpdate,
+                                                env=env,envUpdate=envUpdate,
+                                                check=check)
     else:
         return redirect(url_for('dropsession'))
 
@@ -131,7 +137,8 @@ def profile():
 def Showdata():
         if not g.user:
                 return redirect(url_for('login'))
-        elif str(g.user) == '<User: qauser>':                
+        elif str(g.user) == '<User: qauser>':  
+                check = request.args.get('check')                            
                 cur=conn.cursor()
                 cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
                 rows = cur.fetchall()
@@ -146,7 +153,13 @@ def Showdata():
                 cur.execute("""select * from env where status = "Enable" order by oursystem""")
                 env = cur.fetchall() 
                 conn.commit()
-                return render_template('user.html',datas=rows,qaUpdate=qaUpdate,rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,auto=auto,autoUpdate=autoUpdate,doc=doc,docUpdate=docUpdate,env=env,envUpdate=envUpdate)
+                return render_template('user.html',datas=rows,qaUpdate=qaUpdate,
+                                                        rd=third,thirdUpdate=thirdUpdate,
+                                                        sit=sit,sitUpdate=sitUpdate,
+                                                        auto=auto,autoUpdate=autoUpdate,
+                                                        doc=doc,docUpdate=docUpdate,
+                                                        env=env,envUpdate=envUpdate,
+                                                        check=check)
         else:
                 return redirect(url_for('dropsession'))
 
@@ -154,7 +167,8 @@ def Showdata():
 def Show3SIT():
         if not g.user:
                 return redirect(url_for('login'))
-        elif str(g.user) == '<User: 3situser>':                
+        elif str(g.user) == '<User: 3situser>':  
+                check = request.args.get('check')              
                 cur=conn.cursor()
 
                 cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
@@ -163,7 +177,7 @@ def Show3SIT():
                 sit = cur.fetchall()
 
                 conn.commit()
-                return render_template('user_sit.html',rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate)
+                return render_template('user_sit.html',rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,check=check)
         else:
                 return redirect(url_for('dropsession'))
 #end Show main table
@@ -189,7 +203,7 @@ def showForm():
 def insert():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check = 'qaAdmin'
                 cur=conn.cursor()
                 cur.execute("select * from data_pattern order by Pattern_code")
                 rows = cur.fetchall()
@@ -221,13 +235,13 @@ def insert():
                         cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 @app.route("/update",methods=['POST'])
 def update():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check='qaAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['type']
@@ -251,7 +265,7 @@ def update():
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
 
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 
 @app.route("/count/<string:pcode>", methods=['GET'])
@@ -280,7 +294,7 @@ def showFormparty():
 def insertparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check = 'thirdAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['pn']
                 test[2]=request.form['thai']
@@ -296,13 +310,15 @@ def insertparty():
                         cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[10],test[11]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit() 
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 @app.route("/updateparty",methods=['POST'])
 def updateparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                
                 if str(g.user) == '<User: admin>': 
+                        check = 'thirdAdmin'
                         test[0]=request.form['pc']
                         test[1]=request.form['pn']
                         test[2]=request.form['thai']
@@ -321,9 +337,10 @@ def updateparty():
                                 cursor.execute("update for_3rd_party set Pattern_code=%s, Pattern_name=%s ,thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,enquiry=%s ,test_env=%s ,current=%s ,period_start=%s,remark=%s ,status=%s  where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('profile'))
+                        return redirect(url_for('profile',check=check))
 
                 elif str(g.user) == '<User: 3situser>': 
+                        check = 'third3SIT'
                         test[8]=request.form['current']
                         test[9]=request.form['periods']
                         test[12]=request.form['id']
@@ -333,7 +350,7 @@ def updateparty():
                                 cursor.execute("update for_3rd_party set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('Show3SIT'))
+                        return redirect(url_for('Show3SIT',check=check))
 
 @app.route("/enquiry",methods=['POST'])
 def enquiry():
@@ -387,7 +404,7 @@ def showFormsit():
 def insertsit():
         test=['0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check = 'sitAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['thai']
                 test[2]=request.form['ban']
@@ -401,13 +418,14 @@ def insertsit():
                         cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 @app.route("/updatesit",methods=['POST'])
 def updatesit():
-        test=['0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
                 if str(g.user) == '<User: admin>': 
+                        check = 'sitAdmin'
                         test[0]=request.form['pc']
                         test[1]=request.form['thai']
                         test[2]=request.form['ban']
@@ -421,44 +439,22 @@ def updatesit():
                         test[10]=request.form['id']
 
                         with conn.cursor() as cursor:
-                                cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10]))
+                                cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,period_end=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[11],test[8],test[9],test[10]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('profile'))
+                        return redirect(url_for('profile',check=check))
                 elif str(g.user) == '<User: 3situser>': 
+                        check = 'sit3SIT'
                         test[8]=request.form['current']
                         test[9]=request.form['periods']
                         test[12]=request.form['id']
                         test[13]=request.form['periode']
 
                         with conn.cursor() as cursor:
-                                cursor.execute("update for_3rd_party set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
+                                cursor.execute("update for_sit set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('Show3SIT'))
-
-@app.route("/3sitx",methods=['POST'])
-def sit3sit():
-        test=['0','0','0','0','0','0','0','0']
-        if request.method=="POST":
-                test[0]=request.form['oldUser']
-                test[1]=request.form['id']
-                test[2]=request.form['current']
-                test[3]=request.form['periods']
-                test[4]=request.form['periode']
-                mix = str(test[3])+"  to  "+str(test[4])
-                user = str(test[0])+"                   . "+str(test[2])
-                test[5]=request.form['oldPeriods']+"   "+mix
-                test[6] = "sit"
-
-                with conn.cursor() as cursor:
-                        cursor.execute("update for_sit set current=%s, period_start=%s  where id=%s",(user,test[5],test[1]))
-                        cursor.execute("insert into c_user(current,period_start,period_end,type) values(%s,%s,%s,%s)",(test[2],test[3],test[4],test[6]))
-                        cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
-
-                        conn.commit()
-                return redirect(url_for('Show3SIT'))
-
+                        return redirect(url_for('Show3SIT',check=check))
 #end sit##
 
 
@@ -485,7 +481,13 @@ def insertAuto():
             cursor.execute("insert into automate_test_data(thai_id,ban,product_id,company,test_env,owner,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
             cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'auto') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
             conn.commit()
-        return redirect(url_for('profile'))
+        
+        if str(g.user) == '<User: admin>': 
+                check = 'autoAdmin'
+                return redirect(url_for('profile',check=check))
+        elif str(g.user) == '<User: qauser>': 
+                check = 'autoQA'
+                return redirect(url_for('Showdata',check=check))
 
 @app.route("/updateauto",methods=['POST'])
 def updateAuto():
@@ -506,10 +508,12 @@ def updateAuto():
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'auto') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit()
                 
-                if str(g.user) == '<User: admin>':
-                        return redirect(url_for('profile'))
+                if str(g.user) == '<User: admin>': 
+                        check = 'autoAdmin'
+                        return redirect(url_for('profile',check=check))
                 elif str(g.user) == '<User: qauser>': 
-                        return redirect(url_for('Showdata'))
+                        check = 'autoQA'
+                        return redirect(url_for('Showdata',check=check))
 #end Automate##
 
 
@@ -523,7 +527,7 @@ def showFormdoc():
 def insertdoc():
         test=['0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check='docAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['type']
                 test[2]=request.form['path']
@@ -536,12 +540,13 @@ def insertdoc():
                         cursor.execute("insert into document(Pattern_code,type,path,file_name,topic,remark,status) values(%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'doc') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 @app.route("/updatedoc",methods=['POST'])
 def updatedoc():
         test=['0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                check='docAdmin'
                 test[0]=request.form['pc']
                 test[1]=request.form['type']
                 test[2]=request.form['path']
@@ -561,7 +566,7 @@ def updatedoc():
                                 cursor.execute("update data_pattern set manual_path=%s where pattern_code=%s ",(test[2],test[0]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'doc') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 #end document##
 
 
@@ -573,6 +578,7 @@ def showFormEnv():
 
 @app.route("/insertenv",methods=['POST'])
 def insertEnv():
+        check='endAdmin'
         test=['0','0','0','0','0','0','0','0','0']
 
         test[0]=request.form['system']
@@ -589,13 +595,13 @@ def insertEnv():
             cursor.execute("insert into env(oursystem,db,ourset,path,ip,user_pass_app,user_pass_db,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
             cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'env') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
             conn.commit()
-        return redirect(url_for('profile'))
+        return redirect(url_for('profile',check=check))
 
 @app.route("/updateenv",methods=['POST'])
 def updateEnv():
         test=['0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-
+                check = 'envAdmin'
                 test[0]=request.form['system']
                 test[1]=request.form['db']
                 test[2]=request.form['set']
@@ -611,7 +617,7 @@ def updateEnv():
                         cursor.execute("update env set oursystem=%s, db=%s ,ourset=%s ,path=%s ,ip=%s ,user_pass_app=%s ,user_pass_db=%s ,remark=%s ,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'env') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 #end env##
 
 

@@ -63,7 +63,11 @@
               aria-orientation="vertical"
             >
               <a
+              {% if check == 'third3SIT' or check == None %}
                 class="nav-link active"
+              {% else %}
+                class="nav-link"
+              {% endif %}
                 id="v-pills-rd-tab"
                 data-toggle="pill"
                 href="#v-pills-rd"
@@ -74,7 +78,11 @@
               >
 
               <a
+              {% if check == 'sit3SIT'  %}
+                class="nav-link active"
+              {% else %}
                 class="nav-link"
+              {% endif %}
                 id="v-pills-sit-tab"
                 data-toggle="pill"
                 href="#v-pills-sit"
@@ -108,7 +116,11 @@
         <div class="col-12">
           <div class="tab-content" id="v-pills-tabContent">
             <div
+            {% if check == 'third3SIT' or check == None %}
               class="tab-pane fade show active"
+            {% else %}
+              class="tab-pane fade"
+            {% endif %}
               id="v-pills-rd"
               role="tabpanel"
               aria-labelledby="v-pills-rd-tab"
@@ -122,7 +134,12 @@
 
             <!--tab sit-->
             <div
+            {% if check == 'sit3SIT' %}
+              class="tab-pane fade show active"
+            {% else %}
               class="tab-pane fade"
+            {% endif %}
+
               id="v-pills-sit"
               role="tabpanel"
               aria-labelledby="v-pills-sit-tab"
