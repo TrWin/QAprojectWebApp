@@ -48,7 +48,7 @@
     <!--table body-->
     <tbody>
       {% for row in datas %}
-
+      {% set i = loop.index0 %}
       <tr>
         <td id="pcode">{{row.0}}</td>
 
@@ -86,8 +86,8 @@
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <input style="width: 10%;" type="text" value=" {{row.3}} " id = "mycopy">
-                  <button onclick="copyFunction(); setTimeout(function(){location.href='/count/{{row.0}}';} , 1500); " type="button" class="btn btn-primary"
+                  <input style="width: 10%;" type="text" value=" {{row.3}} " id = "mycopy{{i}}" >
+                  <button id='button{{i}}' onclick="copyFunction(this.id); setTimeout(function(){location.href='/count/{{row.0}}';} , 1500); " type="button" class="btn btn-primary"
                     style="float: right;">copy</button>
                 </div>
               </div>
@@ -180,8 +180,10 @@
   }
 </script>
 <script>
-  function copyFunction() {
-    var copyText = document.getElementById("mycopy");
+  function copyFunction(clicked_id) {
+    numRow = clicked_id.slice(6);
+    CopyId = 'mycopy'+numRow;
+    var copyText = document.getElementById(CopyId);
     copyText.select();
     copyText.setSelectionRange(0, 99999)
     document.execCommand("copy");
