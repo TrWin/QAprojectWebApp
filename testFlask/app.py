@@ -1,5 +1,7 @@
 from flask import Flask,g,redirect,render_template,request,session,url_for
+from werkzeug.utils import secure_filename
 import pymysql
+import os
 
 #login database##
 conn = pymysql.connect('localhost','root','test','qa')
@@ -643,6 +645,35 @@ def updateEnv():
                         conn.commit()
                 return redirect(url_for('profile',check=check))
 #end env##
+
+
+#import file##
+UPLOAD_FOLDER = 'testflask/uploads'
+ALLOWED_EXTENSIONS = {'csv'}
+
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/uploads', methods=['GET', 'POST'])
+def upload_file():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+    return redirect(url_for('profile'))
+#end import##
 
 
 if __name__ == "__main__":
