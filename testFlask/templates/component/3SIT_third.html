@@ -46,15 +46,15 @@
   
           <th scope="col">Test Env.</th>
   
-          <th scope="col">Current user</th>
+          <th scope="col" style="width: 150px;" >Current user</th>
   
-          <th scope="col">Period</th>
+          <th scope="col" style="width: 230px;">Period</th>
   
           <th scope="col">Remark</th>
   
           <th scope="col">Status</th>
   
-          <th scope="col">Edit</th>
+          <th scope="col">Check-in</th>
   
         </tr>
   
@@ -158,9 +158,7 @@
           <td>{{row.9}}</td>
   
           <td>
-            {% if row.10 != '' and row.11 != '' %}
-            <p>{{row.10}} to {{row.11}}</p>
-            {% endif %}
+            <p>{{row.10}}</p>
           </td>
   
           <td>{{row.12}}</td>
@@ -169,8 +167,8 @@
   
           <td>
             <!--edit-->
-            <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaledit3{{row.0}}"><i
-                class="fa fa-edit"></i></a>
+            <a href="" class="btn btn-secondary btn-xs" data-toggle="modal" data-target="#modaledit3{{row.0}}">+ <i
+                class="fa fa-user"></i></a>
   
           </td>
   
@@ -201,7 +199,7 @@
   
               <div class="modal-body">
   
-                <form action="/updateparty" method="POST">
+                <form action="/3sitparty" method="POST">
                     <div class="form-group">
       
                         <input type="hidden" name="id" value="{{row.0}}" />
@@ -214,34 +212,17 @@
   
                     <label> {{row.1}} </label>
   
-                    <input type="hidden" name="pc" value="{{row.1}}" />
+
+                    <input type="hidden" name="oldUser" value="{{row.9}}" />
   
                   </div>
-  
-                  <div class="form-group">
-  
-                    <label>Enquiry/Use</label>
-  
-                    {% if row.7 == "Enquiry" %}
-  
-                    <select name="use" id="use" class="form-control">
-                      <option value="Enquiry">Enquiry</option>
-                      <option value="Used">Used</option>
-                    </select>
-  
-                    {% else %}
-                    <select name="use" id="use" class="form-control">
-                      <option value="Used">Used</option>
-                      <option value="Enquiry">Enquiry</option>
-                    </select>
-                    {% endif %}
-                  </div>
+
   
                   <div class="form-group">
   
                     <label>Current User</label>
   
-                    <input type="text" class="form-control" name="current" value="{{row.9}}" />
+                    <input type="text" class="form-control" name="current" value="" />
   
                   </div>
   
@@ -250,11 +231,13 @@
   
                     <div class="row-cols-1">
                       <label class="col">Start Date :</label>
-                      <input type="date" class="form-control col" name="periods" value="{{row.10}}" />
+                      <input type="date" class="form-control col" name="periods" value="" />
+                      <input type="hidden" class="form-control col" name="oldPeriods" value="{{row.10}}" />
                     </div>
                     <div class="row-cols-1">
                       <label class="col">End Date :</label>
-                      <input type="date" class="form-control col" name="periode" value="{{row.11}}" />
+                      <input type="date" class="form-control col" name="periode" value="" />
+                      <input type="hidden" class="form-control col" name="oldPeriode" value="{{row.11}}" />
                     </div>
   
                   </div>
