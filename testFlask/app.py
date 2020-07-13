@@ -672,6 +672,9 @@ def upload_file():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE 'uploads/'%s'' INTO TABLE qa.data_pattern  LINES TERMINATED BY '\r\n' """,(filename))
+                        conn.commit()
     return redirect(url_for('profile'))
 #end import##
 
