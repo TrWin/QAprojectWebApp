@@ -648,7 +648,7 @@ def updateEnv():
 
 
 #import file##
-UPLOAD_FOLDER = 'testflask/uploads'
+UPLOAD_FOLDER = 'C:\AppServ\MySQL\data\qa'
 ALLOWED_EXTENSIONS = {'csv'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -673,7 +673,10 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE 'uploads/'%s'' INTO TABLE qa.data_pattern  LINES TERMINATED BY '\r\n' """,(filename))
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.data_pattern  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
                         conn.commit()
     return redirect(url_for('profile'))
 #end import##
