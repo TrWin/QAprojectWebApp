@@ -24,6 +24,8 @@
   </div>
 
   <!--table-->
+  <input style=" border:none; cursor:default;" type="text" id = "copyField" >
+
 
   <table id="SitTable" class="table table-hover table-bordered">
     <!--table head-->
@@ -33,7 +35,14 @@
 
         <th scope="col">Pattern code</th>
 
-        <th scope="col">Thai ID</th>
+        <th scope="col">
+          Thai ID 
+          <div style="float:right;">
+            <button onclick="copyChecked()">
+              Copy
+            </button>
+          </div>
+        </th>
 
         <th scope="col">BAN</th>
 
@@ -61,7 +70,7 @@
 
         <td id='pcode'>{{row.1}}</td>
 
-        <td id='thID{{i}}'>{{row.2}} <input type="checkbox" id='checkBox{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this)"/> </td>
+        <td>{{row.2}} <input type="checkbox" id='checkBox{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this)" style="float:right;"/> </td>
 
         <td>{{row.3}}</td>
 
@@ -150,13 +159,24 @@ function searchSit() {
   }
 }
 
+var checkList = [];
   function copyCheckbox(checkbox) {
-      //alert('id:'+checkbox.id+': '+checkbox.checked)
-      id = checkbox.id.slice(8);
-      elem = getElementById('thID1');
-      alert(elem);
+      //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
+      //id = checkbox.id.slice(8);
+      if( checkbox.checked ){
+        checkList.push("'"+checkbox.value+"'");
+      }
+  }
 
-      
-      //isCheck = $('#checkbox').is(':checked'); 
+  function copyChecked(){
+    strList = '['+checkList+']';
+    /*document.getElementById("copyField").value = strList;
+    var copyTh = document.getElementById(copyField);
+    alert(copyTh);
+    copyTh.select();
+    copyTh.setSelectionRange(0, 99999)*/
+    $('<input id="copyField">').val(strList).appendTo('body').select();
+    document.execCommand("copy");
+    alert('Copy: ' + strList);
   }
 </script>
