@@ -69,9 +69,9 @@
 
       {% for row in rd %}
       <!--enable check-->
-      {% if row.13 == "Enable" %}
+      {% if row.12 == "Enable" %}
       <tr>
-        {% elif row.13 == "Disable" %}
+        {% elif row.12 == "Disable" %}
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
@@ -166,9 +166,9 @@
           <p>{{row.10}}</p>
         </td>
 
-        <td>{{row.12}}</td>
+        <td>{{row.11}}</td>
 
-        <td>{{row.13}}</td>
+        <td>{{row.12}}</td>
 
         <td>
           <!--edit-->
@@ -210,7 +210,7 @@
 
                   <label>Status : </label>
 
-                  {% if row.13 == "Enable" %}
+                  {% if row.12 == "Enable" %}
 
                   <select name="status" id="status" class="form-control">
                     <option value="Enable">Enable</option>
@@ -338,7 +338,7 @@
 
                   <label>Remark</label>
 
-                  <input type="text" class="form-control" name="remark" value="{{row.12}}" />
+                  <input type="text" class="form-control" name="remark" value="{{row.11}}" />
 
                 </div>
 
