@@ -56,12 +56,12 @@
     <tbody>
 
       {% for row in sit %}
-
+      {% set i = loop.index0 %}
       <tr>
 
         <td id='pcode'>{{row.1}}</td>
 
-        <td>{{row.2}}</td>
+        <td id='thID{{i}}'>{{row.2}} <input type="checkbox" id='checkBox{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this)"/> </td>
 
         <td>{{row.3}}</td>
 
@@ -149,4 +149,14 @@ function searchSit() {
     }
   }
 }
+
+  function copyCheckbox(checkbox) {
+      //alert('id:'+checkbox.id+': '+checkbox.checked)
+      id = checkbox.id.slice(8);
+      elem = getElementById('thID1');
+      alert(elem);
+
+      
+      //isCheck = $('#checkbox').is(':checked'); 
+  }
 </script>
