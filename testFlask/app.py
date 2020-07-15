@@ -679,6 +679,127 @@ def upload_file():
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
     return redirect(url_for('profile'))
+
+@app.route('/uploads3rd', methods=['GET', 'POST'])
+def upload_file3rd():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.for_3rd_party  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
+                        conn.commit()
+    return redirect(url_for('profile'))
+
+@app.route('/uploadsSit', methods=['GET', 'POST'])
+def upload_fileSit():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.for_sit  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
+                        conn.commit()
+    return redirect(url_for('profile'))
+
+@app.route('/uploadsDoc', methods=['GET', 'POST'])
+def upload_fileDoc():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.document  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
+                        conn.commit()
+    return redirect(url_for('profile'))
+
+@app.route('/uploadsEnv', methods=['GET', 'POST'])
+def upload_fileEnv():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.env  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
+                        conn.commit()
+    return redirect(url_for('profile'))
+
+@app.route('/uploadsAuto', methods=['GET', 'POST'])
+def upload_fileAuto():
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            with conn.cursor() as cursor:
+                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.automate_test_data  FIELDS TERMINATED BY ',' 
+                                                                ENCLOSED BY '"'
+                                                                LINES TERMINATED BY '\n'
+                                                                IGNORE 1 ROWS; """,(filename))
+                        conn.commit()
+    return redirect(url_for('profile'))
+
 #end import##
 
 
