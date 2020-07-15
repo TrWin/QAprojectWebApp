@@ -604,7 +604,7 @@ def showFormEnv():
 
 @app.route("/insertenv",methods=['POST'])
 def insertEnv():
-        check='endAdmin'
+        check='envAdmin'
         test=['0','0','0','0','0','0','0','0','0']
 
         test[0]=request.form['system']
@@ -659,6 +659,7 @@ def allowed_file(filename):
 @app.route('/uploads', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        check='qaAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -678,11 +679,12 @@ def upload_file():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 @app.route('/uploads3rd', methods=['GET', 'POST'])
 def upload_file3rd():
     if request.method == 'POST':
+        check = 'thirdAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -702,11 +704,12 @@ def upload_file3rd():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsSit', methods=['GET', 'POST'])
 def upload_fileSit():
     if request.method == 'POST':
+        check = 'sitAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -726,11 +729,12 @@ def upload_fileSit():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsDoc', methods=['GET', 'POST'])
 def upload_fileDoc():
     if request.method == 'POST':
+        check = 'docAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -750,11 +754,12 @@ def upload_fileDoc():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsEnv', methods=['GET', 'POST'])
 def upload_fileEnv():
     if request.method == 'POST':
+        check = 'envAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -774,11 +779,12 @@ def upload_fileEnv():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsAuto', methods=['GET', 'POST'])
 def upload_fileAuto():
     if request.method == 'POST':
+        check = 'autoAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
             flash('No file part')
@@ -798,7 +804,7 @@ def upload_fileAuto():
                                                                 LINES TERMINATED BY '\n'
                                                                 IGNORE 1 ROWS; """,(filename))
                         conn.commit()
-    return redirect(url_for('profile'))
+    return redirect(url_for('profile',check=check))
 
 #end import##
 
