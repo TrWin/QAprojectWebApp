@@ -85,7 +85,7 @@
                   </p>
                 </div>
                 <div class="modal-footer">
-                  <input style="width: 1%; border: none; cursor: default;" type="text" value=" {{row.3}} " id = "mycopy{{i}}" >
+                  <input style="width: 1%; border:none; cursor:default;" type="text" value=" {{row.3}} " id = "mycopy{{i}}" >
                   <button id='button{{i}}' onclick="copyFunction(this.id); setTimeout(function(){location.href='/count/{{row.0}}';} , 1500); " type="button" class="btn btn-primary"
                     style="float: right;">copy</button>
                 </div>
@@ -186,5 +186,11 @@
     copyText.select();
     copyText.setSelectionRange(0, 99999)
     document.execCommand("copy");
+    /*var tempInput = document.createElement("input");
+    tempInput.value = copyText;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);*/
   }
 </script>

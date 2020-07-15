@@ -1,4 +1,4 @@
-from flask import Flask,g,redirect,render_template,request,session,url_for
+from flask import Flask,g,redirect,render_template,request,session,url_for,flash
 from werkzeug.utils import secure_filename
 import pymysql
 import os
@@ -349,7 +349,7 @@ def updateparty():
                         test[13]=request.form['periode']
 
                         with conn.cursor() as cursor:
-                                cursor.execute("update for_3rd_party set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
+                                cursor.execute("update for_3rd_party set current=%s ,period_start=%s where id=%s",(test[8],test[9],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
                         return redirect(url_for('Show3SIT',check=check))
@@ -389,7 +389,6 @@ def party3sit():
 
                         conn.commit()
                 return redirect(url_for('Show3SIT'))
-
 #For 3rd Party#
 
 
@@ -420,7 +419,7 @@ def insertsit():
                         cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                         conn.commit()
-                return redirect(url_for('profile'))
+                return redirect(url_for('profile',check=check))
 
 
 @app.route("/updatesit",methods=['POST'])
@@ -443,7 +442,7 @@ def updatesit():
 
                         with conn.cursor() as cursor:
                                 cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10]))
-                                cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,period_end=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[11],test[8],test[9],test[10]))
+                                cursor.execute("update for_sit set Pattern_code=%s, thai_id=%s ,ban=%s ,product_id=%s ,company=%s ,test_env=%s,current=%s,period_start=%s,remark=%s,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
                         return redirect(url_for('profile',check=check))
@@ -455,15 +454,16 @@ def updatesit():
                         test[13]=request.form['periode']
 
                         with conn.cursor() as cursor:
-                                cursor.execute("update for_sit set current=%s ,period_start=%s, period_end=%s  where id=%s",(test[8],test[9],test[13],test[12]))
+                                cursor.execute("update for_sit set current=%s ,period_start=%s where id=%s",(test[8],test[9],test[12]))
                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
                                 conn.commit()
-                        return redirect(url_for('Show3SIT'))
+                        return redirect(url_for('Show3SIT',check=check))
 
 @app.route("/3sitx",methods=['POST'])
 def sit3sit():
         test=['0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                check = 'sit3SIT'
                 test[0]=request.form['oldUser']
                 test[1]=request.form['id']
                 test[2]=request.form['current']
@@ -480,7 +480,7 @@ def sit3sit():
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
 
                         conn.commit()
-                return redirect(url_for('Show3SIT'))
+                return redirect(url_for('Show3SIT',check=check))
 #end sit##
 
 

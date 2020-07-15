@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 07:56 AM
+-- Generation Time: Jul 14, 2020 at 03:43 PM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -38,11 +38,18 @@ CREATE TABLE `for_3rd_party` (
   `company` varchar(255) NOT NULL,
   `enquiry` varchar(255) NOT NULL,
   `test_env` varchar(255) NOT NULL,
-  `current` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `period` varchar(255) NOT NULL,
+  `current` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `period_start` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `remark` varchar(1000) NOT NULL,
   `status` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `for_3rd_party`
+--
+
+INSERT INTO `for_3rd_party` (`id`, `pattern_code`, `pattern_name`, `thai_id`, `ban`, `product_id`, `company`, `enquiry`, `test_env`, `current`, `period_start`, `remark`, `status`) VALUES
+(6, 'A002', '', '', '', '', '', 'Enquiry', '        Set3        ', '           . suwit thongraar', '   2020-07-09  to  2020-07-19', '', 'Enable');
 
 --
 -- Indexes for dumped tables
@@ -52,7 +59,7 @@ CREATE TABLE `for_3rd_party` (
 -- Indexes for table `for_3rd_party`
 --
 ALTER TABLE `for_3rd_party`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`,`pattern_code`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -62,7 +69,7 @@ ALTER TABLE `for_3rd_party`
 -- AUTO_INCREMENT for table `for_3rd_party`
 --
 ALTER TABLE `for_3rd_party`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
