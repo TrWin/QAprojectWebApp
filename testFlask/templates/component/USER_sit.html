@@ -38,16 +38,26 @@
         <th scope="col">
           Thai ID 
           <div style="float:right;">
-            <input type="checkbox" id='checkAll' name="checkAll" value="{{sit}}" onchange="checkAll(this)" style="float:right;"/>
-            <button onclick="copyChecked()">
+            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTH',checkListTH)" style="float:right;"/>
+            <button onclick="copyChecked(checkListTH)">
               Copy
             </button>
           </div>
         </th>
 
-        <th scope="col">BAN</th>
+        <th scope="col">
+          BAN
+          <div style="float:right;">
+            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBAN',checkListBAN)" style="float:right;"/>
+            <button onclick="copyChecked(checkListBAN)">
+              Copy
+            </button>
+          </div>
+        </th>
 
-        <th scope="col">Product ID</th>
+        <th scope="col">
+          Product ID
+        </th>
 
         <th scope="col">Company</th>
 
@@ -71,9 +81,9 @@
 
         <td id='pcode'>{{row.1}}</td>
 
-        <td>{{row.2}} <input type="checkbox" id='checkBox{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this)" style="float:right;"/> </td>
+        <td>{{row.2}} <input type="checkbox" id='checkBoxTH{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this,checkListTH)" style="float:right;"/> </td>
 
-        <td>{{row.3}}</td>
+        <td>{{row.3}} <input type="checkbox" id='checkBoxBAN{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
 
         <td>{{row.4}}</td>
 
@@ -104,6 +114,9 @@
 
 
 <script>
+  var checkListTH = [];
+var checkListBAN = [];
+
 function searchSit() {
   // Declare variables
 
@@ -160,43 +173,42 @@ function searchSit() {
   }
 }
 
-var checkList = [];
-
-  function checkAll(checkboxAll){
-    checkList=[];
+  function checkAll(checkboxAll,idEach,list){
+    list.length=0;
     var table = document.getElementById("SitTable");
     var RowCount = table.tBodies[0].rows.length;
     if( checkboxAll.checked ){
       for(i=0;i<RowCount;i++){
-        elemEach = document.getElementById("checkBox"+i);
+        elemEach = document.getElementById(idEach+i);
         elemEach.checked = true;
-        checkList.push("'"+elemEach.value+"'");
+        list.push("'"+elemEach.value+"'");
       }
     }
     else if( !checkboxAll.checked ){
       for(i=0;i<RowCount;i++){
-        document.getElementById("checkBox"+i).checked = false;
+        document.getElementById(idEach+i).checked = false;
       }
-      checkList=[];
+      list.length=0;
     }
   }
 
-  function copyCheckbox(checkbox) {
+  function copyCheckbox(checkbox,list) {
       //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
       //id = checkbox.id.slice(8);
       if( checkbox.checked ){
-        checkList.push("'"+checkbox.value+"'");
+        list.push("'"+checkbox.value+"'");
       }
       else if( !checkbox.checked ){
-        var index = checkList.indexOf("'"+checkbox.value+"'");
+        var index = list.indexOf("'"+checkbox.value+"'");
         if (index > -1) {
-          checkList.splice(index, 1);
+          list.splice(index, 1);
+          alert('dlt:'+checkbox.value);
         }
       }
   }
 
-  function copyChecked(){
-    strList = '['+checkList+']';
+  function copyChecked(list){
+    strList = '['+list+']';
     
     var tempInput = document.createElement("input");
     tempInput.value = strList;
