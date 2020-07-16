@@ -57,6 +57,12 @@
 
         <th scope="col">
           Product ID
+          <div style="float:right;">
+            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxID',checkListID)" style="float:right;"/>
+            <button onclick="copyChecked(checkListID)">
+              Copy
+            </button>
+          </div>
         </th>
 
         <th scope="col">Company</th>
@@ -85,7 +91,7 @@
 
         <td>{{row.3}} <input type="checkbox" id='checkBoxBAN{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
 
-        <td>{{row.4}}</td>
+        <td>{{row.4}} <input type="checkbox" id='checkBoxID{{i}}' name="checkbox" value="{{row.4}}" onchange="copyCheckbox(this,checkListID)" style="float:right;"/> </td>
 
         <td>{{row.5}}</td>
 
@@ -114,8 +120,6 @@
 
 
 <script>
-  var checkListTH = [];
-var checkListBAN = [];
 
 function searchSit() {
   // Declare variables
@@ -173,6 +177,10 @@ function searchSit() {
   }
 }
 
+var checkListTH = [];
+var checkListBAN = [];
+var checkListID = [];
+
   function checkAll(checkboxAll,idEach,list){
     list.length=0;
     var table = document.getElementById("SitTable");
@@ -202,7 +210,6 @@ function searchSit() {
         var index = list.indexOf("'"+checkbox.value+"'");
         if (index > -1) {
           list.splice(index, 1);
-          alert('dlt:'+checkbox.value);
         }
       }
   }
