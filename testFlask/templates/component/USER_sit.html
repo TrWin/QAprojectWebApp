@@ -39,8 +39,8 @@
           Thai ID 
           <div style="float:right;">
             <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTH',checkListTH)" style="float:right;"/>
-            <button onclick="copyChecked(checkListTH)">
-              Copy
+            <button class='copyButton' onclick="copyChecked(checkListTH)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
         </th>
@@ -49,8 +49,8 @@
           BAN
           <div style="float:right;">
             <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBAN',checkListBAN)" style="float:right;"/>
-            <button onclick="copyChecked(checkListBAN)">
-              Copy
+            <button class='copyButton' onclick="copyChecked(checkListBAN)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
         </th>
@@ -59,8 +59,8 @@
           Product ID
           <div style="float:right;">
             <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxID',checkListID)" style="float:right;"/>
-            <button onclick="copyChecked(checkListID)">
-              Copy
+            <button class='copyButton' onclick="copyChecked(checkListID)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
         </th>
@@ -227,3 +227,13 @@ var checkListID = [];
     alert('Copied: ' + strList);
   }
 </script>
+
+<style>
+  .copyButton{
+    background-color: white;
+    color: black;
+    border-radius: 12px;
+    border: none;
+    margin-right: 5px;
+  }
+</style>
