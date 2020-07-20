@@ -36,9 +36,10 @@
       <tr style="width: 100%;">
 
         <th scope="col">
-          Thai ID 
+          Thai ID
           <div style="float:right;">
-            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTHa',checkListTH)" style="float:right;"/>
+            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}"
+              onchange="checkAll(this,'checkBoxTHa',checkListTH)" style="float:right;" />
             <button class='copyButton' onclick="copyChecked(checkListTH)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
@@ -48,7 +49,8 @@
         <th scope="col">
           BAN
           <div style="float:right;">
-            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBANa',checkListBAN)" style="float:right;"/>
+            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}"
+              onchange="checkAll(this,'checkBoxBANa',checkListBAN)" style="float:right;" />
             <button class='copyButton' onclick="copyChecked(checkListBAN)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
@@ -58,7 +60,8 @@
         <th scope="col">
           Product ID
           <div style="float:right;">
-            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxIDa',checkListID)" style="float:right;"/>
+            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}"
+              onchange="checkAll(this,'checkBoxIDa',checkListID)" style="float:right;" />
             <button class='copyButton' onclick="copyChecked(checkListID)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
@@ -92,11 +95,14 @@
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
-        <td>{{row.1}} <input type="checkbox" id='checkBoxTHa{{i}}' name="checkbox" value="{{row.1}}" onchange="copyCheckbox(this,checkListTH)" style="float:right;"/> </td>
+        <td>{{row.1}} <input type="checkbox" id='checkBoxTHa{{i}}' name="checkbox" value="{{row.1}}"
+            onchange="copyCheckbox(this,checkListTH)" style="float:right;" /> </td>
 
-        <td>{{row.2}} <input type="checkbox" id='checkBoxBANa{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
+        <td>{{row.2}} <input type="checkbox" id='checkBoxBANa{{i}}' name="checkbox" value="{{row.2}}"
+            onchange="copyCheckbox(this,checkListBAN)" style="float:right;" /> </td>
 
-        <td>{{row.3}} <input type="checkbox" id='checkBoxIDa{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListID)" style="float:right;"/> </td>
+        <td>{{row.3}} <input type="checkbox" id='checkBoxIDa{{i}}' name="checkbox" value="{{row.3}}"
+            onchange="copyCheckbox(this,checkListID)" style="float:right;" /> </td>
 
         <td>{{row.4}}</td>
 
@@ -202,9 +208,23 @@
 
                 <div class="form-group">
 
-                  <label>Test Env. : </label>
-
-                  <input type="text" class="form-control" name="env" value="{{row.5}}" />
+                  <div class="row">
+                    <label class="col">Test Env : </label>
+                    <h6 class="col"> {{row.8}} </h6>
+                  </div>
+                  <div class="row">
+                    <div class="col-4">
+                      <label> &nbsp;&nbsp;&nbsp;Change Set => </label>
+                    </div>
+                    <div class="col">
+                      <select name="env" id="env" class="form-control">
+                        <option value=" {{row.8}} "></option>
+                        {% for en in ourset %}
+                        <option value=" {{en.0}} ">{{en.0}}</option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                  </div>
 
                 </div>
 
@@ -303,47 +323,47 @@
   }
 
   var checkListTH = [];
-var checkListBAN = [];
-var checkListID = [];
+  var checkListBAN = [];
+  var checkListID = [];
 
-  function checkAll(checkboxAll,idEach,list){
-    list.length=0;
+  function checkAll(checkboxAll, idEach, list) {
+    list.length = 0;
     var table = document.getElementById("SitTable");
     var RowCount = table.tBodies[0].rows.length;
-    if( checkboxAll.checked ){
-      for(i=0;i<RowCount;i++){
-        elemEach = document.getElementById(idEach+i);
+    if (checkboxAll.checked) {
+      for (i = 0; i < RowCount; i++) {
+        elemEach = document.getElementById(idEach + i);
         elemEach.checked = true;
-        list.push("'"+elemEach.value+"'");
+        list.push("'" + elemEach.value + "'");
       }
     }
-    else if( !checkboxAll.checked ){
-      for(i=0;i<RowCount;i++){
-        document.getElementById(idEach+i).checked = false;
+    else if (!checkboxAll.checked) {
+      for (i = 0; i < RowCount; i++) {
+        document.getElementById(idEach + i).checked = false;
       }
-      list.length=0;
+      list.length = 0;
     }
   }
 
-  function copyCheckbox(checkbox,list) {
-      //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
-      //id = checkbox.id.slice(8);
-      if( checkbox.checked ){
-        list.push("'"+checkbox.value+"'");
+  function copyCheckbox(checkbox, list) {
+    //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
+    //id = checkbox.id.slice(8);
+    if (checkbox.checked) {
+      list.push("'" + checkbox.value + "'");
+    }
+    else if (!checkbox.checked) {
+      var index = list.indexOf("'" + checkbox.value + "'");
+      if (index > -1) {
+        list.splice(index, 1);
       }
-      else if( !checkbox.checked ){
-        var index = list.indexOf("'"+checkbox.value+"'");
-        if (index > -1) {
-          list.splice(index, 1);
-        }
-      }
+    }
   }
 
-  function copyChecked(list){
-    if(list.length==0)
+  function copyChecked(list) {
+    if (list.length == 0)
       strList = '';
     else
-      strList = '('+list+')';
+      strList = '(' + list + ')';
     var tempInput = document.createElement("input");
     tempInput.value = strList;
     document.body.appendChild(tempInput);
@@ -356,7 +376,7 @@ var checkListID = [];
 </script>
 
 <style>
-  .copyButton{
+  .copyButton {
     background-color: white;
     color: black;
     border-radius: 12px;
