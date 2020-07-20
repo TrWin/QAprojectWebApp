@@ -183,4 +183,66 @@
     document.getElementById("mySidenav").style.width = "0";
     document.getElementById("main").style.marginLeft = "10px";
   }
+    
+var checkListTH = [];
+var checkListBAN = [];
+var checkListID = [];
+
+  function checkAll(checkboxAll,idEach,list){
+    list.length=0;
+    var table = document.getElementById("SitTable");
+    var RowCount = table.tBodies[0].rows.length;
+    if( checkboxAll.checked ){
+      for(i=0;i<RowCount;i++){
+        elemEach = document.getElementById(idEach+i);
+        elemEach.checked = true;
+        list.push("'"+elemEach.value+"'");
+      }
+    }
+    else if( !checkboxAll.checked ){
+      for(i=0;i<RowCount;i++){
+        document.getElementById(idEach+i).checked = false;
+      }
+      list.length=0;
+    }
+  }
+
+  function copyCheckbox(checkbox,list) {
+      //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
+      //id = checkbox.id.slice(8);
+      if( checkbox.checked ){
+        list.push("'"+checkbox.value+"'");
+      }
+      else if( !checkbox.checked ){
+        var index = list.indexOf("'"+checkbox.value+"'");
+        if (index > -1) {
+          list.splice(index, 1);
+        }
+      }
+  }
+
+  function copyChecked(list){
+    if(list.length==0)
+      strList = '';
+    else
+      strList = '('+list+')';
+    var tempInput = document.createElement("input");
+    tempInput.value = strList;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    alert('Copied: ' + strList);
+  }
 </script>
+
+<style>
+  .copyButton{
+    background-color: white;
+    color: black;
+    border-radius: 12px;
+    border: none;
+    margin-right: 5px;
+  }
+</style>

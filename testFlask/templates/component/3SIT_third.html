@@ -34,11 +34,35 @@
   
           <th scope="col" style="width: 15%;">Pattern name</th>
   
-          <th scope="col">Thai ID</th>
+          <th scope="col">
+            Thai ID 
+            <div style="float:right;">
+              <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTH3',checkListTH)" style="float:right;"/>
+              <button class='copyButton' onclick="copyChecked(checkListTH)">
+                <i class="fa fa-clone" aria-hidden="true"></i>
+              </button>
+            </div>
+          </th>
   
-          <th scope="col">BAN</th>
+          <th scope="col">
+            BAN
+            <div style="float:right;">
+              <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBAN3',checkListBAN)" style="float:right;"/>
+              <button class='copyButton' onclick="copyChecked(checkListBAN)">
+                <i class="fa fa-clone" aria-hidden="true"></i>
+              </button>
+            </div>
+          </th>
   
-          <th scope="col">Product ID</th>
+          <th scope="col">
+            Product ID
+            <div style="float:right;">
+              <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxID3',checkListID)" style="float:right;"/>
+              <button class='copyButton' onclick="copyChecked(checkListID)">
+                <i class="fa fa-clone" aria-hidden="true"></i>
+              </button>
+            </div>
+          </th>
   
           <th scope="col">Company</th>
   
@@ -63,6 +87,8 @@
       <tbody>
   
         {% for row in rd %}
+        {% set i = loop.index0 %}
+
         <!--enable check-->
         {% if row.13 == "Enable" %}
         <tr>
@@ -74,83 +100,16 @@
   
           <td>{{row.2}}</td>
   
-          <td>{{row.3}}</td>
-  
-          <td>{{row.4}}</td>
-  
-          <td>{{row.5}}</td>
-  
+          <td>{{row.3}} <input type="checkbox" id='checkBoxTH3{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListTH)" style="float:right;"/> </td>
+
+          <td>{{row.4}} <input type="checkbox" id='checkBoxBAN3{{i}}' name="checkbox" value="{{row.4}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
+
+          <td>{{row.5}} <input type="checkbox" id='checkBoxID3{{i}}' name="checkbox" value="{{row.5}}" onchange="copyCheckbox(this,checkListID)" style="float:right;"/> </td>
+
           <td>{{row.6}}</td>
   
           <td>
             {{row.7}}
-            <!--<a href="" data-toggle="modal" data-target="#modaledit2{{row.0}}" style="float: right;"><i
-                class="fa fa-exchange fa-lg"></i></a>-->
-  
-            <!--modal Enquiry-->
-            <!--<div id="modaledit2{{row.0}}" class="modal fade" role="dialog">
-  
-            <div class="modal-dialog">
-  
-              <div class="modal-content">
-  
-                <div class="modal-header">
-  
-                  <h4 class="modal-title">อัพเดทข้อมูลของท่าน</h4>
-  
-  
-  
-                  <button type="button" class="close" data-dismiss="modal">
-  
-                    &times;
-  
-                  </button>
-  
-                </div>
-  
-                <div class="modal-body">
-  
-                  <form action="/enquiry" method="POST">
-  
-                    <div class="form-group">
-  
-                      <label>Enquiry/Used : </label>
-  
-                      {% if row.7 == "Enquiry" %}
-  
-                      <select name="use" id="use" class="form-control">
-                        <option value="Enquiry">Enquiry</option>
-                        <option value="Used">Used</option>
-                      </select>
-  
-                      {% else %}
-                      <select name="use" id="use" class="form-control">
-                        <option value="Used">Used</option>
-                        <option value="Enquiry">Enquiry</option>
-                      </select>
-                      {% endif %}
-  
-                      <input type="hidden" name="id" value="{{row.0}}" />
-  
-                    </div>
-  
-                    <div class="form-group">
-  
-                      <button class="btn btn-primary" type="submit">
-  
-                        อัพเดท
-  
-                      </button>
-  
-                    </div>
-                  </form>
-                </div>
-  
-              </div>
-  
-            </div>-->
-            <!--end modal enquiry-->
-  
           </td>
   
           <td>{{row.8}}</td>
@@ -330,4 +289,5 @@
         }
       }
     }
-  </script>
+</script>
+

@@ -35,11 +35,35 @@
 
       <tr style="width: 100%;">
 
-        <th scope="col">Thai ID</th>
+        <th scope="col">
+          Thai ID 
+          <div style="float:right;">
+            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTHa',checkListTH)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListTH)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
+            </button>
+          </div>
+        </th>
 
-        <th scope="col">BAN</th>
+        <th scope="col">
+          BAN
+          <div style="float:right;">
+            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBANa',checkListBAN)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListBAN)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
+            </button>
+          </div>
+        </th>
 
-        <th scope="col">Product ID</th>
+        <th scope="col">
+          Product ID
+          <div style="float:right;">
+            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxIDa',checkListID)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListID)">
+              <i class="fa fa-clone" aria-hidden="true"></i>
+            </button>
+          </div>
+        </th>
 
         <th scope="col">Company</th>
 
@@ -60,6 +84,7 @@
     <tbody>
 
       {% for row in auto %}
+      {% set i = loop.index0 %}
       <!--enable check-->
       {% if row.8 == "Enable" %}
       <tr>
@@ -67,11 +92,11 @@
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
-        <td>{{row.1}}</td>
+        <td>{{row.1}} <input type="checkbox" id='checkBoxTHa{{i}}' name="checkbox" value="{{row.1}}" onchange="copyCheckbox(this,checkListTH)" style="float:right;"/> </td>
 
-        <td>{{row.2}}</td>
+        <td>{{row.2}} <input type="checkbox" id='checkBoxBANa{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
 
-        <td>{{row.3}}</td>
+        <td>{{row.3}} <input type="checkbox" id='checkBoxIDa{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListID)" style="float:right;"/> </td>
 
         <td>{{row.4}}</td>
 
@@ -276,4 +301,66 @@
       }
     }
   }
+
+  var checkListTH = [];
+var checkListBAN = [];
+var checkListID = [];
+
+  function checkAll(checkboxAll,idEach,list){
+    list.length=0;
+    var table = document.getElementById("SitTable");
+    var RowCount = table.tBodies[0].rows.length;
+    if( checkboxAll.checked ){
+      for(i=0;i<RowCount;i++){
+        elemEach = document.getElementById(idEach+i);
+        elemEach.checked = true;
+        list.push("'"+elemEach.value+"'");
+      }
+    }
+    else if( !checkboxAll.checked ){
+      for(i=0;i<RowCount;i++){
+        document.getElementById(idEach+i).checked = false;
+      }
+      list.length=0;
+    }
+  }
+
+  function copyCheckbox(checkbox,list) {
+      //alert('id:'+checkbox.id+': '+checkbox.checked+' value:'+checkbox.value);
+      //id = checkbox.id.slice(8);
+      if( checkbox.checked ){
+        list.push("'"+checkbox.value+"'");
+      }
+      else if( !checkbox.checked ){
+        var index = list.indexOf("'"+checkbox.value+"'");
+        if (index > -1) {
+          list.splice(index, 1);
+        }
+      }
+  }
+
+  function copyChecked(list){
+    if(list.length==0)
+      strList = '';
+    else
+      strList = '('+list+')';
+    var tempInput = document.createElement("input");
+    tempInput.value = strList;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+
+    alert('Copied: ' + strList);
+  }
 </script>
+
+<style>
+  .copyButton{
+    background-color: white;
+    color: black;
+    border-radius: 12px;
+    border: none;
+    margin-right: 5px;
+  }
+</style>

@@ -1,10 +1,15 @@
 from flask import Flask,g,redirect,render_template,request,session,url_for,flash
 from werkzeug.utils import secure_filename
-import pymysql
 import os
+import db
+
+
+app = Flask(__name__)
+app.secret_key = 'somesecretkeythatonlyishouldknow'
 
 #login database##
-conn = pymysql.connect('localhost','root','test','qa')
+#conn = db.get_db()
+#conn = pymysql.connect('localhost','root','test','qa')
 
 ##login control##
 class User:
@@ -17,65 +22,53 @@ class User:
     def __repr__(self):
         return f'<User: {self.username}>'
 
-cur = conn.cursor()
-cur.execute("select id from user_password")
-idDB = cur.fetchall()
-
-cur.execute("select username from user_password")
-userDB = cur.fetchall()
-
-cur.execute("select password from user_password")
-pwDB = cur.fetchall()
-
-cur.execute("select type from user_password")
-typeDB = cur.fetchall()
-conn.commit()
-
-users = []
-users.append(User(id=0, username='admin', password='12345678', typeRole='admin'))
-for i in range(len(idDB)):
-        users.append(User(id=idDB[i][0], username=userDB[i][0], password=pwDB[i][0], typeRole=typeDB[i][0]))
-
-#query update
-cur=conn.cursor()
-
-cur.execute("select * from update_log where updated_table='qa'")
-qaUpdate = cur.fetchone()
-
-cur.execute("select * from update_log where updated_table='third'")
-thirdUpdate = cur.fetchone()
-
-cur.execute("select * from update_log where updated_table='sit'")
-sitUpdate = cur.fetchone()
-
-cur.execute("select * from update_log where updated_table='auto'")
-autoUpdate = cur.fetchone()
-
-cur.execute("select * from update_log where updated_table='doc'")
-docUpdate = cur.fetchone()
-
-cur.execute("select * from update_log where updated_table='env'")
-envUpdate = cur.fetchone()
- 
-conn.commit()
-#end query update
-
-
-app = Flask(__name__)
-app.secret_key = 'somesecretkeythatonlyishouldknow'
 
 @app.before_request
 def before_request():
-    g.user = None
+        g.user = None
 
-    if 'user_id' in session:
-        user = [x for x in users if x.id == session['user_id']][0]
-        g.user = user
+        conn = db.get_db()
+        cur = conn.cursor()
+        cur.execute("select id from user_password")
+        idDB = cur.fetchall()
+        cur.execute("select username from user_password")
+        userDB = cur.fetchall()
+        cur.execute("select password from user_password")
+        pwDB = cur.fetchall()
+        cur.execute("select type from user_password")
+        typeDB = cur.fetchall()
+        conn.commit()
+
+        users = []
+        users.append(User(id=0, username='admin', password='12345678', typeRole='admin'))
+        for i in range(len(idDB)):
+                users.append(User(id=idDB[i][0], username=userDB[i][0], password=pwDB[i][0], typeRole=typeDB[i][0]))
+
+        if 'user_id' in session:
+                user = [x for x in users if x.id == session['user_id']][0]
+                g.user = user
         
 
 #login control
 @app.route('/', methods=['GET', 'POST'])
 def login():
+    conn = db.get_db()
+    cur = conn.cursor()
+    cur.execute("select id from user_password")
+    idDB = cur.fetchall()
+    cur.execute("select username from user_password")
+    userDB = cur.fetchall()
+    cur.execute("select password from user_password")
+    pwDB = cur.fetchall()
+    cur.execute("select type from user_password")
+    typeDB = cur.fetchall()
+    conn.commit()
+
+    users = []
+    users.append(User(id=0, username='admin', password='12345678', typeRole='admin'))
+    for i in range(len(idDB)):
+        users.append(User(id=idDB[i][0], username=userDB[i][0], password=pwDB[i][0], typeRole=typeDB[i][0]))
+
     if g.user:
         return redirect(url_for('profile'))
     if request.method == 'POST':
@@ -108,6 +101,7 @@ def profile():
     if not g.user:
         return redirect(url_for('login'))
     elif str(g.user) == '<User: admin>':
+        conn = db.get_db()
         cur=conn.cursor()
         check = request.args.get('check')              
         cur.execute("select * from data_pattern order by Pattern_code")
@@ -124,6 +118,20 @@ def profile():
         env = cur.fetchall()
         cur.execute("select distinct ourset from env")
         ourset = cur.fetchall()  
+
+        cur.execute("select * from update_log where updated_table='qa'")
+        qaUpdate = cur.fetchone()
+        cur.execute("select * from update_log where updated_table='third'")
+        thirdUpdate = cur.fetchone()
+        cur.execute("select * from update_log where updated_table='sit'")
+        sitUpdate = cur.fetchone()
+        cur.execute("select * from update_log where updated_table='auto'")
+        autoUpdate = cur.fetchone()
+        cur.execute("select * from update_log where updated_table='doc'")
+        docUpdate = cur.fetchone()
+        cur.execute("select * from update_log where updated_table='env'")
+        envUpdate = cur.fetchone()
+
         conn.commit()
         return render_template('admin.html',datas=rows,qaUpdate=qaUpdate,
                                                 rd=third,thirdUpdate=thirdUpdate,
@@ -141,6 +149,7 @@ def Showdata():
         if not g.user:
                 return redirect(url_for('login'))
         elif str(g.user) == '<User: qauser>':  
+                conn = db.get_db()
                 check = request.args.get('check')                            
                 cur=conn.cursor()
                 cur.execute("""select * from data_pattern where status = "Enable" order by Pattern_code""")
@@ -155,6 +164,20 @@ def Showdata():
                 doc = cur.fetchall()
                 cur.execute("""select * from env where status = "Enable" order by oursystem""")
                 env = cur.fetchall() 
+                
+                cur.execute("select * from update_log where updated_table='qa'")
+                qaUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='third'")
+                thirdUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='sit'")
+                sitUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='auto'")
+                autoUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='doc'")
+                docUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='env'")
+                envUpdate = cur.fetchone()
+        
                 conn.commit()
                 return render_template('user.html',datas=rows,qaUpdate=qaUpdate,
                                                         rd=third,thirdUpdate=thirdUpdate,
@@ -171,13 +194,19 @@ def Show3SIT():
         if not g.user:
                 return redirect(url_for('login'))
         elif str(g.user) == '<User: 3situser>':  
-                check = request.args.get('check')              
+                check = request.args.get('check')
+                conn = db.get_db()              
                 cur=conn.cursor()
 
                 cur.execute("""select * from for_3rd_party where status = "Enable" order by pattern_code""")
                 third = cur.fetchall()
                 cur.execute("""select * from for_sit where status = "Enable" order by Pattern_code""")
                 sit = cur.fetchall()
+
+                cur.execute("select * from update_log where updated_table='third'")
+                thirdUpdate = cur.fetchone()
+                cur.execute("select * from update_log where updated_table='sit'")
+                sitUpdate = cur.fetchone()
 
                 conn.commit()
                 return render_template('user_sit.html',rd=third,thirdUpdate=thirdUpdate,sit=sit,sitUpdate=sitUpdate,check=check)
@@ -189,6 +218,7 @@ def Show3SIT():
 #For_QA#
 @app.route("/add")
 def showForm():
+        conn = db.get_db()
         cur=conn.cursor()
         cur.execute("select * from data_pattern order by Pattern_code")
         rows = cur.fetchall()
@@ -207,6 +237,7 @@ def insert():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
                 check = 'qaAdmin'
+                conn = db.get_db()
                 cur=conn.cursor()
                 cur.execute("select * from data_pattern order by Pattern_code")
                 rows = cur.fetchall()
@@ -259,6 +290,7 @@ def update():
                 test[12]=request.form['remark']
                 test[13]=request.form['status']
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update data_pattern set Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s,sequence=%s,automate_path=%s,manual_path=%s,tag=%s,remark=%s,status=%s where Pattern_code=%s",(test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[9],test[10],test[11],test[12],test[13],test[0]))
                         
@@ -273,6 +305,7 @@ def update():
 
 @app.route("/count/<string:pcode>", methods=['GET'])
 def count(pcode):
+        conn = db.get_db()
         cur = conn.cursor()
         cur.execute("select * from data_pattern where pattern_code=%s",pcode)
         row = cur.fetchone()
@@ -287,6 +320,7 @@ def count(pcode):
 #For 3rd Party#
 @app.route("/addparty")
 def showFormparty():
+        conn = db.get_db()
         cur=conn.cursor()
         cur.execute("""select distinct ourset from env """)
         ourset = cur.fetchall()        
@@ -309,6 +343,7 @@ def insertparty():
                 test[10]=request.form['remark']
                 test[11]="Enable"
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[10],test[11]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -319,7 +354,8 @@ def insertparty():
 def updateparty():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
-                
+
+                conn = db.get_db()
                 if str(g.user) == '<User: admin>': 
                         check = 'thirdAdmin'
                         test[0]=request.form['pc']
@@ -361,7 +397,7 @@ def enquiry():
         if request.method=="POST":
                 test[0]=request.form['use']
                 test[1]=request.form['id']
-
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update for_3rd_party set enquiry=%s  where id=%s",(test[0],test[1]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -383,6 +419,7 @@ def party3sit():
                 test[5]=request.form['oldPeriods']+"   "+mix
                 test[6] = "3rd"
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update for_3rd_party set current=%s, period_start=%s  where id=%s",(user,test[5],test[1]))
                         cursor.execute("insert into c_user(current,period_start,period_end,type) values(%s,%s,%s,%s)",(test[2],test[3],test[4],test[6]))
@@ -396,6 +433,7 @@ def party3sit():
 #For sit##
 @app.route("/addsit")
 def showFormsit():
+        conn = db.get_db()
         cur=conn.cursor()
         cur.execute("""select distinct ourset from env """)
         env = cur.fetchall() 
@@ -416,6 +454,7 @@ def insertsit():
                 test[8]=request.form['remark']
                 test[9]="Enable"
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
@@ -427,6 +466,7 @@ def insertsit():
 def updatesit():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
+                conn = db.get_db()
                 if str(g.user) == '<User: admin>': 
                         check = 'sitAdmin'
                         test[0]=request.form['pc']
@@ -475,6 +515,7 @@ def sit3sit():
                 test[5]=request.form['oldPeriods']+"   "+mix
                 test[6] = "sit"
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update for_sit set current=%s, period_start=%s  where id=%s",(user,test[5],test[1]))
                         cursor.execute("insert into c_user(current,period_start,period_end,type) values(%s,%s,%s,%s)",(test[2],test[3],test[4],test[6]))
@@ -488,6 +529,7 @@ def sit3sit():
 #For Automate##
 @app.route("/addauto")
 def showFormAuto():
+        conn = db.get_db()
         conn.commit()
         return render_template('adddata/adddataAutomate.html')
 
@@ -504,6 +546,7 @@ def insertAuto():
         test[6]=request.form['remark']
         test[7]="Enable"
 
+        conn = db.get_db()
         with conn.cursor() as cursor:
             cursor.execute("insert into automate_test_data(thai_id,ban,product_id,company,test_env,owner,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
             cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'auto') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
@@ -530,6 +573,7 @@ def updateAuto():
                 test[7]=request.form['status']
                 test[8]=request.form['id']
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update automate_test_data set thai_id=%s, ban=%s ,product_id=%s ,company=%s ,test_env=%s ,owner=%s ,remark=%s ,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'auto') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -547,6 +591,7 @@ def updateAuto():
 #For document##
 @app.route("/adddoc")
 def showFormdoc():
+        conn = db.get_db()
         conn.commit()
         return render_template('adddata/adddataDoc.html')
 
@@ -563,6 +608,7 @@ def insertdoc():
                 test[5]=request.form['remark']
                 test[6]="Enable"
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("insert into document(Pattern_code,type,path,file_name,topic,remark,status) values(%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'doc') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -585,6 +631,7 @@ def updatedoc():
                 auto='Automate'
                 manual='Manual'
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update document set Pattern_code=%s, type=%s ,path=%s ,file_name=%s ,topic=%s ,remark=%s,status=%s where id=%s ",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
                         if test[1] == auto:
@@ -600,6 +647,7 @@ def updatedoc():
 #For env##
 @app.route("/addenv")
 def showFormEnv():
+        conn = db.get_db()
         conn.commit()
         return render_template('adddata/adddataEnv.html')
 
@@ -618,6 +666,7 @@ def insertEnv():
         test[7]=request.form['remark']
         test[8]="Enable"
 
+        conn = db.get_db()
         with conn.cursor() as cursor:
             cursor.execute("insert into env(oursystem,db,ourset,path,ip,user_pass_app,user_pass_db,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
             cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'env') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -640,6 +689,7 @@ def updateEnv():
                 test[8]=request.form['status']
                 test[9]=request.form['id']
 
+                conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update env set oursystem=%s, db=%s ,ourset=%s ,path=%s ,ip=%s ,user_pass_app=%s ,user_pass_db=%s ,remark=%s ,status=%s where id=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'env') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
@@ -660,6 +710,7 @@ def allowed_file(filename):
 @app.route('/uploads', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
+        conn = db.get_db()
         check='qaAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -685,6 +736,7 @@ def upload_file():
 @app.route('/uploads3rd', methods=['GET', 'POST'])
 def upload_file3rd():
     if request.method == 'POST':
+        conn = db.get_db()
         check = 'thirdAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -710,6 +762,7 @@ def upload_file3rd():
 @app.route('/uploadsSit', methods=['GET', 'POST'])
 def upload_fileSit():
     if request.method == 'POST':
+        conn = db.get_db()
         check = 'sitAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -735,6 +788,7 @@ def upload_fileSit():
 @app.route('/uploadsDoc', methods=['GET', 'POST'])
 def upload_fileDoc():
     if request.method == 'POST':
+        conn = db.get_db()
         check = 'docAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -760,6 +814,7 @@ def upload_fileDoc():
 @app.route('/uploadsEnv', methods=['GET', 'POST'])
 def upload_fileEnv():
     if request.method == 'POST':
+        conn = db.get_db()
         check = 'envAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -785,6 +840,7 @@ def upload_fileEnv():
 @app.route('/uploadsAuto', methods=['GET', 'POST'])
 def upload_fileAuto():
     if request.method == 'POST':
+        conn = db.get_db()
         check = 'autoAdmin'
         # check if the post request has the file part
         if 'file' not in request.files:
@@ -809,6 +865,9 @@ def upload_fileAuto():
 
 #end import##
 
+@app.teardown_appcontext
+def close_db(error):
+    db.close_db()
 
 if __name__ == "__main__":
     app.run(debug=True)
