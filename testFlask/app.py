@@ -2,7 +2,6 @@ from flask import Flask,g,redirect,render_template,request,session,url_for,flash
 from werkzeug.utils import secure_filename
 import os
 import db
-import pymysql
 
 
 app = Flask(__name__)
