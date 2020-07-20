@@ -131,6 +131,7 @@ def profile():
                                                 auto=auto,autoUpdate=autoUpdate,
                                                 doc=doc,docUpdate=docUpdate,
                                                 env=env,envUpdate=envUpdate,
+                                                ourset=ourset
                                                 check=check)
     else:
         return redirect(url_for('dropsession'))
