@@ -236,7 +236,7 @@ def showForm():
 
 @app.route("/insert",methods=['POST'])
 def insert():
-        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
+        test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0']
         if request.method=="POST":
                 check = 'qaAdmin'
                 conn = db.get_db()
@@ -266,15 +266,17 @@ def insert():
                 test[11]=request.form['tag']
                 test[12]=request.form['remark']
                 test[13]="Enable"
+                test[14] = "Automate"
+                test[15] = "Manual"
 
                 with conn.cursor() as cursor:
                         cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user))) 
 
                         if test[9] != '' :
-                                cursor.execute("insert into document(Pattern_code,path,status) values(%s,%s,%s)",(test[0],test[9],test[13]))
+                                cursor.execute("insert into document(Pattern_code,type,path,status) values(%s,%s,%s,%s)",(test[0],test[14],test[9],test[13]))
                         if test[10] != '':
-                                cursor.execute("insert into document(Pattern_code,path,status) values(%s,%s,%s)",(test[0],test[10],test[13]))
+                                cursor.execute("insert into document(Pattern_code,type,path,status) values(%s,%s,%s,%s)",(test[0],test[15],test[10],test[13]))
 
                         conn.commit()
                 return redirect(url_for('profile',check=check))
@@ -734,7 +736,7 @@ def upload_file():
                 filename = secure_filename(file.filename)
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-                test =['0','0','0','0','0','0','0','0','0','0','0','0','0','0']
+                test =['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0']
 
                 with open('testFlask/uploads/'+filename) as csvfile:
                         reader = csv.reader(csvfile)
@@ -770,6 +772,8 @@ def upload_file():
                                         test[11]=row[10]
                                         test[12]=row[11]
                                         test[13]="Enable"
+                                        test[14] ="Automate"
+                                        test[15] ="Manual"
                                         line_count = line_count + 1
 
 
@@ -780,9 +784,9 @@ def upload_file():
                                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                                                 
                                                 if test[9] != '' :
-                                                        cursor.execute("insert into document(Pattern_code,path,status) values(%s,%s,%s)",(test[0],test[9],test[13]))
+                                                        cursor.execute("insert into document(Pattern_code,type,path,status) values(%s,%s,%s,%s)",(test[0],test[14],test[9],test[13]))
                                                 if test[10] != '':
-                                                        cursor.execute("insert into document(Pattern_code,path,status) values(%s,%s,%s)",(test[0],test[10],test[13]))
+                                                        cursor.execute("insert into document(Pattern_code,type,path,status) values(%s,%s,%s,%s)",(test[0],test[15],test[10],test[13]))
 
                                                 conn.commit()
 
