@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2020 at 03:47 PM
+-- Generation Time: Jul 22, 2020 at 08:07 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -37,14 +37,6 @@ CREATE TABLE `c_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `c_user`
---
-
-INSERT INTO `c_user` (`id`, `current`, `period_start`, `period_end`, `type`) VALUES
-(5, 'suwit thongraar', '2020-07-09', '2020-07-19', '3rd'),
-(6, 'sdfdsf', '2020-07-19', '2020-07-26', 'sit');
-
---
 -- Indexes for dumped tables
 --
 
@@ -62,7 +54,7 @@ ALTER TABLE `c_user`
 -- AUTO_INCREMENT for table `c_user`
 --
 ALTER TABLE `c_user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

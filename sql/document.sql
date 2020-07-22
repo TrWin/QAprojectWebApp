@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 12:02 PM
+-- Generation Time: Jul 22, 2020 at 08:07 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -40,17 +40,6 @@ CREATE TABLE `document` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `document`
---
-
-INSERT INTO `document` (`id`, `pattern_code`, `type`, `path`, `file_name`, `topic`, `remark`, `status`) VALUES
-(2, 'A001', 'Automate', '\\\\true.th\\infocenter$\\T\\TestProject\\Document', 'Automate for cancel', 'Cancel by collection', '', 'Enable'),
-(3, 'A001', 'Manual', '\\\\true.th\\infocenter$\\T\\TestProject\\Document', 'Manual for cancel', 'Cancel by collection', '', 'Enable'),
-(4, 'A002', 'Manual', 'Http://wedocumentary', 'money incress', 'money incress', '', 'Enable'),
-(5, 'A003', 'Manual', 'Http://wedocumentary', 'suspend', 'suspend by collection', '', 'Enable'),
-(6, 'A004', 'Manual', '', '', '', '', 'Enable');
-
---
 -- Indexes for dumped tables
 --
 
@@ -68,7 +57,7 @@ ALTER TABLE `document`
 -- AUTO_INCREMENT for table `document`
 --
 ALTER TABLE `document`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

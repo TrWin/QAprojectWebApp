@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2020 at 03:43 PM
+-- Generation Time: Jul 22, 2020 at 08:07 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -45,13 +45,6 @@ CREATE TABLE `for_3rd_party` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `for_3rd_party`
---
-
-INSERT INTO `for_3rd_party` (`id`, `pattern_code`, `pattern_name`, `thai_id`, `ban`, `product_id`, `company`, `enquiry`, `test_env`, `current`, `period_start`, `remark`, `status`) VALUES
-(6, 'A002', '', '', '', '', '', 'Enquiry', '        Set3        ', '           . suwit thongraar', '   2020-07-09  to  2020-07-19', '', 'Enable');
-
---
 -- Indexes for dumped tables
 --
 
@@ -69,7 +62,7 @@ ALTER TABLE `for_3rd_party`
 -- AUTO_INCREMENT for table `for_3rd_party`
 --
 ALTER TABLE `for_3rd_party`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
