@@ -237,8 +237,8 @@ def showForm():
 @app.route("/insert",methods=['POST'])
 def insert():
         test=['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0']
+        check = 'qaAdmin'
         if request.method=="POST":
-                check = 'qaAdmin'
                 conn = db.get_db()
                 cur=conn.cursor()
                 cur.execute("select * from data_pattern order by Pattern_code")
