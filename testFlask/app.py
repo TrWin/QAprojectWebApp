@@ -751,18 +751,18 @@ def upload_file():
                                         conn.commit()
 
                                         test[0]=p_id
-                                        test[1]=row[1]
-                                        test[2]=row[2]
-                                        test[3]=row[3]
-                                        test[4]=row[4]
-                                        test[5]=row[5]
-                                        test[6]=row[6]
-                                        test[7]=row[7]
-                                        test[8]=row[8]
-                                        test[9]=row[9]
-                                        test[10]=row[10]
-                                        test[11]=row[11]
-                                        test[12]=row[12]
+                                        test[1]=row[0]
+                                        test[2]=row[1]
+                                        test[3]=row[2]
+                                        test[4]=row[3]
+                                        test[5]=row[4]
+                                        test[6]=row[5]
+                                        test[7]=row[6]
+                                        test[8]=row[7]
+                                        test[9]=row[8]
+                                        test[10]=row[9]
+                                        test[11]=row[10]
+                                        test[12]=row[11]
                                         test[13]="Enable"
                                         line_count = line_count + 1
 
@@ -794,14 +794,41 @@ def upload_file3rd():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.for_3rd_party  FIELDS TERMINATED BY ',' 
-                                                                ENCLOSED BY '"'
-                                                                LINES TERMINATED BY '\n'
-                                                                IGNORE 1 ROWS; """,(filename))
-                        conn.commit()
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+                test=['0','0','0','0','0','0','0','0','0','0','0','0']
+
+                with open('testFlask/uploads/'+filename) as csvfile:
+                        reader = csv.reader(csvfile)
+                        line_count = 0
+                        for row in reader:
+                                if line_count == 0:
+                                        line_count = line_count + 1
+                                else:
+                                        conn = db.get_db()
+
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[6]=row[6]
+                                        test[7]=row[7]
+                                        test[10]=row[8]
+                                        test[11]="Enable"
+                                        line_count = line_count + 1
+
+
+                                                
+
+                                        with conn.cursor() as cursor:
+                                                cursor.execute("insert into for_3rd_party(Pattern_code,Pattern_name,thai_id,ban,product_id,company,enquiry,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[10],test[11]))
+                                                cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
+                                                conn.commit()
+
+
     return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsSit', methods=['GET', 'POST'])
@@ -820,14 +847,40 @@ def upload_fileSit():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.for_sit  FIELDS TERMINATED BY ',' 
-                                                                ENCLOSED BY '"'
-                                                                LINES TERMINATED BY '\n'
-                                                                IGNORE 1 ROWS; """,(filename))
-                        conn.commit()
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                
+                test=['0','0','0','0','0','0','0','0','0','0']
+
+                with open('testFlask/uploads/'+filename) as csvfile:
+                        reader = csv.reader(csvfile)
+                        line_count = 0
+                        for row in reader:
+                                if line_count == 0:
+                                        line_count = line_count + 1
+                                else:
+                                        conn = db.get_db()
+
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[8]=row[6]
+                                        test[9]="Enable"
+                                        line_count = line_count + 1
+
+
+                                                
+
+                                        with conn.cursor() as cursor:
+                                                cursor.execute("insert into for_sit(Pattern_code,thai_id,ban,product_id,company,test_env,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[8],test[9]))
+                                                cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'sit') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
+                                                conn.commit()
+
+
+
     return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsDoc', methods=['GET', 'POST'])
@@ -846,14 +899,39 @@ def upload_fileDoc():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.document  FIELDS TERMINATED BY ',' 
-                                                                ENCLOSED BY '"'
-                                                                LINES TERMINATED BY '\n'
-                                                                IGNORE 1 ROWS; """,(filename))
-                        conn.commit()
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+                test=['0','0','0','0','0','0','0']
+
+                with open('testFlask/uploads/'+filename) as csvfile:
+                        reader = csv.reader(csvfile)
+                        line_count = 0
+                        for row in reader:
+                                if line_count == 0:
+                                        line_count = line_count + 1
+                                else:
+                                        conn = db.get_db()
+
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[6]="Enable"
+                                        line_count = line_count + 1
+
+
+                                                
+
+                                        with conn.cursor() as cursor:
+                                                cursor.execute("insert into document(Pattern_code,type,path,file_name,topic,remark,status) values(%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6]))
+                                                cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'doc') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
+                                                conn.commit()
+
+
+
     return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsEnv', methods=['GET', 'POST'])
@@ -872,14 +950,41 @@ def upload_fileEnv():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.env  FIELDS TERMINATED BY ',' 
-                                                                ENCLOSED BY '"'
-                                                                LINES TERMINATED BY '\n'
-                                                                IGNORE 1 ROWS; """,(filename))
-                        conn.commit()
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            
+                test=['0','0','0','0','0','0','0','0','0']
+
+                with open('testFlask/uploads/'+filename) as csvfile:
+                        reader = csv.reader(csvfile)
+                        line_count = 0
+                        for row in reader:
+                                if line_count == 0:
+                                        line_count = line_count + 1
+                                else:
+                                        conn = db.get_db()
+
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[6]=row[6]
+                                        test[7]=row[7]
+                                        test[8]="Enable"
+                                        line_count = line_count + 1
+
+
+                                                
+
+                                        with conn.cursor() as cursor:
+                                                cursor.execute("insert into env(oursystem,db,ourset,path,ip,user_pass_app,user_pass_db,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8]))
+                                                cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'env') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
+                                                conn.commit()
+
+
+
     return redirect(url_for('profile',check=check))
 
 @app.route('/uploadsAuto', methods=['GET', 'POST'])
@@ -898,14 +1003,38 @@ def upload_fileAuto():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            with conn.cursor() as cursor:
-                        cursor.execute("""LOAD DATA INFILE %s INTO TABLE qa.automate_test_data  FIELDS TERMINATED BY ',' 
-                                                                ENCLOSED BY '"'
-                                                                LINES TERMINATED BY '\n'
-                                                                IGNORE 1 ROWS; """,(filename))
-                        conn.commit()
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                
+                test=['0','0','0','0','0','0','0','0']
+
+                with open('testFlask/uploads/'+filename) as csvfile:
+                        reader = csv.reader(csvfile)
+                        line_count = 0
+                        for row in reader:
+                                if line_count == 0:
+                                        line_count = line_count + 1
+                                else:
+                                        conn = db.get_db()
+
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[6]=row[6]
+                                        test[7]="Enable"
+                                        line_count = line_count + 1
+
+
+                                                
+
+                                        with conn.cursor() as cursor:
+                                                cursor.execute("insert into automate_test_data(thai_id,ban,product_id,company,test_env,owner,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7]))
+                                                cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'auto') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))
+                                                conn.commit()
+
     return redirect(url_for('profile',check=check))
 
 #end import##
