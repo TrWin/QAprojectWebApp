@@ -746,31 +746,20 @@ def upload_file():
                                         line_count = line_count + 1
                                 else:
                                         conn = db.get_db()
-                                        cur=conn.cursor()
-                                        cur.execute("select * from data_pattern order by Pattern_code")
-                                        rows = cur.fetchall()
-                                        lengh = len(rows)
-                                        if lengh < 9:
-                                                p_id = 'A00'+str(lengh+1)
-                                        elif lengh >= 9 and lengh < 99 :
-                                                p_id = 'A0'+str(lengh+1)
-                                        elif lengh >= 99:
-                                                p_id = 'A'+str(lengh+1)
-                                        conn.commit()
 
-                                        test[0]=p_id
-                                        test[1]=row[0]
-                                        test[2]=row[1]
-                                        test[3]=row[2]
-                                        test[4]=row[3]
-                                        test[5]=row[4]
-                                        test[6]=row[5]
-                                        test[7]=row[6]
-                                        test[8]=row[7]
-                                        test[9]=row[8]
-                                        test[10]=row[9]
-                                        test[11]=row[10]
-                                        test[12]=row[11]
+                                        test[0]=row[0]
+                                        test[1]=row[1]
+                                        test[2]=row[2]
+                                        test[3]=row[3]
+                                        test[4]=row[4]
+                                        test[5]=row[5]
+                                        test[6]=row[6]
+                                        test[7]=row[7]
+                                        test[8]=row[8]
+                                        test[9]=row[9]
+                                        test[10]=row[10]
+                                        test[11]=row[11]
+                                        test[12]=row[12]
                                         test[13]="Enable"
                                         test[14] ="Automate"
                                         test[15] ="Manual"
@@ -780,7 +769,7 @@ def upload_file():
                                                 
 
                                         with conn.cursor() as cursor:
-                                                cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
+                                                cursor.execute("insert into data_pattern(Pattern_code,Pattern_name,type,Sql_code,System_Detail,Confidentscore,relate,sequence,frequency,automate_path,manual_path,tag,remark,status) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s) ON DUPLICATE KEY UPDATE Pattern_code=%s ,Pattern_name=%s ,type=%s ,Sql_code=%s ,System_Detail=%s ,Confidentscore=%s ,relate=%s ,sequence=%s ,frequency=%s ,automate_path=%s ,manual_path=%s ,tag=%s ,remark=%s ,status=%s",(test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13],test[0],test[1],test[2],test[3],test[4],test[5],test[6],test[7],test[8],test[9],test[10],test[11],test[12],test[13]))
                                                 cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'qa') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
                                                 
                                                 if test[9] != '' :

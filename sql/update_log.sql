@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Jul 09, 2020 at 11:57 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.1
+-- Host: localhost
+-- Generation Time: Jul 22, 2020 at 08:08 AM
+-- Server version: 8.0.17
+-- PHP Version: 7.3.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,15 +31,8 @@ SET time_zone = "+00:00";
 CREATE TABLE `update_log` (
   `updated_table` varchar(225) NOT NULL,
   `updated_by` varchar(225) NOT NULL,
-  `updated_date` datetime(6) NOT NULL DEFAULT current_timestamp(6)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `update_log`
---
-
-INSERT INTO `update_log` (`updated_table`, `updated_by`, `updated_date`) VALUES
-('qa', '<User: admin>', '2020-07-09 16:17:20.000000');
+  `updated_date` datetime(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
 -- Indexes for dumped tables

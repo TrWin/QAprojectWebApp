@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jul 14, 2020 at 03:43 PM
+-- Generation Time: Jul 22, 2020 at 08:08 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -43,22 +43,6 @@ CREATE TABLE `for_sit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `for_sit`
---
-
-INSERT INTO `for_sit` (`id`, `pattern_code`, `thai_id`, `ban`, `product_id`, `company`, `test_env`, `current`, `period_start`, `remark`, `status`) VALUES
-(3, 'A001', 'CORP010', '200046759', '0938160131', 'RF', '  Set2  ', '                   . sdfdsf', '   2020-07-19  to  2020-07-26', '', 'Enable'),
-(4, 'A001', 'BBB', '200043976', '0938160166', 'RF', 'Set2', '', '', '', 'Enable'),
-(5, 'A001', '4545646676787', '200050636', '0938160931', 'RF', 'Set2', '', '', '', 'Enable'),
-(6, 'A001', '1132133333333', '200052598', '0938160919', 'RF', 'Set2', '', '', '', 'Enable'),
-(7, 'A001', '3101000023609', '200052123', '0902350946', 'RM', 'Set2', '', '', '', 'Enable'),
-(8, 'A001', '3872218209141', '200080883', '0968731420', 'RM', 'Set7', '', '', '', 'Enable'),
-(9, 'A001', '1602120200664', '200086628', '0968732134', 'RM', 'Set7', '', '', '', 'Enable'),
-(10, 'A002', 'CORP010', '200046759', '0938160131', 'RF', 'Set2', '', '', '', 'Enable'),
-(11, 'A002', '3101000023609', '200052123', '0902350946', 'RM', 'Set2', '', '', '', 'Enable'),
-(12, 'A002', '1602120200664', '200086628', '0968732134', 'RM', 'Set7', '', '', '', 'Enable');
-
---
 -- Indexes for dumped tables
 --
 
@@ -76,7 +60,7 @@ ALTER TABLE `for_sit`
 -- AUTO_INCREMENT for table `for_sit`
 --
 ALTER TABLE `for_sit`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

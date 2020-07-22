@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jun 30, 2020 at 12:02 PM
+-- Generation Time: Jul 22, 2020 at 08:07 AM
 -- Server version: 8.0.17
 -- PHP Version: 7.3.10
 
@@ -42,16 +42,6 @@ CREATE TABLE `env` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `env`
---
-
-INSERT INTO `env` (`id`, `oursystem`, `db`, `ourset`, `path`, `ip`, `user_pass_app`, `user_pass_db`, `remark`, `status`) VALUES
-(2, 'CRM', '', 'Set2', '\"DB Authen  >> http://truecrmuatset2.true.th:8080/adm/ SSO >> http://truecrmuatset2.true.th:8080/ecommunications_SET2/ \"', '', '', '', 'User/Pass Aplication  เป็นของแต่ละทีม', 'Enable'),
-(3, 'CCBS', 'trueapp9', 'Set2', '\"CMO : http://ccbapts1:15201/cm?APP_ID=CM RMO : http://ccbapts1:15201/rm?APP_ID=RM ARO : http://ccbapts1:15201/ar?APP_ID=AR \"', '\"tnsname: test02.test.th=(description=(address=(protocol=tcp)(host=172.19.192.186)(port=1565))(connect_data=(sid=TEST02))) \"', 'tru9/Unix11', 'truapp9/truapp9', '', 'Enable'),
-(4, 'ICC', 'UAT62', 'Set3', '', '\"tnsname :   UAT62 =   (DESCRIPTION =     (ADDRESS = (PROTOCOL = TCP)(HOST = 172.19.235.61)(PORT = 1530))     (CONNECT_DATA =       (SID = UAT62)     )   ) \"', '', '', '', 'Enable'),
-(5, 'TVSCC', '', 'Set2', 'http://smsappd02/TVGWEB/login_revamp.aspx', '', 'bk-21/test11', '', '', 'Enable');
-
---
 -- Indexes for dumped tables
 --
 
@@ -69,7 +59,7 @@ ALTER TABLE `env`
 -- AUTO_INCREMENT for table `env`
 --
 ALTER TABLE `env`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
