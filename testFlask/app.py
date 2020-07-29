@@ -709,7 +709,7 @@ def updateEnv():
 
 
 #import file##
-UPLOAD_FOLDER = 'testFlask/uploads/'
+UPLOAD_FOLDER = 'uploads/'
 ALLOWED_EXTENSIONS = {'csv'}
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
@@ -738,7 +738,7 @@ def upload_file():
 
                 test =['0','0','0','0','0','0','0','0','0','0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
