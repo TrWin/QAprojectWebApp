@@ -35,8 +35,8 @@
         <th scope="col">
           Thai ID 
           <div style="float:right;">
-            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTHa',checkListTH)" style="float:right;"/>
-            <button class='copyButton' onclick="copyChecked(checkListTH)">
+            <input type="checkbox" id='checkAllTH' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxTHa',checkListTHauto)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListTHauto)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
@@ -45,8 +45,8 @@
         <th scope="col">
           BAN
           <div style="float:right;">
-            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBANa',checkListBAN)" style="float:right;"/>
-            <button class='copyButton' onclick="copyChecked(checkListBAN)">
+            <input type="checkbox" id='checkAllBAN' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxBANa',checkListBANauto)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListBANauto)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
@@ -55,8 +55,8 @@
         <th scope="col">
           Product ID
           <div style="float:right;">
-            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxIDa',checkListID)" style="float:right;"/>
-            <button class='copyButton' onclick="copyChecked(checkListID)">
+            <input type="checkbox" id='checkAllID' name="checkAll" value="{{sit}}" onchange="checkAll(this,'checkBoxIDa',checkListIDauto)" style="float:right;"/>
+            <button class='copyButton' onclick="copyChecked(checkListIDauto)">
               <i class="fa fa-clone" aria-hidden="true"></i>
             </button>
           </div>
@@ -86,11 +86,11 @@
       <tr style="background-color: rgba(220, 220, 220, 0.4);">
         {% endif %}
 
-        <td>{{row.1}} <input type="checkbox" id='checkBoxTHa{{i}}' name="checkbox" value="{{row.1}}" onchange="copyCheckbox(this,checkListTH)" style="float:right;"/> </td>
+        <td>{{row.1}} <input type="checkbox" id='checkBoxTHa{{i}}' name="checkbox" value="{{row.1}}" onchange="copyCheckbox(this,checkListTHauto)" style="float:right;"/> </td>
 
-        <td>{{row.2}} <input type="checkbox" id='checkBoxBANa{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this,checkListBAN)" style="float:right;"/> </td>
+        <td>{{row.2}} <input type="checkbox" id='checkBoxBANa{{i}}' name="checkbox" value="{{row.2}}" onchange="copyCheckbox(this,checkListBANauto)" style="float:right;"/> </td>
 
-        <td>{{row.3}} <input type="checkbox" id='checkBoxIDa{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListID)" style="float:right;"/> </td>
+        <td>{{row.3}} <input type="checkbox" id='checkBoxIDa{{i}}' name="checkbox" value="{{row.3}}" onchange="copyCheckbox(this,checkListIDauto)" style="float:right;"/> </td>
 
         <td>{{row.4}}</td>
 
