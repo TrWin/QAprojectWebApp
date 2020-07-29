@@ -741,6 +741,7 @@ def upload_file():
                 with open('testFlask/uploads/'+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
+                        lengh =""
                         for row in reader:
                                 if line_count == 0:
                                         line_count = line_count + 1
@@ -748,6 +749,19 @@ def upload_file():
                                         conn = db.get_db()
 
                                         test[0]=row[0]
+
+                                        if test[0]=="" :
+                                                cur=conn.cursor()
+                                                cur.execute("select * from data_pattern order by Pattern_code")
+                                                rows = cur.fetchall()
+                                                lengh = len(rows)
+                                                if lengh < 9:
+                                                        test[0] = 'A00'+str(lengh+1)
+                                                elif lengh >= 9 and lengh < 99 :
+                                                        test[0] = 'A0'+str(lengh+1)
+                                                elif lengh >= 99 :
+                                                        test[0] = 'A'+str(lengh+1)
+
                                         test[1]=row[1]
                                         test[2]=row[2]
                                         test[3]=row[3]
