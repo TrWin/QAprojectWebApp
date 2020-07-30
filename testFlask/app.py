@@ -432,7 +432,6 @@ def party3sit():
                 conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update for_3rd_party set current=%s, period_start=%s  where id=%s",(user,test[5],test[1]))
-                        cursor.execute("insert into c_user(current,period_start,period_end,type) values(%s,%s,%s,%s)",(test[2],test[3],test[4],test[6]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
 
                         conn.commit()
@@ -528,7 +527,6 @@ def sit3sit():
                 conn = db.get_db()
                 with conn.cursor() as cursor:
                         cursor.execute("update for_sit set current=%s, period_start=%s  where id=%s",(user,test[5],test[1]))
-                        cursor.execute("insert into c_user(current,period_start,period_end,type) values(%s,%s,%s,%s)",(test[2],test[3],test[4],test[6]))
                         cursor.execute("INSERT INTO update_log (updated_by, updated_date, updated_table) VALUES(%s, SYSDATE(), 'third') ON DUPLICATE KEY UPDATE updated_by=%s, updated_date=SYSDATE()",(str(g.user),str(g.user)))                        
 
                         conn.commit()
@@ -818,7 +816,7 @@ def upload_file3rd():
             
                 test=['0','0','0','0','0','0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
@@ -871,7 +869,7 @@ def upload_fileSit():
                 
                 test=['0','0','0','0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
@@ -923,7 +921,7 @@ def upload_fileDoc():
             
                 test=['0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
@@ -974,7 +972,7 @@ def upload_fileEnv():
             
                 test=['0','0','0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
@@ -1027,7 +1025,7 @@ def upload_fileAuto():
                 
                 test=['0','0','0','0','0','0','0','0']
 
-                with open('testFlask/uploads/'+filename) as csvfile:
+                with open(app.config['UPLOAD_FOLDER']+filename) as csvfile:
                         reader = csv.reader(csvfile)
                         line_count = 0
                         for row in reader:
